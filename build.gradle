@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+}
+
+group 'org.mentalizr'
+version '0.1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    implementation 'com.github.arthurpicht:cli:0.1-beta1'
+    implementation 'com.github.docker-java:docker-java-core:3.2.13'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task extractDependencies(type: Copy, dependsOn: jar) {
+    from configurations.runtimeClasspath
+    into "$buildDir/dependencies"
+}
+
+task fatJar(type: Jar, dependsOn: extractDependencies) {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    manifest {
+        attributes 'Main-Class': 'org.mentalizr.infra.InfraCli'
+//        attributes 'Version': project.property("version")
+//        attributes 'Build' : new Date().format('yyyyMMddHHmmss')
+    }
+    from {
+        file("$buildDir/dependencies").listFiles().collect { zipTree(it) }
+    }
+    from {
+        file("$buildDir/libs").listFiles().collect { zipTree(it) }
+    }
+    exclude '*.SF'
+    exclude '*.RSA'
+    exclude '*.DES'
+    destinationDirectory.set(file("$buildDir/fatjar"))
+}
