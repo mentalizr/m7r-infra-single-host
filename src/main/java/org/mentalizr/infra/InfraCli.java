@@ -3,12 +3,14 @@ package org.mentalizr.infra;
 import de.arthurpicht.cli.*;
 import de.arthurpicht.cli.command.CommandSequenceBuilder;
 import de.arthurpicht.cli.command.Commands;
+import de.arthurpicht.cli.command.InfoDefaultCommand;
 import de.arthurpicht.cli.common.UnrecognizedArgumentException;
 import de.arthurpicht.cli.option.ManOption;
 import de.arthurpicht.cli.option.OptionBuilder;
 import de.arthurpicht.cli.option.Options;
 import de.arthurpicht.cli.option.VersionOption;
 import org.mentalizr.infra.executors.CreateExecutor;
+import org.mentalizr.infra.executors.StatusExecutor;
 
 public class InfraCli {
 
@@ -27,9 +29,11 @@ public class InfraCli {
 
         Commands commands = new Commands();
 
+        commands.setDefaultCommand(new InfoDefaultCommand());
+
         commands.add(new CommandSequenceBuilder()
                 .addCommands("status")
-                .withCommandExecutor(new CreateExecutor())
+                .withCommandExecutor(new StatusExecutor())
                 .withDescription("Show status.")
                 .build()
         );
@@ -66,6 +70,8 @@ public class InfraCli {
         }
 
         boolean showStacktrace = cliCall.getOptionParserResultGlobal().hasOption(OPTION_STACKTRACE);
+
+
 
         try {
             cli.execute(cliCall);
