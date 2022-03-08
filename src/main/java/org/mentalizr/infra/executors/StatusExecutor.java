@@ -4,6 +4,9 @@ package org.mentalizr.infra.executors;
 import de.arthurpicht.cli.CliCall;
 import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
+import org.mentalizr.infra.Const;
+import org.mentalizr.infra.InfraException;
+import org.mentalizr.infra.docker.Network;
 import org.mentalizr.infra.process.collect.ProcessCollect;
 import org.mentalizr.infra.process.collect.ProcessCollectBuilder;
 import org.mentalizr.infra.process.collect.ProcessCollectResult;
@@ -23,17 +26,34 @@ public class StatusExecutor implements CommandExecutor {
     public void execute(CliCall cliCall) throws CommandExecutorException {
         System.out.println("Status called!");
 
+        boolean existsNetwork = existsNetwork();
+
+        System.out.print("Network [" + Const.NETWORK + "]: ");
+        if (existsNetwork) {
+            System.out.println("UP");
+        } else {
+            System.out.println("--");
+        }
+
 //        executeAsProcessWithCallback();
 
 //        executeAsProcessCollect();
 
-        executeJoe();
+//        executeJoe();
 
 //        DockerClient dockerClient = Client.getDockerClient();
 //
 //        System.out.println("has network m7r?     " + DockerNetwork.exists(dockerClient, "m7r"));
 //        System.out.println("has network m7r_dev? " + DockerNetwork.exists(dockerClient, "m7r_dev"));
 
+    }
+
+    private boolean existsNetwork() throws CommandExecutorException {
+        try {
+            return Network.exists(Const.NETWORK);
+        } catch (InfraException e) {
+            throw new CommandExecutorException(e);
+        }
     }
 
     private void executeAsProcessWithCallback() {

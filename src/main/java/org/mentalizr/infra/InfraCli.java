@@ -10,6 +10,7 @@ import de.arthurpicht.cli.option.OptionBuilder;
 import de.arthurpicht.cli.option.Options;
 import de.arthurpicht.cli.option.VersionOption;
 import org.mentalizr.infra.executors.CreateExecutor;
+import org.mentalizr.infra.executors.RemoveExecutor;
 import org.mentalizr.infra.executors.StatusExecutor;
 
 public class InfraCli {
@@ -42,6 +43,13 @@ public class InfraCli {
                 .addCommands("create")
                 .withCommandExecutor(new CreateExecutor())
                 .withDescription("Creates docker infrastructure.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("remove")
+                .withCommandExecutor(new RemoveExecutor())
+                .withDescription("Removes docker infrastructure.")
                 .build()
         );
 

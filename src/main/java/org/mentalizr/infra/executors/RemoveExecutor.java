@@ -4,20 +4,17 @@ import de.arthurpicht.cli.CliCall;
 import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
 import de.arthurpicht.taskRunner.TaskRunner;
-import de.arthurpicht.taskRunner.runner.TaskRunnerBuilder;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
-import de.arthurpicht.taskRunner.taskRegistry.TaskRegistry;
-import org.mentalizr.infra.tasks.InfraTaskRegistry;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
 
-public class CreateExecutor implements CommandExecutor {
+public class RemoveExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
-        System.out.println("Create called!");
+        System.out.println("Remove called!");
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
-        TaskRunnerResult result = taskRunner.run("create");
+        TaskRunnerResult result = taskRunner.run("remove");
     }
 
 }

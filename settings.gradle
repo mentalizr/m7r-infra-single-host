@@ -1,2 +1,6 @@
 rootProject.name = 'm7r-infra'
 
+includeBuild('../m7r-backend-config')
+includeBuild('../../../ap/taskRunner')
+
+
