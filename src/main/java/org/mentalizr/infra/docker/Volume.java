@@ -9,13 +9,13 @@ import static org.mentalizr.infra.docker.Docker.call;
 public class Volume {
 
     public static boolean exists(String name) throws InfraException {
-        ProcessCollectResult result = call("docker", "volume", "ls", "--format", "\"{{.Name}}\"");
+        ProcessCollectResult result = call("docker", "volume", "ls", "--format", "{{.Name}}");
         return result.getStandardOut().contains(name);
     }
 
     public static void create(String name) throws InfraException {
         if (exists(name)) throw new IllegalInfraStateException("Cannot create volume [" + name + "]. Already existing.");
-        call("docker", "network", "create", name);
+        call("docker", "volume", "create", name);
     }
 
     public static boolean isConnected(String name) throws InfraException {
@@ -25,7 +25,7 @@ public class Volume {
         return result.getStandardOut().size() > 0;
     }
 
-    public static void delete(String name) throws InfraException {
+    public static void remove(String name) throws InfraException {
         if (!exists(name)) throw new IllegalInfraStateException("Cannot delete volume [" + name + "]. Not existing.");
         if (isConnected(name)) throw new IllegalInfraStateException("Cannot delete volume [" + name + "]. Is connected.");
         // TODO: Check no containers connected

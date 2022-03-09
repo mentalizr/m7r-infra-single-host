@@ -4,17 +4,18 @@ import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.docker.m7r.M7rNetwork;
+import org.mentalizr.infra.docker.m7r.M7rVolumeMongo;
 
-public class CreateNetwork {
+public class CreateVolumeMongo {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-network")
-                .description("create docker network [" + Const.NETWORK + "]")
-                .dependencies("create-dirs")
+                .name("create-volume-mongo")
+                .description("create docker volume for mongo")
+                .dependencies("create-network")
                 .inputChanged(() -> false)
-                .outputExists(M7rNetwork::exists)
-                .execute(M7rNetwork::create)
+                .outputExists(M7rVolumeMongo::exists)
+                .execute(M7rVolumeMongo::create)
                 .build();
     }
 
