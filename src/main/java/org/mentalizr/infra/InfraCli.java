@@ -12,6 +12,8 @@ import de.arthurpicht.cli.option.VersionOption;
 import org.mentalizr.infra.executors.CreateExecutor;
 import org.mentalizr.infra.executors.RemoveExecutor;
 import org.mentalizr.infra.executors.StatusExecutor;
+import org.mentalizr.infra.executors.TestExecutor;
+import org.mentalizr.infra.utils.LoggerUtils;
 
 public class InfraCli {
 
@@ -47,6 +49,13 @@ public class InfraCli {
         );
 
         commands.add(new CommandSequenceBuilder()
+                .addCommands("test")
+                .withCommandExecutor(new TestExecutor())
+                .withDescription("Test.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
                 .addCommands("remove")
                 .withCommandExecutor(new RemoveExecutor())
                 .withDescription("Removes docker infrastructure.")
@@ -66,6 +75,7 @@ public class InfraCli {
     }
 
     public static void main(String[] args) {
+        LoggerUtils.initialize();
         Cli cli = createCli();
         CliCall cliCall = null;
         try {

@@ -1,20 +1,23 @@
 package org.mentalizr.infra.docker;
 
-import ch.qos.logback.classic.Logger;
 import de.arthurpicht.utils.core.strings.Strings;
 import org.mentalizr.infra.DockerExecutionException;
 import org.mentalizr.infra.process.collect.ProcessCollect;
 import org.mentalizr.infra.process.collect.ProcessCollectBuilder;
 import org.mentalizr.infra.process.collect.ProcessCollectResult;
 import org.mentalizr.infra.utils.LoggerUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Arrays;
 
 public class Docker {
 
-    private static final Logger logger
-            = LoggerUtils.programmaticallyConfiguredLogger("docker", "docker.log");
+//    private static final Logger logger
+//            = LoggerUtils.programmaticallyConfiguredLogger("docker", "docker.log");
+
+    private static final Logger logger = LoggerFactory.getLogger(LoggerUtils.DOCKER_LOGGER);
 
     public static ProcessCollectResult call(String... command) throws DockerExecutionException {
         logger.info("execute >>> " + Strings.listing(Arrays.asList(command), " "));

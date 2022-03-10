@@ -15,6 +15,15 @@ public class M7rContainerMongo {
         }
     }
 
+    public static boolean isRunning() {
+        try {
+            return Container.isRunning(Const.CONTAINER_MONGO);
+        } catch (DockerExecutionException e) {
+            throw new InfraRuntimeException(e);
+        }
+    }
+
+
     public static void create() {
         //docker create \
         //    --name $NAME_MONGO \

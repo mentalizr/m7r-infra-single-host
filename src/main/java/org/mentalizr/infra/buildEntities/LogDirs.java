@@ -1,7 +1,7 @@
 package org.mentalizr.infra.buildEntities;
 
+import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.infra.InfraRuntimeException;
-import org.mentalizr.infra.utils.FileUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;

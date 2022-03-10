@@ -7,6 +7,9 @@ import de.arthurpicht.cli.CommandExecutorException;
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.InfraException;
 import org.mentalizr.infra.docker.Network;
+import org.mentalizr.infra.docker.m7r.M7rContainerMongo;
+import org.mentalizr.infra.docker.m7r.M7rNetwork;
+import org.mentalizr.infra.docker.m7r.M7rVolumeMongo;
 import org.mentalizr.infra.process.collect.ProcessCollect;
 import org.mentalizr.infra.process.collect.ProcessCollectBuilder;
 import org.mentalizr.infra.process.collect.ProcessCollectResult;
@@ -24,91 +27,36 @@ public class StatusExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
-        System.out.println("Status called!");
-
-        boolean existsNetwork = existsNetwork();
+        System.out.println("mentalizr infra status");
 
         System.out.print("Network [" + Const.NETWORK + "]: ");
-        if (existsNetwork) {
+        if (M7rNetwork.exists()) {
             System.out.println("UP");
         } else {
             System.out.println("--");
         }
 
-//        executeAsProcessWithCallback();
-
-//        executeAsProcessCollect();
-
-//        executeJoe();
-
-//        DockerClient dockerClient = Client.getDockerClient();
-//
-//        System.out.println("has network m7r?     " + DockerNetwork.exists(dockerClient, "m7r"));
-//        System.out.println("has network m7r_dev? " + DockerNetwork.exists(dockerClient, "m7r_dev"));
-
-    }
-
-    private boolean existsNetwork() throws CommandExecutorException {
-        try {
-            return Network.exists(Const.NETWORK);
-        } catch (InfraException e) {
-            throw new CommandExecutorException(e);
+        System.out.print("Mongo Volume [" + Const.VOLUME_MONGO + "]: ");
+        if (M7rVolumeMongo.exists()) {
+            System.out.println("UP");
+        } else {
+            System.out.println("--");
         }
-    }
 
-    private void executeAsProcessWithCallback() {
-        List<String> commands = Arrays.asList("dothat");
-
-        ProcessWithOutputHandlerBuilder processWithOutputHandlerBuilder = new ProcessWithOutputHandlerBuilder(commands);
-        processWithOutputHandlerBuilder.withOutputHandler(new ConsoleOutputHandler());
-        ProcessWithOutputHandler processWithOutputHandler = processWithOutputHandlerBuilder.build();
-
-        try {
-            int exitCode = processWithOutputHandler.call();
-            System.out.println("Exit-Code: " + exitCode);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        System.out.print("Mongo container [" + Const.CONTAINER_MONGO + "]: ");
+        if (M7rContainerMongo.exists()) {
+            if (M7rContainerMongo.isRunning()) {
+                System.out.println("UP Running");
+            } else {
+                System.out.println("UP Stopped");
+            }
+        } else {
+            System.out.println("--");
         }
+
     }
 
 
-    private void executeAsProcessCollect() {
-        List<String> commands = Arrays.asList("dothat");
 
-        try {
-            ProcessCollectBuilder processCollectBuilder = new ProcessCollectBuilder(commands);
-            ProcessCollect processCollect = processCollectBuilder.build();
-            ProcessCollectResult result = processCollect.call();
-
-            System.out.println("Exit-Code: " + result.getExitCode());
-            System.out.println("Out:");
-            result.getStandardOut().forEach(System.out::println);
-            System.out.println("Error:");
-            result.getErrorOut().forEach(System.out::println);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void executeJoe() {
-        List<String> commands = Arrays.asList("joe", "~/temp.txt");
-        ProcessPassThroughBuilder processPassThroughBuilder = new ProcessPassThroughBuilder(commands);
-        ProcessPassThrough processPassThrough = processPassThroughBuilder.build();
-
-        try {
-            processPassThrough.call();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
 }
