@@ -9,10 +9,7 @@ import de.arthurpicht.cli.option.ManOption;
 import de.arthurpicht.cli.option.OptionBuilder;
 import de.arthurpicht.cli.option.Options;
 import de.arthurpicht.cli.option.VersionOption;
-import org.mentalizr.infra.executors.CreateExecutor;
-import org.mentalizr.infra.executors.RemoveExecutor;
-import org.mentalizr.infra.executors.StatusExecutor;
-import org.mentalizr.infra.executors.TestExecutor;
+import org.mentalizr.infra.executors.*;
 import org.mentalizr.infra.utils.LoggerUtils;
 
 public class InfraCli {
@@ -61,6 +58,28 @@ public class InfraCli {
                 .withDescription("Removes docker infrastructure.")
                 .build()
         );
+
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("start")
+                .withCommandExecutor(new StartExecutor())
+                .withDescription("Starts docker infrastructure.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("stop")
+                .withCommandExecutor(new StopExecutor())
+                .withDescription("Stops docker infrastructure.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("shell", "mongo")
+                .withCommandExecutor(new ShellMongoExecutor())
+                .withDescription("Opens shell on mongo container.")
+                .build()
+        );
+
 
         CliDescription cliDescription = new CliDescriptionBuilder()
                 .withDescription("mentalizr infra structure manager CLI\nhttps://github.com/mentalizr/m7r-infra-singel-host")

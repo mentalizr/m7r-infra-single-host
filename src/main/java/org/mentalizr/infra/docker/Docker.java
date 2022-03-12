@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 
 public class Docker {
@@ -23,6 +24,25 @@ public class Docker {
         logger.info("execute >>> " + Strings.listing(Arrays.asList(command), " "));
 
         ProcessCollectBuilder builder = new ProcessCollectBuilder(command);
+        ProcessCollect process = builder.build();
+        ProcessCollectResult result;
+        try {
+            result = process.call();
+        } catch (IOException | InterruptedException e) {
+            throw new DockerExecutionException(e);
+        }
+
+        result.getStandardOut().forEach(logger::info);
+        result.getErrorOut().forEach(logger::error);
+
+        return result;
+    }
+
+    public static ProcessCollectResult call(InputStream inputStream, String... command) throws DockerExecutionException {
+        logger.info("execute >>> " + Strings.listing(Arrays.asList(command), " "));
+
+        ProcessCollectBuilder builder = new ProcessCollectBuilder(command);
+        builder.withInputStream(inputStream);
         ProcessCollect process = builder.build();
         ProcessCollectResult result;
         try {

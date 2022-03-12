@@ -1,16 +1,16 @@
-package org.mentalizr.infra.tasks.create;
+package org.mentalizr.infra.tasks.start;
 
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
 
-public class CreateMaria {
+public class StartTarget {
 
     public static Task create() {
         return new TaskBuilder()
                 .isTarget()
-                .name("create-maria")
-                .description("create maria")
-                .dependencies("initialize-container-maria")
+                .name("start")
+                .description("start docker infrastructure")
+                .dependencies("wait-for-maria")
                 .execute(()-> {})
                 .build();
     }
