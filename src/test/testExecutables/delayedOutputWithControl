@@ -1,0 +1,34 @@
+#!/bin/bash
+
+echo -n "1 "
+sleep 1
+echo -n "."
+sleep 1
+echo -n "."
+sleep 1
+echo -n "." 
+sleep 1
+echo -n "."
+sleep 1
+echo -n "."
+sleep 1
+echo -n "$(tput cub 1)"
+sleep 1
+echo -n "$(tput cub 1)"
+sleep 1
+echo ":"
+sleep 1
+
+
+
+sleep 1
+
+echo "2 .. äöü"
+
+sleep 1
+
+echo "3 .."
+
+sleep 1
+
+echo "finished!"
