@@ -8,16 +8,16 @@ import java.nio.file.Path;
 
 public class DockerCopy {
 
-    public static void copyFile(Path sourceFile, String containerName, String destinationDir) throws DockerExecutionException {
+    public static void copyFile(DockerExecutionContext dockerExecutionContext, Path sourceFile, String containerName, String destinationDir) throws DockerExecutionException {
         String source = sourceFile.toAbsolutePath().toString();
         String target = containerName + ":" + destinationDir;
-        Docker.call("docker", "cp", source, target);
+        Docker.call(dockerExecutionContext, "docker", "cp", source, target);
     }
 
-    public static void copyStringToFile(String string, String containerName, String destinationDir) throws DockerExecutionException {
+    public static void copyStringToFile(DockerExecutionContext dockerExecutionContext, String string, String containerName, String destinationDir) throws DockerExecutionException {
         InputStream inputStream = new ByteArrayInputStream(string.getBytes());
         String target = containerName + ":" + destinationDir;
-        Docker.call(inputStream, "docker", "cp", "-", target);
+        Docker.call(dockerExecutionContext, inputStream, "docker", "cp", "-", target);
     }
 
 }

@@ -1,5 +1,8 @@
 package org.mentalizr.infra.processExecutor;
 
+import org.mentalizr.infra.processExecutor.internals.ProcessWrapperPipedProcesses;
+import org.mentalizr.infra.processExecutor.internals.ProcessWrapperSingleProcess;
+
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;

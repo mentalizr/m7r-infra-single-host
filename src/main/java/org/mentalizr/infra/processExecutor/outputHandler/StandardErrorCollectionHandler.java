@@ -1,5 +1,6 @@
-package org.mentalizr.infra.processExecutor;
+package org.mentalizr.infra.processExecutor.outputHandler;
 
+import org.mentalizr.infra.processExecutor.StandardErrorHandler;
 import org.mentalizr.infra.utils.InputStreams;
 
 import java.io.IOException;
@@ -7,11 +8,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StandardOutCollectionHandler implements StandardOutHandler {
+public class StandardErrorCollectionHandler implements StandardErrorHandler {
 
     private List<String> lines;
 
-    public StandardOutCollectionHandler() {
+    public StandardErrorCollectionHandler() {
         this.lines = new ArrayList<>();
     }
 

@@ -1,4 +1,6 @@
-package org.mentalizr.infra.processExecutor;
+package org.mentalizr.infra.processExecutor.outputHandler;
+
+import org.mentalizr.infra.processExecutor.StandardOutHandler;
 
 import java.io.IOException;
 import java.io.InputStream;

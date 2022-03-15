@@ -8,6 +8,7 @@ import de.arthurpicht.taskRunner.runner.TaskRunnerBuilder;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
 import de.arthurpicht.taskRunner.taskRegistry.TaskRegistry;
 import org.mentalizr.commons.M7rDirs;
+import org.mentalizr.infra.ApplicationContext;
 import org.mentalizr.infra.InfraCli;
 import org.mentalizr.infra.InfraConfigFile;
 import org.mentalizr.infra.tasks.InfraTaskRegistry;
@@ -17,6 +18,8 @@ public class CreateExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
+        ApplicationContext.initialize(cliCall);
+
         System.out.println("Create called!");
 
         boolean verbose = cliCall.getOptionParserResultGlobal().hasOption(InfraCli.OPTION_VERBOSE);

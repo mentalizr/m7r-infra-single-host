@@ -2,6 +2,9 @@ package org.mentalizr.infra.processExecutor;
 
 import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.junit.jupiter.api.Test;
+import org.mentalizr.infra.processExecutor.outputHandler.StandardErrorCollectionHandler;
+import org.mentalizr.infra.processExecutor.outputHandler.StandardOutCollectionHandler;
+import org.mentalizr.infra.processExecutor.outputHandler.StandardOutToConsoleHandler;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

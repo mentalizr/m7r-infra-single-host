@@ -1,4 +1,6 @@
-package org.mentalizr.infra.processExecutor;
+package org.mentalizr.infra.processExecutor.internals;
+
+import org.mentalizr.infra.processExecutor.ProcessExecutionException;
 
 public class ProcessExecutionExceptionCache {
 

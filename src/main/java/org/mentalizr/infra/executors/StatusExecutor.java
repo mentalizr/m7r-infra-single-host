@@ -1,10 +1,10 @@
 package org.mentalizr.infra.executors;
 
-//import com.github.dockerjava.api.DockerClient;
 import de.arthurpicht.cli.CliCall;
 import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
 import de.arthurpicht.utils.core.strings.Strings;
+import org.mentalizr.infra.ApplicationContext;
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.InfraException;
 import org.mentalizr.infra.docker.Network;
@@ -30,36 +30,35 @@ public class StatusExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
+        ApplicationContext.initialize(cliCall);
+
         System.out.println("mentalizr infrastructure status");
 
-        System.out.print(Strings.fillUpAfter("Network [" + Const.NETWORK + "]: ", ' ', minLengthString));
+        String networkString = Strings.fillUpAfter("Network [" + Const.NETWORK + "]: ", ' ', minLengthString);
         if (M7rNetwork.exists()) {
-            System.out.println("UP");
+            System.out.println(networkString + "UP");
         } else {
-            System.out.println("--");
+            System.out.println(networkString + "--");
         }
 
-        System.out.print(Strings.fillUpAfter("Mongo volume [" + Const.VOLUME_MONGO + "]: ", ' ', minLengthString));
+        String volumeMongoString = Strings.fillUpAfter("Mongo volume [" + Const.VOLUME_MONGO + "]: ", ' ', minLengthString);
         if (M7rVolumeMongo.exists()) {
-            System.out.println("UP");
+            System.out.println(volumeMongoString + "UP");
         } else {
-            System.out.println("--");
+            System.out.println(volumeMongoString + "--");
         }
 
-        System.out.print(Strings.fillUpAfter("Mongo container [" + Const.CONTAINER_MONGO + "]: ", ' ', minLengthString));
+        String containerMongoString = Strings.fillUpAfter("Mongo container [" + Const.CONTAINER_MONGO + "]: ", ' ', minLengthString);
         if (M7rContainerMongo.exists()) {
             if (M7rContainerMongo.isRunning()) {
-                System.out.println("UP Running");
+                System.out.println(containerMongoString + "UP Running");
             } else {
-                System.out.println("UP Stopped");
+                System.out.println(containerMongoString + "UP Stopped");
             }
         } else {
-            System.out.println("--");
+            System.out.println(containerMongoString + "--");
         }
 
     }
-
-
-
 
 }

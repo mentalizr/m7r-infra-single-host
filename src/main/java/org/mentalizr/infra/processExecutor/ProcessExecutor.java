@@ -1,5 +1,8 @@
 package org.mentalizr.infra.processExecutor;
 
+import org.mentalizr.infra.processExecutor.internals.ProcessExecutionExceptionCache;
+import org.mentalizr.infra.processExecutor.internals.ProcessWrapper;
+
 import java.io.*;
 
 public class ProcessExecutor {
@@ -13,6 +16,7 @@ public class ProcessExecutor {
     private Thread handleStandardOutThreat;
     private Thread handleStandardErrorThreat;
     private boolean executed;
+    private int exitCode;
 
     public ProcessExecutor(ProcessWrapper processWrapper, InputStream inputStream, StandardOutHandler standardOutHandler, StandardErrorHandler standardErrorHandler) {
         this.processWrapper = processWrapper;
@@ -23,9 +27,10 @@ public class ProcessExecutor {
         this.handleStandardOutThreat = null;
         this.handleStandardErrorThreat = null;
         this.executed = false;
+        this.exitCode = -1;
     }
 
-    public int execute() throws ProcessExecutionException {
+    public synchronized int execute() throws ProcessExecutionException {
 
         if (this.executed) throw new IllegalStateException("Cannot execute " + ProcessExecutor.class.getSimpleName() + ". Was executed before.");
         this.executed = true;
@@ -37,7 +42,7 @@ public class ProcessExecutor {
             handleStandardOut();
             handleStandardError();
 
-            int exitCode = this.processWrapper.waitFor();
+            this.exitCode = this.processWrapper.waitFor();
 
             if (handleStandardOutThreat != null) handleStandardOutThreat.join();
             if (handleStandardErrorThreat != null) handleStandardErrorThreat.join();
@@ -45,10 +50,17 @@ public class ProcessExecutor {
             if (this.processExecutionExceptionCache.hasProcessExecutionException())
                 throw this.processExecutionExceptionCache.getProcessExecutionException();
 
-            return exitCode;
+            return this.exitCode;
         } catch (IOException | InterruptedException e) {
             throw new ProcessExecutionException(e);
         }
+    }
+
+    public synchronized int getExitCode() {
+        if (this.exitCode < 0)
+            throw new IllegalStateException("Cannot obtain exit code. Run " + ProcessExecutor.class.getSimpleName()
+                    + " first.");
+        return this.exitCode;
     }
 
     private void connectInput() throws IOException {
