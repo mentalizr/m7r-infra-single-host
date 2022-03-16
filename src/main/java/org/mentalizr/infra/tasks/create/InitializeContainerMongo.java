@@ -24,17 +24,7 @@ public class InitializeContainerMongo {
                 .name("initialize-container-mongo")
                 .description("initialize container mongo")
                 .dependencies("create-container-mongo")
-                .execute(() -> {
-//                    try {
-//                        M7rDirs m7rDirs = new M7rDirs();
-//                        if (!m7rDirs.existsTempDir()) Files.createDirectories(m7rDirs.getTempDir());
-//                        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(m7rDirs.getTempDir());
-//                        Path initMongoFile = ConfigFileInitMongoJs.writeToFile(tempDir.asPath());
-//                        DockerCopy.copyFile(initMongoFile, Const.CONTAINER_MONGO, "/docker-entrypoint-initdb.d/");
-//                    } catch (DockerExecutionException | IOException e) {
-//                        throw new InfraRuntimeException(e.getMessage(), e);
-//                    }
-                })
+                .execute(M7rContainerMongo::initialize)
                 .build();
     }
 

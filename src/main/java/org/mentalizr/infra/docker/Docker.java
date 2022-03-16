@@ -9,12 +9,12 @@ import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.List;
 
 public class Docker {
 
     public static ProcessResultCollection call(DockerExecutionContext dockerExecutionContext, String... commands) throws DockerExecutionException {
         output(dockerExecutionContext, commands);
-
         try {
             return ProcessExecution.execute(
                     dockerExecutionContext.getLogger(),
@@ -27,7 +27,6 @@ public class Docker {
 
     public static ProcessResultCollection call(DockerExecutionContext dockerExecutionContext, InputStream inputStream, String... commands) throws DockerExecutionException {
         output(dockerExecutionContext, commands);
-
         try {
             return ProcessExecution.execute(
                     dockerExecutionContext.getLogger(),
@@ -39,8 +38,12 @@ public class Docker {
         }
     }
 
-    private static void output(DockerExecutionContext dockerExecutionContext, String... command) {
-        String commandString = "> " + Strings.listing(Arrays.asList(command), " ");
+    public static void output(DockerExecutionContext dockerExecutionContext, String... commands) {
+        output(dockerExecutionContext, Arrays.asList(commands));
+    }
+
+    public static void output(DockerExecutionContext dockerExecutionContext, List<String> commands) {
+        String commandString = "> " + Strings.listing(commands, " ");
         dockerExecutionContext.getLogger().info(commandString);
         if (dockerExecutionContext.isVerbose()) System.out.println(commandString);
     }
