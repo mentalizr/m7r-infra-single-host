@@ -74,6 +74,20 @@ public class InfraCli {
         );
 
         commands.add(new CommandSequenceBuilder()
+                .addCommands("pullup")
+                .withCommandExecutor(new PullUpExecutor())
+                .withDescription("Pulls up mentalizr docker infrastructure.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("teardown")
+                .withCommandExecutor(new TearDownExecutor())
+                .withDescription("Tears down mentalizr docker infrastructure.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
                 .addCommands("shell", "mongo")
                 .withCommandExecutor(new ShellMongoExecutor())
                 .withDescription("Opens shell on mongo container.")

@@ -7,27 +7,33 @@ import de.arthurpicht.taskRunner.TaskRunner;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
 import org.mentalizr.commons.M7rDirs;
 import org.mentalizr.infra.ApplicationContext;
-import org.mentalizr.infra.Const;
+import org.mentalizr.infra.InfraCli;
 import org.mentalizr.infra.InfraConfigFile;
-import org.mentalizr.infra.docker.m7r.M7rContainerMongo;
-import org.mentalizr.infra.docker.m7r.M7rNetwork;
-import org.mentalizr.infra.docker.m7r.M7rVolumeMongo;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
 
-public class StartExecutor implements CommandExecutor {
+public class PullUpExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
         ApplicationContext.initialize(cliCall);
 
-        System.out.println("Start mentalizr infrastructure ...");
+        System.out.println("pullUp called!");
+
+        boolean verbose = cliCall.getOptionParserResultGlobal().hasOption(InfraCli.OPTION_VERBOSE);
+
+        try {
+            ExecutionPreconditions.check(verbose);
+        } catch (ExecutionPreconditionFailedException e) {
+            throw new CommandExecutorException(e.getMessage(), e);
+        }
 
         InfraConfigFile infraConfigFile = new InfraConfigFile(new M7rDirs());
         String m7rInfraConfigFile = infraConfigFile.getInfraConfigFile().toAbsolutePath().toString();
         System.setProperty("m7r.config", m7rInfraConfigFile);
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
-        TaskRunnerResult result = taskRunner.run("start");
+        TaskRunnerResult result = taskRunner.run("create");
+        if (result.isSuccess()) result = taskRunner.run("start");
     }
 
 }

@@ -3,10 +3,10 @@ package org.mentalizr.infra.executors;
 import de.arthurpicht.cli.CliCall;
 import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
+import org.mentalizr.commons.M7rDirs;
 import org.mentalizr.infra.ApplicationContext;
-import org.mentalizr.infra.utils.LoggerUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.mentalizr.infra.InfraConfigFile;
+import org.mentalizr.infra.buildEntities.ConnectionMongo;
 
 public class TestExecutor implements CommandExecutor {
 
@@ -16,11 +16,23 @@ public class TestExecutor implements CommandExecutor {
 
         System.out.println("test called.");
 
-        Logger logger = LoggerFactory.getLogger(LoggerUtils.DOCKER_LOGGER);
-        logger.info("test!");
+        InfraConfigFile infraConfigFile = new InfraConfigFile(new M7rDirs());
+        String m7rInfraConfigFile = infraConfigFile.getInfraConfigFile().toAbsolutePath().toString();
+        System.setProperty("m7r.config", m7rInfraConfigFile);
 
-        Logger anotherLogger = LoggerFactory.getLogger("some.other");
-        anotherLogger.info("some other log statement.");
+        try {
+            ConnectionMongo.probe();
+            System.out.println("Success");
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+//        Logger logger = LoggerFactory.getLogger(LoggerUtils.DOCKER_LOGGER);
+//        logger.info("test!");
+//
+//        Logger anotherLogger = LoggerFactory.getLogger("some.other");
+//        anotherLogger.info("some other log statement.");
 
     }
 
