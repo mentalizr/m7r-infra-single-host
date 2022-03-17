@@ -14,7 +14,7 @@ public class RemoveExecutor implements CommandExecutor {
     public void execute(CliCall cliCall) throws CommandExecutorException {
         ApplicationContext.initialize(cliCall);
 
-        System.out.println("Remove called!");
+        System.out.println("Remove docker infrastructure.");
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         TaskRunnerResult result = taskRunner.run("remove");

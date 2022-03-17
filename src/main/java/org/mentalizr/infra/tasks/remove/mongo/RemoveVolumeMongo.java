@@ -1,4 +1,4 @@
-package org.mentalizr.infra.tasks.remove;
+package org.mentalizr.infra.tasks.remove.mongo;
 
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
@@ -11,7 +11,7 @@ public class RemoveVolumeMongo {
     public static Task create() {
         return new TaskBuilder()
                 .name("remove-volume-mongo")
-                .description("remove docker volume for mongo")
+                .description("remove docker volume [" + Const.VOLUME_MONGO + "]")
                 .dependencies("remove-container-mongo")
                 .inputChanged(() -> false)
                 .outputExists(() -> !M7rVolumeMongo.exists())

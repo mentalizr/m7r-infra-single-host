@@ -1,15 +1,14 @@
-package org.mentalizr.infra.tasks.create;
+package org.mentalizr.infra.tasks.create.nginx;
 
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
 
-public class CreateContainerTomcat {
+public class CreateContainerNginx {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-container-tomcat")
-                .description("create container tomcat")
-                .dependencies("create-volume-tomcat")
+                .name("create-container-nginx")
+                .description("create container nginx")
                 .inputChanged(() -> false)
 //                .outputExists(M7rContainerMongo::exists)
 //                .execute(M7rContainerMongo::create)       // TODO

@@ -1,7 +1,8 @@
-package org.mentalizr.infra.tasks.create;
+package org.mentalizr.infra.tasks.create.maria;
 
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
+import org.mentalizr.infra.docker.m7r.M7rVolumeMaria;
 import org.mentalizr.infra.docker.m7r.M7rVolumeMongo;
 
 public class CreateVolumeMaria {
@@ -12,9 +13,8 @@ public class CreateVolumeMaria {
                 .description("create docker volume for maria")
                 .dependencies("create-network")
                 .inputChanged(() -> false)
-//                .outputExists(M7rVolumeMongo::exists)   // TODO
-//                .execute(M7rVolumeMongo::create)        // TODO
-                .execute(() -> {})
+                .outputExists(M7rVolumeMaria::exists)
+                .execute(M7rVolumeMaria::create)
                 .build();
     }
 

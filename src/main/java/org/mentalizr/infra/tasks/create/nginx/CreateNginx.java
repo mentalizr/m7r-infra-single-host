@@ -1,16 +1,16 @@
-package org.mentalizr.infra.tasks.create;
+package org.mentalizr.infra.tasks.create.nginx;
 
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
 
-public class CreateMaria {
+public class CreateNginx {
 
     public static Task create() {
         return new TaskBuilder()
                 .isTarget()
-                .name("create-maria")
-                .description("create maria")
-                .dependencies("initialize-container-maria")
+                .name("create-nginx")
+                .description("create nginx")
+                .dependencies("initialize-container-tomcat", "create-tomcat")
                 .execute(()-> {})
                 .build();
     }

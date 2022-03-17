@@ -3,10 +3,29 @@ package org.mentalizr.infra.tasks;
 import de.arthurpicht.taskRunner.taskRegistry.TaskRegistry;
 import de.arthurpicht.taskRunner.taskRegistry.TaskRegistryBuilder;
 import org.mentalizr.infra.tasks.create.*;
-import org.mentalizr.infra.tasks.remove.RemoveContainerMongo;
-import org.mentalizr.infra.tasks.remove.RemoveNetwork;
-import org.mentalizr.infra.tasks.remove.RemoveTarget;
-import org.mentalizr.infra.tasks.remove.RemoveVolumeMongo;
+import org.mentalizr.infra.tasks.create.maria.CreateContainerMaria;
+import org.mentalizr.infra.tasks.create.maria.CreateMaria;
+import org.mentalizr.infra.tasks.create.maria.CreateVolumeMaria;
+import org.mentalizr.infra.tasks.create.maria.InitializeContainerMaria;
+import org.mentalizr.infra.tasks.create.mongo.CreateContainerMongo;
+import org.mentalizr.infra.tasks.create.mongo.CreateMongo;
+import org.mentalizr.infra.tasks.create.mongo.CreateVolumeMongo;
+import org.mentalizr.infra.tasks.create.mongo.InitializeContainerMongo;
+import org.mentalizr.infra.tasks.create.nginx.CreateContainerNginx;
+import org.mentalizr.infra.tasks.create.nginx.CreateNginx;
+import org.mentalizr.infra.tasks.create.tomcat.CreateContainerTomcat;
+import org.mentalizr.infra.tasks.create.tomcat.CreateTomcat;
+import org.mentalizr.infra.tasks.create.tomcat.CreateVolumeTomcat;
+import org.mentalizr.infra.tasks.create.tomcat.InitializeContainerTomcat;
+import org.mentalizr.infra.tasks.remove.*;
+import org.mentalizr.infra.tasks.remove.maria.RemoveContainerMaria;
+import org.mentalizr.infra.tasks.remove.maria.RemoveMaria;
+import org.mentalizr.infra.tasks.remove.maria.RemoveVolumeMaria;
+import org.mentalizr.infra.tasks.remove.mongo.RemoveContainerMongo;
+import org.mentalizr.infra.tasks.remove.mongo.RemoveMongo;
+import org.mentalizr.infra.tasks.remove.mongo.RemoveVolumeMongo;
+import org.mentalizr.infra.tasks.remove.nginx.RemoveNginx;
+import org.mentalizr.infra.tasks.remove.tomcat.RemoveTomcat;
 import org.mentalizr.infra.tasks.start.*;
 import org.mentalizr.infra.tasks.stop.*;
 
@@ -42,8 +61,14 @@ public class InfraTaskRegistry {
         taskRegistryBuilder.withTask(CreateDirs.create());
 
         taskRegistryBuilder.withTask(RemoveTarget.create());
+        taskRegistryBuilder.withTask(RemoveMongo.create());
         taskRegistryBuilder.withTask(RemoveVolumeMongo.create());
         taskRegistryBuilder.withTask(RemoveContainerMongo.create());
+        taskRegistryBuilder.withTask(RemoveMaria.create());
+        taskRegistryBuilder.withTask(RemoveVolumeMaria.create());
+        taskRegistryBuilder.withTask(RemoveContainerMaria.create());
+        taskRegistryBuilder.withTask(RemoveTomcat.create());
+        taskRegistryBuilder.withTask(RemoveNginx.create());
 
         taskRegistryBuilder.withTask(RemoveNetwork.create());
 

@@ -1,4 +1,4 @@
-package org.mentalizr.infra.tasks.remove;
+package org.mentalizr.infra.tasks.remove.mongo;
 
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;

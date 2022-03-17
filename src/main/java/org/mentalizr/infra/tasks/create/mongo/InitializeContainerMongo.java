@@ -1,4 +1,4 @@
-package org.mentalizr.infra.tasks.create;
+package org.mentalizr.infra.tasks.create.mongo;
 
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;

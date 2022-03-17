@@ -11,7 +11,7 @@ public class RemoveNetwork {
         return new TaskBuilder()
                 .name("remove-network")
                 .description("remove docker network [" + Const.NETWORK + "]")
-                .dependencies("remove-volume-mongo")
+                .dependencies("remove-mongo")
                 .inputChanged(() -> false)
                 .outputExists(() -> !M7rNetwork.exists())
                 .execute(M7rNetwork::remove)
