@@ -10,7 +10,7 @@ public class StartTarget {
                 .isTarget()
                 .name("start")
                 .description("start docker infrastructure")
-                .dependencies("wait-for-maria")
+                .dependencies("start-nginx")
                 .execute(()-> {})
                 .build();
     }

@@ -1,4 +1,4 @@
-package org.mentalizr.infra.tasks.start;
+package org.mentalizr.infra.tasks.start.maria;
 
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
@@ -11,8 +11,8 @@ public class StartMaria {
         return new TaskBuilder()
                 .name("start-maria")
                 .description("start maria")
-                .dependencies("start-mongo")
-                .execute(M7rContainerMaria::start)
+                .dependencies("await-up-maria")
+                .execute(() -> {})
                 .build();
     }
 

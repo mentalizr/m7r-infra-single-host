@@ -27,6 +27,18 @@ import org.mentalizr.infra.tasks.remove.mongo.RemoveVolumeMongo;
 import org.mentalizr.infra.tasks.remove.nginx.RemoveNginx;
 import org.mentalizr.infra.tasks.remove.tomcat.RemoveTomcat;
 import org.mentalizr.infra.tasks.start.*;
+import org.mentalizr.infra.tasks.start.maria.AwaitUpMaria;
+import org.mentalizr.infra.tasks.start.maria.StartContainerMaria;
+import org.mentalizr.infra.tasks.start.maria.StartMaria;
+import org.mentalizr.infra.tasks.start.mongo.AwaitUpMongo;
+import org.mentalizr.infra.tasks.start.mongo.StartContainerMongo;
+import org.mentalizr.infra.tasks.start.mongo.StartMongo;
+import org.mentalizr.infra.tasks.start.nginx.AwaitUpNginx;
+import org.mentalizr.infra.tasks.start.nginx.StartContainerNginx;
+import org.mentalizr.infra.tasks.start.nginx.StartNginx;
+import org.mentalizr.infra.tasks.start.tomcat.AwaitUpTomcat;
+import org.mentalizr.infra.tasks.start.tomcat.StartContainerTomcat;
+import org.mentalizr.infra.tasks.start.tomcat.StartTomcat;
 import org.mentalizr.infra.tasks.stop.*;
 
 public class InfraTaskRegistry {
@@ -74,11 +86,18 @@ public class InfraTaskRegistry {
 
         taskRegistryBuilder
                 .withTask(StartTarget.create())
-                .withTask(WaitForMaria.create())
                 .withTask(StartNginx.create())
+                .withTask(AwaitUpNginx.create())
+                .withTask(StartContainerNginx.create())
                 .withTask(StartTomcat.create())
+                .withTask(AwaitUpTomcat.create())
+                .withTask(StartContainerTomcat.create())
                 .withTask(StartMaria.create())
-                .withTask(StartMongo.create());
+                .withTask(AwaitUpMaria.create())
+                .withTask(StartContainerMaria.create())
+                .withTask(StartMongo.create())
+                .withTask(AwaitUpMongo.create())
+                .withTask(StartContainerMongo.create());
 
         taskRegistryBuilder
                 .withTask(StopTarget.create())
