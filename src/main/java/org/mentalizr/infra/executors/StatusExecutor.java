@@ -133,17 +133,17 @@ public class StatusExecutor implements CommandExecutor {
             System.out.println(portTomcatString + "CLOSED");
         }
 
-//        String connectionMariaString = Strings.fillUpAfter("MariaDB probe client connection: ", ' ', minLengthString);
-//        System.out.print(connectionMariaString);
-//        if (mariaPortIsListening) {
-//            if (ConnectionMaria.probe()) {
-//                System.out.println("SUCCESS");
-//            } else {
-//                System.out.println("FAILED");
-//            }
-//        } else {
-//            System.out.println("SKIPPED");
-//        }
+        String connectionTomcatString = Strings.fillUpAfter("Tomcat probe web content: ", ' ', minLengthString);
+        System.out.print(connectionTomcatString);
+        if (tomcatPortIsListening) {
+            if (ConnectionTomcat.probe()) {
+                System.out.println("SUCCESS");
+            } else {
+                System.out.println("FAILED");
+            }
+        } else {
+            System.out.println("SKIPPED");
+        }
 
     }
 

@@ -6,6 +6,7 @@ import de.arthurpicht.cli.CommandExecutorException;
 import org.mentalizr.commons.files.host.M7rInfraUserConfigFile;
 import org.mentalizr.infra.ApplicationContext;
 import org.mentalizr.infra.buildEntities.ConnectionMaria;
+import org.mentalizr.infra.buildEntities.ConnectionTomcat;
 
 public class TestExecutor implements CommandExecutor {
 
@@ -18,11 +19,17 @@ public class TestExecutor implements CommandExecutor {
         System.setProperty("m7r.config", M7rInfraUserConfigFile.createInstance().toAbsolutePathString());
 
         try {
-            ConnectionMaria.awaitUp();
-            System.out.println("Success");
+            ConnectionTomcat.probe();
         } catch (Exception e) {
-            System.out.println("Failed.");
+            e.printStackTrace();
         }
+
+//        try {
+//            ConnectionMaria.awaitUp();
+//            System.out.println("Success");
+//        } catch (Exception e) {
+//            System.out.println("Failed.");
+//        }
 
 //        boolean success = ConnectionMaria.probe();
 //        System.out.println("success? " + success);
