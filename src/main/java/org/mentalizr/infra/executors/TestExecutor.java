@@ -6,6 +6,7 @@ import de.arthurpicht.cli.CommandExecutorException;
 import org.mentalizr.commons.M7rDirs;
 import org.mentalizr.infra.ApplicationContext;
 import org.mentalizr.infra.InfraConfigFile;
+import org.mentalizr.infra.buildEntities.ConnectionMaria;
 import org.mentalizr.infra.buildEntities.ConnectionMongo;
 
 public class TestExecutor implements CommandExecutor {
@@ -20,12 +21,23 @@ public class TestExecutor implements CommandExecutor {
         String m7rInfraConfigFile = infraConfigFile.getInfraConfigFile().toAbsolutePath().toString();
         System.setProperty("m7r.config", m7rInfraConfigFile);
 
+
         try {
-            ConnectionMongo.probe();
+            ConnectionMaria.awaitUp();
             System.out.println("Success");
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Failed.");
         }
+
+//        boolean success = ConnectionMaria.probe();
+//        System.out.println("success? " + success);
+
+//        try {
+//            ConnectionMongo.probe();
+//            System.out.println("Success");
+//        } catch (RuntimeException e) {
+//            System.out.println(e.getMessage());
+//        }
 
 
 //        Logger logger = LoggerFactory.getLogger(LoggerUtils.DOCKER_LOGGER);

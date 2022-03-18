@@ -8,7 +8,9 @@ import org.mentalizr.commons.M7rDirs;
 import org.mentalizr.infra.ApplicationContext;
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.InfraConfigFile;
+import org.mentalizr.infra.buildEntities.ConnectionMaria;
 import org.mentalizr.infra.buildEntities.ConnectionMongo;
+import org.mentalizr.infra.buildEntities.PortMaria;
 import org.mentalizr.infra.buildEntities.PortMongo;
 import org.mentalizr.infra.docker.m7r.*;
 
@@ -87,6 +89,26 @@ public class StatusExecutor implements CommandExecutor {
             }
         } else {
             System.out.println(containerMariaString + "--");
+        }
+
+        String portMariaString = Strings.fillUpAfter("MariaDB port 3306: ", ' ', minLengthString);
+        boolean mariaPortIsListening = PortMaria.isListening();
+        if (mariaPortIsListening) {
+            System.out.println(portMariaString + "OPEN");
+        } else {
+            System.out.println(portMariaString + "CLOSED");
+        }
+
+        String connectionMariaString = Strings.fillUpAfter("MariaDB probe client connection: ", ' ', minLengthString);
+        System.out.print(connectionMariaString);
+        if (mariaPortIsListening) {
+            if (ConnectionMaria.probe()) {
+                System.out.println("SUCCESS");
+            } else {
+                System.out.println("FAILED");
+            }
+        } else {
+            System.out.println("SKIPPED");
         }
 
     }

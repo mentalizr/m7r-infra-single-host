@@ -23,6 +23,7 @@ dependencies {
     implementation 'com.github.arthurpicht:taskRunner:1.0-SNAPSHOT'
     implementation 'org.mentalizr:m7r-backend-config:1.0-SNAPSHOT'
     implementation 'org.mentalizr:m7r-commons:0.0.1-SNAPSHOT'
+    implementation 'org.mentalizr:m7r-persistence-rdbms:1.0-SNAPSHOT'
     implementation 'org.mentalizr:m7r-persistence-mongo:1.0-SNAPSHOT'
     implementation 'ch.qos.logback:logback-classic:1.2.11'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
