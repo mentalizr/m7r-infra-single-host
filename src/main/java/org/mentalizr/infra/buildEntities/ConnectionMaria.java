@@ -3,7 +3,6 @@ package org.mentalizr.infra.buildEntities;
 import org.mentalizr.backend.config.Configuration;
 import org.mentalizr.infra.InfraRuntimeException;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.Duration;
@@ -11,14 +10,10 @@ import java.time.LocalDateTime;
 
 public class ConnectionMaria {
 
-//    private static final String username = "root";
-//    private static final String password = Configuration.getUserDbRootPassword();
-
     private static final int timeoutSeconds = 30;
 
     private static final String username = Configuration.getUserDbUser();
     private static final String password = Configuration.getUserDbPassword();
-
 
     public static boolean probe() {
         try {
@@ -30,7 +25,7 @@ public class ConnectionMaria {
     }
 
     public static void awaitUp() {
-        boolean success = false;
+        boolean success;
         LocalDateTime startTimestamp = LocalDateTime.now();
 
         while (true) {

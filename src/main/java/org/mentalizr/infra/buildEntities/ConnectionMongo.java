@@ -6,7 +6,6 @@ import com.mongodb.client.*;
 import org.bson.Document;
 import org.mentalizr.backend.config.Configuration;
 import org.mentalizr.infra.InfraRuntimeException;
-import org.mentalizr.infra.utils.IOUtils;
 
 public class ConnectionMongo {
 

@@ -4,10 +4,9 @@ import de.arthurpicht.cli.CliCall;
 import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
 import de.arthurpicht.utils.core.strings.Strings;
-import org.mentalizr.commons.M7rDirs;
+import org.mentalizr.commons.files.host.M7rInfraUserConfigFile;
 import org.mentalizr.infra.ApplicationContext;
 import org.mentalizr.infra.Const;
-import org.mentalizr.infra.InfraConfigFile;
 import org.mentalizr.infra.buildEntities.ConnectionMaria;
 import org.mentalizr.infra.buildEntities.ConnectionMongo;
 import org.mentalizr.infra.buildEntities.PortMaria;
@@ -24,9 +23,9 @@ public class StatusExecutor implements CommandExecutor {
 
         System.out.println("mentalizr infrastructure status");
 
-        InfraConfigFile infraConfigFile = new InfraConfigFile(new M7rDirs());
-        String m7rInfraConfigFile = infraConfigFile.getInfraConfigFile().toAbsolutePath().toString();
-        System.setProperty("m7r.config", m7rInfraConfigFile);
+        System.setProperty(
+                "m7r.config",
+                M7rInfraUserConfigFile.createInstance().toAbsolutePathString());
 
         String networkString = Strings.fillUpAfter("Network [" + Const.NETWORK + "]: ", ' ', minLengthString);
         if (M7rNetwork.exists()) {

@@ -12,6 +12,7 @@ public class Const {
     public static final String VOLUME_MARIA = "m7r-maria-vol";
     public static final String CONTAINER_MARIA = "m7r-maria";
 
+    public static final String IMAGE_TOMCAT = "arthurpicht/tomcat-9:latest";
     public static final String VOLUME_TOMCAT = "m7r-tomcat-vol";
     public static final String CONTAINER_TOMCAT = "m7r-tomcat";
 

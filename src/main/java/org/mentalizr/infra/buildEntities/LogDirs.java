@@ -1,40 +1,19 @@
 package org.mentalizr.infra.buildEntities;
 
-import de.arthurpicht.utils.io.nio2.FileUtils;
+import org.mentalizr.commons.dirs.host.TomcatLogDir;
 import org.mentalizr.infra.InfraRuntimeException;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class LogDirs {
 
-    public static String getLogDir() {
-        return System.getProperty("user.home") + "/m7r/logs";
-    }
-
-    public static String getMongoLogDir() {
-        return getLogDir() + "/mongo";
-    }
-
-    public static String getTomcatLogDir() {
-        return getLogDir() + "/tomcat";
-    }
-
     public static boolean existsAllLogDirs() {
-        Path mongoLogDir = Paths.get(getMongoLogDir());
-        Path tomcatLogDir = Paths.get(getTomcatLogDir());
-        return FileUtils.isExistingDirectory(mongoLogDir) && FileUtils.isExistingDirectory(tomcatLogDir);
+        return TomcatLogDir.createInstance().exists();
     }
 
     public static void createAllLogDirs() {
-        Path mongoLogDir = Paths.get(getMongoLogDir());
-        Path tomcatLogDir = Paths.get(getTomcatLogDir());
-
         try {
-            Files.createDirectories(mongoLogDir);
-            Files.createDirectories(tomcatLogDir);
+            TomcatLogDir.createInstance().create();
         } catch (IOException e) {
             throw new InfraRuntimeException("Logfiles could not be created: " + e.getMessage(), e);
         }

@@ -5,13 +5,8 @@ import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
 import de.arthurpicht.taskRunner.TaskRunner;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
-import org.mentalizr.commons.M7rDirs;
+import org.mentalizr.commons.files.host.M7rInfraUserConfigFile;
 import org.mentalizr.infra.ApplicationContext;
-import org.mentalizr.infra.Const;
-import org.mentalizr.infra.InfraConfigFile;
-import org.mentalizr.infra.docker.m7r.M7rContainerMongo;
-import org.mentalizr.infra.docker.m7r.M7rNetwork;
-import org.mentalizr.infra.docker.m7r.M7rVolumeMongo;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
 
 public class StartExecutor implements CommandExecutor {
@@ -22,9 +17,9 @@ public class StartExecutor implements CommandExecutor {
 
         System.out.println("Start mentalizr infrastructure ...");
 
-        InfraConfigFile infraConfigFile = new InfraConfigFile(new M7rDirs());
-        String m7rInfraConfigFile = infraConfigFile.getInfraConfigFile().toAbsolutePath().toString();
-        System.setProperty("m7r.config", m7rInfraConfigFile);
+        System.setProperty(
+                "m7r.config",
+                M7rInfraUserConfigFile.createInstance().toAbsolutePathString());
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         TaskRunnerResult result = taskRunner.run("start");

@@ -4,14 +4,10 @@ import de.arthurpicht.cli.CliCall;
 import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
 import de.arthurpicht.taskRunner.TaskRunner;
-import de.arthurpicht.taskRunner.runner.TaskRunnerBuilder;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
-import de.arthurpicht.taskRunner.taskRegistry.TaskRegistry;
-import org.mentalizr.commons.M7rDirs;
+import org.mentalizr.commons.files.host.M7rInfraUserConfigFile;
 import org.mentalizr.infra.ApplicationContext;
 import org.mentalizr.infra.InfraCli;
-import org.mentalizr.infra.InfraConfigFile;
-import org.mentalizr.infra.tasks.InfraTaskRegistry;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
 
 public class CreateExecutor implements CommandExecutor {
@@ -30,9 +26,9 @@ public class CreateExecutor implements CommandExecutor {
             throw new CommandExecutorException(e.getMessage(), e);
         }
 
-        InfraConfigFile infraConfigFile = new InfraConfigFile(new M7rDirs());
-        String m7rInfraConfigFile = infraConfigFile.getInfraConfigFile().toAbsolutePath().toString();
-        System.setProperty("m7r.config", m7rInfraConfigFile);
+        System.setProperty(
+                "m7r.config",
+                M7rInfraUserConfigFile.createInstance().toAbsolutePathString());
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         TaskRunnerResult result = taskRunner.run("create");

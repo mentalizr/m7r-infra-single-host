@@ -4,7 +4,6 @@ import org.mentalizr.backend.config.Configuration;
 import org.mentalizr.infra.utils.FileHelper;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class ConfigFileInitMongoJs {
@@ -54,7 +53,7 @@ public class ConfigFileInitMongoJs {
     }
 
     public Path writeToM7rTempDir() throws IOException {
-        return FileHelper.writeToM7rTempDir(getFileName(), getContent());
+        return FileHelper.writeToM7rInfraTempDir(getFileName(), getContent());
     }
 
 }

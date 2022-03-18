@@ -3,11 +3,9 @@ package org.mentalizr.infra.executors;
 import de.arthurpicht.cli.CliCall;
 import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
-import org.mentalizr.commons.M7rDirs;
+import org.mentalizr.commons.files.host.M7rInfraUserConfigFile;
 import org.mentalizr.infra.ApplicationContext;
-import org.mentalizr.infra.InfraConfigFile;
 import org.mentalizr.infra.buildEntities.ConnectionMaria;
-import org.mentalizr.infra.buildEntities.ConnectionMongo;
 
 public class TestExecutor implements CommandExecutor {
 
@@ -17,10 +15,7 @@ public class TestExecutor implements CommandExecutor {
 
         System.out.println("test called.");
 
-        InfraConfigFile infraConfigFile = new InfraConfigFile(new M7rDirs());
-        String m7rInfraConfigFile = infraConfigFile.getInfraConfigFile().toAbsolutePath().toString();
-        System.setProperty("m7r.config", m7rInfraConfigFile);
-
+        System.setProperty("m7r.config", M7rInfraUserConfigFile.createInstance().toAbsolutePathString());
 
         try {
             ConnectionMaria.awaitUp();

@@ -9,6 +9,7 @@ import java.io.IOException;
 public class User {
 
     public static int getUserId() throws LinuxExecutionException {
+        // TODO rework: use ProcessExecutor
         ProcessCollect processCollect = new ProcessCollectBuilder("id", "-u").build();
         ProcessCollectResult result;
         try {

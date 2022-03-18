@@ -1,27 +1,27 @@
 package org.mentalizr.infra.executors;
 
-import org.mentalizr.commons.M7rDirs;
-import org.mentalizr.infra.InfraConfigFile;
+import org.mentalizr.commons.dirs.host.M7rInfraConfigDir;
+import org.mentalizr.commons.files.host.M7rInfraUserConfigFile;
 
 public class ExecutionPreconditions {
 
     public static void check(boolean verbose) throws ExecutionPreconditionFailedException {
 
         System.out.println("Check preconditions ...");
-        M7rDirs m7rDirs = new M7rDirs();
 
-        System.out.println("Check existence of infra config directory ["
-                + m7rDirs.getInfraConfigDir().toAbsolutePath() + "].");
-        if (!m7rDirs.existsInfraConfigDir())
-            throw new ExecutionPreconditionFailedException("Infra config directory not found: ["
-                    + m7rDirs.getInfraConfigDir().toAbsolutePath() + "].");
+        M7rInfraConfigDir m7rInfraConfigDir = M7rInfraConfigDir.createInstance();
+        System.out.println("Check existence of host config directory ["
+                + m7rInfraConfigDir.asPath().toAbsolutePath() + "].");
+        if (!m7rInfraConfigDir.exists())
+            throw new ExecutionPreconditionFailedException("Host config directory not found: ["
+                    + m7rInfraConfigDir.asPath().toAbsolutePath() + "].");
 
-        InfraConfigFile infraConfigFile = new InfraConfigFile(m7rDirs);
-        System.out.println("Check existence of infra config file ["
-                + infraConfigFile.getInfraConfigFile().toAbsolutePath() + "].");
-        if (!infraConfigFile.exists())
+        M7rInfraUserConfigFile m7RInfraUserConfigFile = M7rInfraUserConfigFile.createInstance();
+        System.out.println("Check existence of host user config file ["
+                + m7RInfraUserConfigFile.asPath().toAbsolutePath() + "].");
+        if (!m7RInfraUserConfigFile.exists())
             throw new ExecutionPreconditionFailedException("Infra config file not found: ["
-                    + infraConfigFile.getInfraConfigFile().toAbsolutePath() + "].");
+                    + m7RInfraUserConfigFile.asPath().toAbsolutePath() + "].");
 
     }
 
