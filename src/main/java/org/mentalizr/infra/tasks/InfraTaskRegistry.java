@@ -25,7 +25,9 @@ import org.mentalizr.infra.tasks.remove.mongo.RemoveContainerMongo;
 import org.mentalizr.infra.tasks.remove.mongo.RemoveMongo;
 import org.mentalizr.infra.tasks.remove.mongo.RemoveVolumeMongo;
 import org.mentalizr.infra.tasks.remove.nginx.RemoveNginx;
+import org.mentalizr.infra.tasks.remove.tomcat.RemoveContainerTomcat;
 import org.mentalizr.infra.tasks.remove.tomcat.RemoveTomcat;
+import org.mentalizr.infra.tasks.remove.tomcat.RemoveVolumeTomcat;
 import org.mentalizr.infra.tasks.start.*;
 import org.mentalizr.infra.tasks.start.maria.AwaitUpMaria;
 import org.mentalizr.infra.tasks.start.maria.StartContainerMaria;
@@ -80,6 +82,8 @@ public class InfraTaskRegistry {
         taskRegistryBuilder.withTask(RemoveVolumeMaria.create());
         taskRegistryBuilder.withTask(RemoveContainerMaria.create());
         taskRegistryBuilder.withTask(RemoveTomcat.create());
+        taskRegistryBuilder.withTask(RemoveVolumeTomcat.create());
+        taskRegistryBuilder.withTask(RemoveContainerTomcat.create());
         taskRegistryBuilder.withTask(RemoveNginx.create());
 
         taskRegistryBuilder.withTask(RemoveNetwork.create());

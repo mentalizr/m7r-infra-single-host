@@ -2,50 +2,17 @@ package org.mentalizr.infra.docker.m7r;
 
 import org.mentalizr.backend.config.Configuration;
 import org.mentalizr.infra.*;
-import org.mentalizr.infra.buildEntities.ConfigFileInitMongoJs;
 import org.mentalizr.infra.docker.Container;
 import org.mentalizr.infra.docker.Docker;
-import org.mentalizr.infra.docker.DockerCopy;
 import org.mentalizr.infra.docker.DockerExecutionContext;
-import org.mentalizr.infra.linux.LinuxExecutionException;
-import org.mentalizr.infra.linux.User;
+import org.mentalizr.infra.processExecutor.ProcessResultCollection;
 import org.mentalizr.infra.utils.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.nio.file.Path;
-
 public class M7rContainerMaria {
 
     private static final Logger logger = LoggerFactory.getLogger(LoggerUtils.DOCKER_LOGGER);
-
-    public static boolean exists() {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
-        try {
-            return Container.exists(context, Const.CONTAINER_MARIA);
-        } catch (DockerExecutionException e) {
-            throw new InfraRuntimeException(e);
-        }
-    }
-
-    public static boolean isRunning() {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
-        try {
-            return Container.isRunning(context, Const.CONTAINER_MARIA);
-        } catch (DockerExecutionException e) {
-            throw new InfraRuntimeException(e);
-        }
-    }
-
-    public static boolean isStopped() {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
-        try {
-            return !Container.isRunning(context, Const.CONTAINER_MARIA);
-        } catch (DockerExecutionException e) {
-            throw new InfraRuntimeException(e);
-        }
-    }
 
     public static void create() {
         if (exists())
@@ -53,8 +20,9 @@ public class M7rContainerMaria {
                     " Already existing.");
 
         DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+        ProcessResultCollection result;
         try {
-            Docker.call(
+            result = Docker.call(
                     context,
                     "docker", "create",
                     "--name", Const.CONTAINER_MARIA,
@@ -71,38 +39,34 @@ public class M7rContainerMaria {
         } catch (DockerExecutionException e) {
             throw new InfraRuntimeException(e);
         }
+        if (result.isFail()) throw M7rContainer.createInfraRuntimeException(result);
     }
 
     public static void initialize() {
     }
 
+    public static boolean exists() {
+        return M7rContainer.exists(Const.CONTAINER_MARIA);
+    }
+
     public static void start() {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
-        try {
-            Container.start(context, Const.CONTAINER_MARIA);
-        } catch (DockerExecutionException | IllegalInfraStateException e) {
-            throw new InfraRuntimeException(e);
-        }
+        M7rContainer.start(Const.CONTAINER_MARIA);
+    }
+
+    public static boolean isRunning() {
+        return M7rContainer.isRunning(Const.CONTAINER_MARIA);
     }
 
     public static void stop() {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
-        try {
-            Container.stop(context, Const.CONTAINER_MARIA);
-        } catch (DockerExecutionException | IllegalInfraStateException e) {
-            throw new InfraRuntimeException(e);
-        }
+        M7rContainer.stop(Const.CONTAINER_MARIA);
+    }
+
+    public static boolean isStopped() {
+        return M7rContainer.isStopped(Const.CONTAINER_MARIA);
     }
 
     public static void remove() {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
-        try {
-            Docker.call(
-                    context,
-                    "docker", "container", "rm", Const.CONTAINER_MARIA);
-        } catch (DockerExecutionException e) {
-            throw new InfraRuntimeException(e);
-        }
+        M7rContainer.remove(Const.CONTAINER_MARIA);
     }
 
 }

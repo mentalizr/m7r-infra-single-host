@@ -7,10 +7,7 @@ import de.arthurpicht.utils.core.strings.Strings;
 import org.mentalizr.commons.files.host.M7rInfraUserConfigFile;
 import org.mentalizr.infra.ApplicationContext;
 import org.mentalizr.infra.Const;
-import org.mentalizr.infra.buildEntities.ConnectionMaria;
-import org.mentalizr.infra.buildEntities.ConnectionMongo;
-import org.mentalizr.infra.buildEntities.PortMaria;
-import org.mentalizr.infra.buildEntities.PortMongo;
+import org.mentalizr.infra.buildEntities.*;
 import org.mentalizr.infra.docker.m7r.*;
 
 public class StatusExecutor implements CommandExecutor {
@@ -109,6 +106,44 @@ public class StatusExecutor implements CommandExecutor {
         } else {
             System.out.println("SKIPPED");
         }
+
+        String volumeTomcatString = Strings.fillUpAfter("Tomcat volume [" + Const.VOLUME_TOMCAT + "]: ", ' ', minLengthString);
+        if (M7rVolumeTomcat.exists()) {
+            System.out.println(volumeTomcatString + "UP");
+        } else {
+            System.out.println(volumeTomcatString + "--");
+        }
+
+        String containerTomcatString = Strings.fillUpAfter("Tomcat container [" + Const.CONTAINER_TOMCAT + "]: ", ' ', minLengthString);
+        if (M7rContainerTomcat.exists()) {
+            if (M7rContainerTomcat.isRunning()) {
+                System.out.println(containerTomcatString + "UP Running");
+            } else {
+                System.out.println(containerTomcatString + "UP Stopped");
+            }
+        } else {
+            System.out.println(containerTomcatString + "--");
+        }
+
+        String portTomcatString = Strings.fillUpAfter("Tomcat port 8080: ", ' ', minLengthString);
+        boolean tomcatPortIsListening = PortTomcat.isListening();
+        if (tomcatPortIsListening) {
+            System.out.println(portTomcatString + "OPEN");
+        } else {
+            System.out.println(portTomcatString + "CLOSED");
+        }
+
+//        String connectionMariaString = Strings.fillUpAfter("MariaDB probe client connection: ", ' ', minLengthString);
+//        System.out.print(connectionMariaString);
+//        if (mariaPortIsListening) {
+//            if (ConnectionMaria.probe()) {
+//                System.out.println("SUCCESS");
+//            } else {
+//                System.out.println("FAILED");
+//            }
+//        } else {
+//            System.out.println("SKIPPED");
+//        }
 
     }
 

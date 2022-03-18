@@ -32,6 +32,8 @@ public class CreateExecutor implements CommandExecutor {
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         TaskRunnerResult result = taskRunner.run("create");
+
+        if (!result.isSuccess()) throw new CommandExecutorException();
     }
 
 }

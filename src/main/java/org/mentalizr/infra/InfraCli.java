@@ -94,6 +94,19 @@ public class InfraCli {
                 .build()
         );
 
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("shell", "maria")
+                .withCommandExecutor(new ShellMariaExecutor())
+                .withDescription("Opens shell on maria container.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("shell", "tomcat")
+                .withCommandExecutor(new ShellTomcatExecutor())
+                .withDescription("Opens shell on tomcat container.")
+                .build()
+        );
 
         CliDescription cliDescription = new CliDescriptionBuilder()
                 .withDescription("mentalizr infra structure manager CLI\nhttps://github.com/mentalizr/m7r-infra-singel-host")
@@ -126,8 +139,10 @@ public class InfraCli {
 
         try {
             cli.execute(cliCall);
+            System.out.println("m7r-instance execution succeeded.");
         } catch (CommandExecutorException e) {
-            System.out.println(e.getMessage());
+            System.out.println("m7r-instance execution failed.");
+            if (e.getMessage() != null) System.out.println(e.getMessage());
             System.exit(1);
         } catch (RuntimeException | AssertionError e) {
             System.out.println("RuntimeException: " + e.getMessage());

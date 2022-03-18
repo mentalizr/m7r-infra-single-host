@@ -1,6 +1,6 @@
 package org.mentalizr.infra.buildEntities;
 
-import org.mentalizr.commons.dirs.host.TomcatLogDir;
+import org.mentalizr.commons.dirs.host.hostDir.TomcatLogDir;
 import org.mentalizr.infra.InfraRuntimeException;
 
 import java.io.IOException;

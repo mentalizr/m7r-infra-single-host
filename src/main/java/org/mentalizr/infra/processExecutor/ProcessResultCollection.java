@@ -38,4 +38,12 @@ public class ProcessResultCollection {
         return errorOutLines;
     }
 
+    public boolean isSuccess() {
+        return this.exitCode == 0;
+    }
+
+    public boolean isFail() {
+        return this.exitCode != 0;
+    }
+
 }

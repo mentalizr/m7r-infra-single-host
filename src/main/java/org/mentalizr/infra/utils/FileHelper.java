@@ -2,7 +2,7 @@ package org.mentalizr.infra.utils;
 
 import de.arthurpicht.utils.io.tempDir.TempDir;
 import de.arthurpicht.utils.io.tempDir.TempDirs;
-import org.mentalizr.commons.dirs.host.M7rHostTempDir;
+import org.mentalizr.commons.dirs.host.hostDir.M7rHostTempDir;
 
 import java.io.IOException;
 import java.nio.file.Files;

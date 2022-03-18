@@ -18,6 +18,8 @@ public class RemoveExecutor implements CommandExecutor {
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         TaskRunnerResult result = taskRunner.run("remove");
+
+        if (!result.isSuccess()) throw new CommandExecutorException();
     }
 
 }

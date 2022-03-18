@@ -1,14 +1,14 @@
 package org.mentalizr.infra.docker.m7r;
 
-import org.mentalizr.backend.config.Configuration;
 import org.mentalizr.infra.*;
-import org.mentalizr.infra.buildEntities.ConfigFileInitMongoJs;
+import org.mentalizr.infra.buildEntities.initFiles.ConfigFileInitMongoJs;
 import org.mentalizr.infra.docker.Container;
 import org.mentalizr.infra.docker.Docker;
 import org.mentalizr.infra.docker.DockerCopy;
 import org.mentalizr.infra.docker.DockerExecutionContext;
 import org.mentalizr.infra.linux.LinuxExecutionException;
 import org.mentalizr.infra.linux.User;
+import org.mentalizr.infra.processExecutor.ProcessResultCollection;
 import org.mentalizr.infra.utils.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,33 +19,6 @@ import java.nio.file.Path;
 public class M7rContainerMongo {
 
     private static final Logger logger = LoggerFactory.getLogger(LoggerUtils.DOCKER_LOGGER);
-
-    public static boolean exists() {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
-        try {
-            return Container.exists(context, Const.CONTAINER_MONGO);
-        } catch (DockerExecutionException e) {
-            throw new InfraRuntimeException(e);
-        }
-    }
-
-    public static boolean isRunning() {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
-        try {
-            return Container.isRunning(context, Const.CONTAINER_MONGO);
-        } catch (DockerExecutionException e) {
-            throw new InfraRuntimeException(e);
-        }
-    }
-
-    public static boolean isStopped() {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
-        try {
-            return !Container.isRunning(context, Const.CONTAINER_MONGO);
-        } catch (DockerExecutionException e) {
-            throw new InfraRuntimeException(e);
-        }
-    }
 
     public static void create() {
         //docker create \
@@ -63,16 +36,10 @@ public class M7rContainerMongo {
             throw new InfraRuntimeException("Cannot create container [" + Const.CONTAINER_MONGO + "]." +
                     " Already existing.");
 
-        int userId;
-        try {
-            userId = User.getUserId();
-        } catch (LinuxExecutionException e) {
-            throw new InfraRuntimeException(e);
-        }
-
         DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+        ProcessResultCollection result;
         try {
-            Docker.call(
+            result = Docker.call(
                     context,
                     "docker", "create",
                     "--name", Const.CONTAINER_MONGO,
@@ -89,6 +56,7 @@ public class M7rContainerMongo {
         } catch (DockerExecutionException e) {
             throw new InfraRuntimeException(e);
         }
+        if (result.isFail()) throw M7rContainer.createInfraRuntimeException(result);
     }
 
     public static void initialize() {
@@ -107,40 +75,35 @@ public class M7rContainerMongo {
             logger.debug(messageHeader);
             logger.debug(configFileInitMongoJs.getContent());
 
-            Path initMongoFile = configFileInitMongoJs.writeToM7rTempDir();
+            Path initMongoFile = configFileInitMongoJs.writeToHostTempDir();
             DockerCopy.copyFileWithPreservedRights(context, initMongoFile, Const.CONTAINER_MONGO, "docker-entrypoint-initdb.d");
         } catch (IOException | DockerExecutionException e) {
             throw new InfraRuntimeException(e.getMessage(), e);
         }
     }
 
+    public static boolean exists() {
+        return M7rContainer.exists(Const.CONTAINER_MONGO);
+    }
+
     public static void start() {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
-        try {
-            Container.start(context, Const.CONTAINER_MONGO);
-        } catch (DockerExecutionException | IllegalInfraStateException e) {
-            throw new InfraRuntimeException(e);
-        }
+        M7rContainer.start(Const.CONTAINER_MONGO);
+    }
+
+    public static boolean isRunning() {
+        return M7rContainer.isRunning(Const.CONTAINER_MONGO);
     }
 
     public static void stop() {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
-        try {
-            Container.stop(context, Const.CONTAINER_MONGO);
-        } catch (DockerExecutionException | IllegalInfraStateException e) {
-            throw new InfraRuntimeException(e);
-        }
+        M7rContainer.stop(Const.CONTAINER_MONGO);
+    }
+
+    public static boolean isStopped() {
+        return M7rContainer.isStopped(Const.CONTAINER_MONGO);
     }
 
     public static void remove() {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
-        try {
-            Docker.call(
-                    context,
-                    "docker", "container", "rm", Const.CONTAINER_MONGO);
-        } catch (DockerExecutionException e) {
-            throw new InfraRuntimeException(e);
-        }
+        M7rContainer.remove(Const.CONTAINER_MONGO);
     }
 
 }

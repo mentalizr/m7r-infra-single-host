@@ -1,26 +1,14 @@
-package org.mentalizr.infra.buildEntities;
+package org.mentalizr.infra.buildEntities.initFiles;
 
 import org.mentalizr.backend.config.Configuration;
-import org.mentalizr.infra.utils.FileHelper;
 
-import java.io.IOException;
-import java.nio.file.Path;
-
-public class ConfigFileInitMongoJs {
+public class ConfigFileInitMongoJs implements InitFile {
 
     private final String adminUsername;
     private final String adminPassword;
     private final String dbName;
     private final String userName;
     private final String password;
-
-    public ConfigFileInitMongoJs(String adminUsername, String adminPassword, String dbName, String username, String password) {
-        this.adminUsername = adminUsername;
-        this.adminPassword = adminPassword;
-        this.dbName = dbName;
-        this.userName = username;
-        this.password = password;
-    }
 
     public static ConfigFileInitMongoJs getInstanceFromConfiguration() {
         String adminUsername = Configuration.getDocumentDbAdminName();
@@ -29,6 +17,14 @@ public class ConfigFileInitMongoJs {
         String userName = Configuration.getDocumentDbUser();
         String password = Configuration.getDocumentDbPassword();
         return new ConfigFileInitMongoJs(adminUsername, adminPassword, dbName, userName, password);
+    }
+
+    public ConfigFileInitMongoJs(String adminUsername, String adminPassword, String dbName, String username, String password) {
+        this.adminUsername = adminUsername;
+        this.adminPassword = adminPassword;
+        this.dbName = dbName;
+        this.userName = username;
+        this.password = password;
     }
 
     public String getFileName() {
@@ -50,10 +46,6 @@ public class ConfigFileInitMongoJs {
                 ")\n" +
                 "\n" +
                 "db.testCollection.insert({name:'Dummy'});\n";
-    }
-
-    public Path writeToM7rTempDir() throws IOException {
-        return FileHelper.writeToM7rInfraTempDir(getFileName(), getContent());
     }
 
 }
