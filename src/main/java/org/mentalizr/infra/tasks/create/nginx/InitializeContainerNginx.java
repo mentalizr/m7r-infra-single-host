@@ -2,6 +2,7 @@ package org.mentalizr.infra.tasks.create.nginx;
 
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
+import org.mentalizr.infra.docker.m7r.M7rContainerNginx;
 
 public class InitializeContainerNginx {
 
@@ -10,9 +11,7 @@ public class InitializeContainerNginx {
                 .name("initialize-container-nginx")
                 .description("initialize container nginx")
                 .dependencies("create-container-nginx")
-                .inputChanged(() -> false)
-//                .outputExists(M7rContainerMongo::exists)
-                .execute(() -> {}) // TODO
+                .execute(M7rContainerNginx::initialize)
                 .build();
     }
 

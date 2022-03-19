@@ -7,6 +7,7 @@ import org.mentalizr.commons.files.host.M7rInfraUserConfigFile;
 import org.mentalizr.infra.ApplicationContext;
 import org.mentalizr.infra.buildEntities.ConnectionMaria;
 import org.mentalizr.infra.buildEntities.ConnectionTomcat;
+import org.mentalizr.infra.buildEntities.initFiles.nginx.LocalDevConf;
 
 public class TestExecutor implements CommandExecutor {
 
@@ -18,11 +19,7 @@ public class TestExecutor implements CommandExecutor {
 
         System.setProperty("m7r.config", M7rInfraUserConfigFile.createInstance().toAbsolutePathString());
 
-        try {
-            ConnectionTomcat.probe();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        System.out.println(LocalDevConf.getInstance().getContent());
 
 //        try {
 //            ConnectionMaria.awaitUp();

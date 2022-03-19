@@ -1,11 +1,22 @@
 package org.mentalizr.infra.docker.m7r;
 
 import org.mentalizr.infra.*;
+import org.mentalizr.infra.buildEntities.initFiles.InitFile;
+import org.mentalizr.infra.buildEntities.initFiles.TomcatContextXml;
 import org.mentalizr.infra.docker.Container;
+import org.mentalizr.infra.docker.DockerCopy;
 import org.mentalizr.infra.docker.DockerExecutionContext;
 import org.mentalizr.infra.processExecutor.ProcessResultCollection;
+import org.mentalizr.infra.utils.LoggerUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.nio.file.Path;
 
 public class M7rContainer {
+
+    private static final Logger logger = LoggerFactory.getLogger(LoggerUtils.DOCKER_LOGGER);
 
     public static boolean exists(String name) {
         DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
@@ -66,6 +77,25 @@ public class M7rContainer {
         String message = "Docker execution finished with error.";
         if (!result.getErrorOut().isEmpty()) message += " " + result.getErrorOut().get(0);
         return new InfraRuntimeException(message);
+    }
+
+    public static void copyInitFileToContainer(InitFile initFile, String containerName, String destinationDir) {
+        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+
+        String messageHeader = "Copy configuration file [" + initFile.getFileName() + "] to [" + containerName + "]:";
+        if (context.isVerbose()) {
+            System.out.println(messageHeader);
+            System.out.println(initFile.getContent());
+        }
+        logger.debug(messageHeader);
+        logger.debug(initFile.getContent());
+
+        try {
+            Path initFilePath = initFile.writeToHostTempDir();
+            DockerCopy.copyFileWithPreservedRights(context, initFilePath, containerName, destinationDir);
+        } catch (DockerExecutionException | IOException e) {
+            throw new InfraRuntimeException(e.getMessage(), e);
+        }
     }
 
 

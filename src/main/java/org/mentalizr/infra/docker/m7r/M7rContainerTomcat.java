@@ -50,23 +50,28 @@ public class M7rContainerTomcat {
     }
 
     public static void initialize() {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+        M7rContainer.copyInitFileToContainer(
+                TomcatContextXml.getInstanceFromConfiguration(),
+                Const.CONTAINER_TOMCAT,
+                "/man/tomcat/conf/");
 
-        TomcatContextXml tomcatContextXml = TomcatContextXml.getInstanceFromConfiguration();
-        String messageHeader = "Copy configuration file [" + tomcatContextXml.getFileName() + "] to [" + Const.CONTAINER_MONGO + "]:";
-        if (context.isVerbose()) {
-            System.out.println(messageHeader);
-            System.out.println(tomcatContextXml.getContent());
-        }
-        logger.debug(messageHeader);
-        logger.debug(tomcatContextXml.getContent());
-
-        try {
-            Path tomcatContextXMLinTempDir = tomcatContextXml.writeToHostTempDir();
-            DockerCopy.copyFileWithPreservedRights(context, tomcatContextXMLinTempDir, Const.CONTAINER_TOMCAT, "/man/tomcat/conf/");
-        } catch (DockerExecutionException | IOException e) {
-            throw new InfraRuntimeException(e.getMessage(), e);
-        }
+//        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+//
+//        TomcatContextXml tomcatContextXml = TomcatContextXml.getInstanceFromConfiguration();
+//        String messageHeader = "Copy configuration file [" + tomcatContextXml.getFileName() + "] to [" + Const.CONTAINER_TOMCAT + "]:";
+//        if (context.isVerbose()) {
+//            System.out.println(messageHeader);
+//            System.out.println(tomcatContextXml.getContent());
+//        }
+//        logger.debug(messageHeader);
+//        logger.debug(tomcatContextXml.getContent());
+//
+//        try {
+//            Path tomcatContextXMLinTempDir = tomcatContextXml.writeToHostTempDir();
+//            DockerCopy.copyFileWithPreservedRights(context, tomcatContextXMLinTempDir, Const.CONTAINER_TOMCAT, "/man/tomcat/conf/");
+//        } catch (DockerExecutionException | IOException e) {
+//            throw new InfraRuntimeException(e.getMessage(), e);
+//        }
     }
 
     public static boolean exists() {

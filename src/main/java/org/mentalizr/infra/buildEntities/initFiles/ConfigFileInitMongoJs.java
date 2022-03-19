@@ -32,7 +32,6 @@ public class ConfigFileInitMongoJs implements InitFile {
     }
 
     public String getContent() {
-
         return "\n" +
                 "db.auth('" + this.adminUsername + "', '" + this.adminPassword + "')\n" +
                 "db = db.getSiblingDB('" + this.dbName + "')\n" +

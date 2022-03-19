@@ -145,6 +145,25 @@ public class StatusExecutor implements CommandExecutor {
             System.out.println("SKIPPED");
         }
 
+        String containerNginxString = Strings.fillUpAfter("nginx container [" + Const.CONTAINER_NGINX + "]: ", ' ', minLengthString);
+        if (M7rContainerNginx.exists()) {
+            if (M7rContainerNginx.isRunning()) {
+                System.out.println(containerNginxString + "UP Running");
+            } else {
+                System.out.println(containerNginxString + "UP Stopped");
+            }
+        } else {
+            System.out.println(containerNginxString + "--");
+        }
+
+        String portNginxString = Strings.fillUpAfter("nginx port 443: ", ' ', minLengthString);
+        boolean nginxPortIsListening = PortTomcat.isListening();
+        if (nginxPortIsListening) {
+            System.out.println(portNginxString + "OPEN");
+        } else {
+            System.out.println(portNginxString + "CLOSED");
+        }
+
     }
 
 }

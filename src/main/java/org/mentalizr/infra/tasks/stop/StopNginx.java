@@ -2,6 +2,7 @@ package org.mentalizr.infra.tasks.stop;
 
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
+import org.mentalizr.infra.docker.m7r.M7rContainerNginx;
 
 public class StopNginx {
 
@@ -9,7 +10,7 @@ public class StopNginx {
         return new TaskBuilder()
                 .name("stop-nginx")
                 .description("stop nginx")
-                .execute(() -> {})
+                .execute(M7rContainerNginx::stop)
                 .build();
     }
 

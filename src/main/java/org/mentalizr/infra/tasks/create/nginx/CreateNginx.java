@@ -10,7 +10,7 @@ public class CreateNginx {
                 .isTarget()
                 .name("create-nginx")
                 .description("create nginx")
-                .dependencies("initialize-container-tomcat", "create-tomcat")
+                .dependencies("initialize-container-nginx", "create-tomcat")
                 .execute(()-> {})
                 .build();
     }

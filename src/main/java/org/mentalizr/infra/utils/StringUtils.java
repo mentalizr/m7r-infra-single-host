@@ -10,4 +10,11 @@ public class StringUtils {
         return string + ending;
     }
 
+    public static String concat(Iterable<?> objects) {
+        MethodPreconditions.assertArgumentNotNull("objects", objects);
+        StringBuilder stringBuilder = new StringBuilder();
+        objects.forEach(stringBuilder::append);
+        return stringBuilder.toString();
+    }
+
 }
