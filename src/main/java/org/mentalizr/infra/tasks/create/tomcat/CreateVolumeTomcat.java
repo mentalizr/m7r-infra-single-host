@@ -10,6 +10,7 @@ public class CreateVolumeTomcat {
         return new TaskBuilder()
                 .name("create-volume-tomcat")
                 .description("create docker volume for tomcat")
+                .dependencies("create-network")
                 .inputChanged(() -> false)
                 .outputExists(M7rVolumeTomcat::exists)
                 .execute(M7rVolumeTomcat::create)

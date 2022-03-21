@@ -5,8 +5,6 @@ import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
 import org.mentalizr.commons.files.host.M7rInfraUserConfigFile;
 import org.mentalizr.infra.ApplicationContext;
-import org.mentalizr.infra.buildEntities.ConnectionMaria;
-import org.mentalizr.infra.buildEntities.ConnectionTomcat;
 import org.mentalizr.infra.buildEntities.initFiles.nginx.LocalDevConf;
 
 public class TestExecutor implements CommandExecutor {

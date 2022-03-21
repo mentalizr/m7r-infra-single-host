@@ -3,8 +3,7 @@ package org.mentalizr.infra.tasks.start.maria;
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
 import org.mentalizr.infra.Const;
-import org.mentalizr.infra.buildEntities.ConnectionMaria;
-import org.mentalizr.infra.buildEntities.ConnectionMongo;
+import org.mentalizr.infra.buildEntities.connections.ConnectionMaria;
 
 public class AwaitUpMaria {
 

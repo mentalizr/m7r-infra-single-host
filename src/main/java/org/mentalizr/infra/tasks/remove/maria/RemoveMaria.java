@@ -9,7 +9,7 @@ public class RemoveMaria {
         return new TaskBuilder()
                 .name("remove-maria")
                 .description("remove mariaDB")
-                .dependencies("remove-volume-maria", "remove-tomcat")
+                .dependencies("remove-volume-maria")
                 .execute(() -> {})
                 .build();
     }

@@ -7,7 +7,12 @@ import de.arthurpicht.utils.core.strings.Strings;
 import org.mentalizr.commons.files.host.M7rInfraUserConfigFile;
 import org.mentalizr.infra.ApplicationContext;
 import org.mentalizr.infra.Const;
-import org.mentalizr.infra.buildEntities.*;
+import org.mentalizr.infra.buildEntities.connections.ConnectionMaria;
+import org.mentalizr.infra.buildEntities.connections.ConnectionMongo;
+import org.mentalizr.infra.buildEntities.connections.ConnectionTomcat;
+import org.mentalizr.infra.buildEntities.ports.PortMaria;
+import org.mentalizr.infra.buildEntities.ports.PortMongo;
+import org.mentalizr.infra.buildEntities.ports.PortTomcat;
 import org.mentalizr.infra.docker.m7r.*;
 
 public class StatusExecutor implements CommandExecutor {

@@ -10,6 +10,7 @@ public class CreateContainerNginx {
         return new TaskBuilder()
                 .name("create-container-nginx")
                 .description("create container nginx")
+                .dependencies("create-network")
                 .inputChanged(() -> false)
                 .outputExists(M7rContainerNginx::exists)
                 .execute(M7rContainerNginx::create)

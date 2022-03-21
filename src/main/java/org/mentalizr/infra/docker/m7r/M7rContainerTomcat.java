@@ -4,17 +4,14 @@ import org.mentalizr.commons.dirs.host.ContentDir;
 import org.mentalizr.commons.dirs.host.GitReposDir;
 import org.mentalizr.commons.dirs.host.hostDir.TomcatLogDir;
 import org.mentalizr.infra.*;
-import org.mentalizr.infra.buildEntities.initFiles.TomcatContextXml;
-import org.mentalizr.infra.docker.Container;
+import org.mentalizr.infra.buildEntities.initFiles.tomcat.TomcatContextXml;
 import org.mentalizr.infra.docker.Docker;
-import org.mentalizr.infra.docker.DockerCopy;
 import org.mentalizr.infra.docker.DockerExecutionContext;
 import org.mentalizr.infra.processExecutor.ProcessResultCollection;
 import org.mentalizr.infra.utils.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.nio.file.Path;
 
 public class M7rContainerTomcat {

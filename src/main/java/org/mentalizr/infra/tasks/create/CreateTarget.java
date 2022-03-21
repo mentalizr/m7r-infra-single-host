@@ -12,7 +12,7 @@ public class CreateTarget {
                 .isTarget()
                 .name("create")
                 .description("create docker infrastructure")
-                .dependencies("create-nginx")
+                .dependencies("create-maria", "create-nginx", "create-mongo", "create-tomcat")
                 .execute(()-> {})
                 .build();
     }

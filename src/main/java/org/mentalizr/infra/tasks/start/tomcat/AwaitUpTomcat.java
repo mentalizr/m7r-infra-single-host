@@ -3,7 +3,7 @@ package org.mentalizr.infra.tasks.start.tomcat;
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
 import org.mentalizr.infra.Const;
-import org.mentalizr.infra.buildEntities.ConnectionTomcat;
+import org.mentalizr.infra.buildEntities.connections.ConnectionTomcat;
 
 public class AwaitUpTomcat {
 

@@ -1,6 +1,7 @@
-package org.mentalizr.infra.buildEntities.initFiles;
+package org.mentalizr.infra.buildEntities.initFiles.mongo;
 
 import org.mentalizr.backend.config.Configuration;
+import org.mentalizr.infra.buildEntities.initFiles.InitFile;
 
 public class ConfigFileInitMongoJs implements InitFile {
 

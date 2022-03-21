@@ -1,13 +1,10 @@
 package org.mentalizr.infra.docker.m7r;
 
 import org.mentalizr.infra.*;
-import org.mentalizr.infra.buildEntities.initFiles.ConfigFileInitMongoJs;
-import org.mentalizr.infra.docker.Container;
+import org.mentalizr.infra.buildEntities.initFiles.mongo.ConfigFileInitMongoJs;
 import org.mentalizr.infra.docker.Docker;
 import org.mentalizr.infra.docker.DockerCopy;
 import org.mentalizr.infra.docker.DockerExecutionContext;
-import org.mentalizr.infra.linux.LinuxExecutionException;
-import org.mentalizr.infra.linux.User;
 import org.mentalizr.infra.processExecutor.ProcessResultCollection;
 import org.mentalizr.infra.utils.LoggerUtils;
 import org.slf4j.Logger;

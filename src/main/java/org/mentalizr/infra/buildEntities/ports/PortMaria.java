@@ -1,4 +1,4 @@
-package org.mentalizr.infra.buildEntities;
+package org.mentalizr.infra.buildEntities.ports;
 
 import org.mentalizr.infra.utils.IOUtils;
 

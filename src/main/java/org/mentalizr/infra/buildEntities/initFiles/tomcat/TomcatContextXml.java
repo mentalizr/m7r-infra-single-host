@@ -1,6 +1,7 @@
-package org.mentalizr.infra.buildEntities.initFiles;
+package org.mentalizr.infra.buildEntities.initFiles.tomcat;
 
 import org.mentalizr.backend.config.Configuration;
+import org.mentalizr.infra.buildEntities.initFiles.InitFile;
 
 public class TomcatContextXml implements InitFile {
 

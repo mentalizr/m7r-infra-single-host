@@ -9,7 +9,7 @@ public class RemoveTomcat {
         return new TaskBuilder()
                 .name("remove-tomcat")
                 .description("remove tomcat")
-                .dependencies("remove-nginx", "remove-volume-tomcat")
+                .dependencies("remove-volume-tomcat")
                 .execute(() -> {})
                 .build();
     }

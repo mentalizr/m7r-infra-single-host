@@ -1,4 +1,4 @@
-package org.mentalizr.infra.buildEntities;
+package org.mentalizr.infra.buildEntities.connections;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;

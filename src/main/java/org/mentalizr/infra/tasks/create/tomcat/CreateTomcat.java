@@ -10,7 +10,7 @@ public class CreateTomcat {
                 .isTarget()
                 .name("create-tomcat")
                 .description("create tomcat")
-                .dependencies("initialize-container-tomcat", "create-maria", "create-mongo")
+                .dependencies("initialize-container-tomcat")
                 .execute(()-> {})
                 .build();
     }

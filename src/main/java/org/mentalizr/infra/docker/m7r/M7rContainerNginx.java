@@ -1,26 +1,18 @@
 package org.mentalizr.infra.docker.m7r;
 
-import org.mentalizr.commons.dirs.host.ContentDir;
-import org.mentalizr.commons.dirs.host.GitReposDir;
 import org.mentalizr.commons.dirs.host.hostDir.CertsDir;
-import org.mentalizr.commons.dirs.host.hostDir.TomcatLogDir;
 import org.mentalizr.infra.ApplicationContext;
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.DockerExecutionException;
 import org.mentalizr.infra.InfraRuntimeException;
-import org.mentalizr.infra.buildEntities.initFiles.TomcatContextXml;
 import org.mentalizr.infra.buildEntities.initFiles.nginx.IndexHtml;
 import org.mentalizr.infra.buildEntities.initFiles.nginx.LocalDevConf;
 import org.mentalizr.infra.docker.Docker;
-import org.mentalizr.infra.docker.DockerCopy;
 import org.mentalizr.infra.docker.DockerExecutionContext;
 import org.mentalizr.infra.processExecutor.ProcessResultCollection;
 import org.mentalizr.infra.utils.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.nio.file.Path;
 
 public class M7rContainerNginx {
 

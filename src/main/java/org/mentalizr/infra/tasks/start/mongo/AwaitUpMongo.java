@@ -3,8 +3,7 @@ package org.mentalizr.infra.tasks.start.mongo;
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
 import org.mentalizr.infra.Const;
-import org.mentalizr.infra.buildEntities.ConnectionMongo;
-import org.mentalizr.infra.docker.m7r.M7rContainerMongo;
+import org.mentalizr.infra.buildEntities.connections.ConnectionMongo;
 
 public class AwaitUpMongo {
 

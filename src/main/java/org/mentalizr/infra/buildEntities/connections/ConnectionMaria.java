@@ -1,26 +1,25 @@
-package org.mentalizr.infra.buildEntities;
+package org.mentalizr.infra.buildEntities.connections;
 
+import org.mentalizr.backend.config.Configuration;
 import org.mentalizr.infra.InfraRuntimeException;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class ConnectionTomcat {
+public class ConnectionMaria {
 
     private static final int timeoutSeconds = 30;
 
+    private static final String username = Configuration.getUserDbUser();
+    private static final String password = Configuration.getUserDbPassword();
+
     public static boolean probe() {
         try {
-            URL url = new URL("http://localhost:8080");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            int responseCode = connection.getResponseCode();
-            if (responseCode != 200) return false;
+            DriverManager.getConnection("jdbc:mariadb://localhost:3306/?user=" + username + "&password=" + password);
             return true;
-        } catch (IOException e) {
+        } catch (SQLException e) {
             return false;
         }
     }
@@ -43,6 +42,7 @@ public class ConnectionTomcat {
             } catch (InterruptedException e) {
                 throw new InfraRuntimeException(e);
             }
+
         }
     }
 

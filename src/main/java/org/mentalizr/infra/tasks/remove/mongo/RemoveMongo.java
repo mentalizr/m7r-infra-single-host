@@ -11,7 +11,7 @@ public class RemoveMongo {
         return new TaskBuilder()
                 .name("remove-mongo")
                 .description("remove mongoDB")
-                .dependencies("remove-maria", "remove-volume-mongo")
+                .dependencies("remove-volume-mongo")
                 .execute(() -> {})
                 .build();
     }
