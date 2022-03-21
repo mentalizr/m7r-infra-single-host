@@ -6,17 +6,22 @@ import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.FileAppender;
+import org.mentalizr.commons.dirs.host.hostDir.M7rHostLogDir;
 import org.slf4j.LoggerFactory;
+
+import java.nio.file.Path;
 
 public class LoggerUtils {
 
     public static final String DOCKER_LOGGER = "docker";
 
-    private static String getLogFileName() {
-        return "docker.log";
+    public static Path getLogFile() {
+        M7rHostLogDir m7rHostLogDir = M7rHostLogDir.createInstance();
+        return m7rHostLogDir.asPath().resolve("m7r-infra.log");
     }
 
     public static void initialize() {
+
         LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
 
         PatternLayoutEncoder patternLayoutEncoder = new PatternLayoutEncoder();
@@ -25,7 +30,7 @@ public class LoggerUtils {
         patternLayoutEncoder.start();
 
         FileAppender<ILoggingEvent> fileAppender = new FileAppender<>();
-        fileAppender.setFile(getLogFileName());
+        fileAppender.setFile(getLogFile().toAbsolutePath().toString());
         fileAppender.setEncoder(patternLayoutEncoder);
         fileAppender.setContext(loggerContext);
         fileAppender.start();

@@ -12,11 +12,15 @@ import de.arthurpicht.cli.option.VersionOption;
 import org.mentalizr.infra.executors.*;
 import org.mentalizr.infra.utils.LoggerUtils;
 
+import java.nio.file.Path;
+
 public class InfraCli {
 
     public static final String OPTION_VERBOSE = "verbose";
     public static final String OPTION_STACKTRACE = "stacktrace";
     public static final String OPTION_SILENT = "silent";
+
+    public static final String SPECIFIC_OPTION_FOLLOW = "follow";
 
     private static Cli createCli() {
 
@@ -108,6 +112,18 @@ public class InfraCli {
                 .build()
         );
 
+
+        Options specificLogsOptions = new Options()
+                .add(new OptionBuilder().withShortName('f').withLongName("follow").withDescription("Follow logs.").build(SPECIFIC_OPTION_FOLLOW));
+
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("logs")
+                .withSpecificOptions(specificLogsOptions)
+                .withCommandExecutor(new LogsExecutor())
+                .withDescription("Show logs.")
+                .build()
+        );
+
         CliDescription cliDescription = new CliDescriptionBuilder()
                 .withDescription("mentalizr infra structure manager CLI\nhttps://github.com/mentalizr/m7r-infra-singel-host")
                 .withVersionByTag("0.0.1-SNAPSHOT", "2022-03-03")
@@ -121,7 +137,8 @@ public class InfraCli {
     }
 
     public static void main(String[] args) {
-        LoggerUtils.initialize();
+        ApplicationInitialization.execute();
+
         Cli cli = createCli();
         CliCall cliCall = null;
         try {
