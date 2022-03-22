@@ -22,6 +22,10 @@ public class InfraTaskRunner {
                 .withSkipExecution(task -> {
                     System.out.println("skipped");
                 })
+                .withFailByTaskPreconditionException((task, taskPreconditionException) -> {
+                    System.out.println("Precondition failed: " + taskPreconditionException.getMessage());
+                    if (showStacktrace) taskPreconditionException.printStackTrace();
+                })
                 .withFailByTaskExecutionException((task, taskExecutionException) -> {
                     System.out.println("Error: " + taskExecutionException.getMessage());
                     if (showStacktrace) taskExecutionException.printStackTrace();

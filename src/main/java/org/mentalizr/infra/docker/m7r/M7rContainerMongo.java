@@ -2,6 +2,7 @@ package org.mentalizr.infra.docker.m7r;
 
 import org.mentalizr.infra.*;
 import org.mentalizr.infra.buildEntities.initFiles.mongo.ConfigFileInitMongoJs;
+import org.mentalizr.infra.buildEntities.initFiles.tomcat.TomcatContextXml;
 import org.mentalizr.infra.docker.Docker;
 import org.mentalizr.infra.docker.DockerCopy;
 import org.mentalizr.infra.docker.DockerExecutionContext;
@@ -33,7 +34,7 @@ public class M7rContainerMongo {
             throw new InfraRuntimeException("Cannot create container [" + Const.CONTAINER_MONGO + "]." +
                     " Already existing.");
 
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
         ProcessResultCollection result;
         try {
             result = Docker.call(
@@ -57,26 +58,31 @@ public class M7rContainerMongo {
     }
 
     public static void initialize() {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+        M7rContainer.copyInitFileToContainer(
+                ConfigFileInitMongoJs.getInstanceFromConfiguration(),
+                Const.CONTAINER_MONGO,
+                "docker-entrypoint-initdb.d");
 
-        // tar -cf - -C ${__init_rel} init-mongo.js --mode 777 --owner root --group root
-        // | docker cp - $NAME_MONGO:/docker-entrypoint-initdb.d/
-
-        try {
-            ConfigFileInitMongoJs configFileInitMongoJs = ConfigFileInitMongoJs.getInstanceFromConfiguration();
-            String messageHeader = "Copy configuration file [" + configFileInitMongoJs.getFileName() + "] to [" + Const.CONTAINER_MONGO + "]:";
-            if (context.isVerbose()) {
-                System.out.println(messageHeader);
-                System.out.println(configFileInitMongoJs.getContent());
-            }
-            logger.debug(messageHeader);
-            logger.debug(configFileInitMongoJs.getContent());
-
-            Path initMongoFile = configFileInitMongoJs.writeToHostTempDir();
-            DockerCopy.copyFileWithPreservedRights(context, initMongoFile, Const.CONTAINER_MONGO, "docker-entrypoint-initdb.d");
-        } catch (IOException | DockerExecutionException e) {
-            throw new InfraRuntimeException(e.getMessage(), e);
-        }
+//        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+//
+//        // tar -cf - -C ${__init_rel} init-mongo.js --mode 777 --owner root --group root
+//        // | docker cp - $NAME_MONGO:/docker-entrypoint-initdb.d/
+//
+//        try {
+//            ConfigFileInitMongoJs configFileInitMongoJs = ConfigFileInitMongoJs.getInstanceFromConfiguration();
+//            String messageHeader = "Copy configuration file [" + configFileInitMongoJs.getFileName() + "] to [" + Const.CONTAINER_MONGO + "]:";
+//            if (context.isVerbose()) {
+//                System.out.println(messageHeader);
+//                System.out.println(configFileInitMongoJs.getContent());
+//            }
+//            logger.debug(messageHeader);
+//            logger.debug(configFileInitMongoJs.getContent());
+//
+//            Path initMongoFile = configFileInitMongoJs.writeToHostTempDir();
+//            DockerCopy.copyFileWithPreservedRights(context, initMongoFile, Const.CONTAINER_MONGO, "docker-entrypoint-initdb.d");
+//        } catch (IOException | DockerExecutionException e) {
+//            throw new InfraRuntimeException(e.getMessage(), e);
+//        }
     }
 
     public static boolean exists() {

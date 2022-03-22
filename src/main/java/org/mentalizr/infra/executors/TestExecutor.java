@@ -3,19 +3,16 @@ package org.mentalizr.infra.executors;
 import de.arthurpicht.cli.CliCall;
 import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
-import org.mentalizr.commons.files.host.M7rInfraUserConfigFile;
-import org.mentalizr.infra.ApplicationContext;
+import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.buildEntities.initFiles.nginx.LocalDevConf;
 
 public class TestExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
-        ApplicationContext.initialize(cliCall);
+        ExecutionContext.initialize(cliCall);
 
         System.out.println("test called.");
-
-        System.setProperty("m7r.config", M7rInfraUserConfigFile.createInstance().toAbsolutePathString());
 
         System.out.println(LocalDevConf.getInstance().getContent());
 

@@ -2,7 +2,6 @@ package org.mentalizr.infra.docker.m7r;
 
 import org.mentalizr.backend.config.Configuration;
 import org.mentalizr.infra.*;
-import org.mentalizr.infra.docker.Container;
 import org.mentalizr.infra.docker.Docker;
 import org.mentalizr.infra.docker.DockerExecutionContext;
 import org.mentalizr.infra.processExecutor.ProcessResultCollection;
@@ -19,7 +18,7 @@ public class M7rContainerMaria {
             throw new InfraRuntimeException("Cannot create container [" + Const.CONTAINER_MARIA + "]." +
                     " Already existing.");
 
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
         ProcessResultCollection result;
         try {
             result = Docker.call(

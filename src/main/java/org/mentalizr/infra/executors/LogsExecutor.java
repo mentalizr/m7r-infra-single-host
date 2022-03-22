@@ -5,21 +5,15 @@ import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
 import de.arthurpicht.utils.core.strings.Strings;
 import de.arthurpicht.utils.io.nio2.FileUtils;
-import org.mentalizr.commons.dirs.host.hostDir.M7rHostLogDir;
 import org.mentalizr.infra.*;
-import org.mentalizr.infra.docker.Container;
-import org.mentalizr.infra.docker.DockerExecutionContext;
-import org.mentalizr.infra.docker.Shell;
 import org.mentalizr.infra.processExecutor.ProcessExecution;
 import org.mentalizr.infra.processExecutor.ProcessExecutionException;
 import org.mentalizr.infra.utils.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class LogsExecutor implements CommandExecutor {
@@ -28,7 +22,7 @@ public class LogsExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
-        ApplicationContext.initialize(cliCall);
+        ExecutionContext.initialize(cliCall);
 
         System.out.println("Show logs ...");
 
@@ -56,6 +50,5 @@ public class LogsExecutor implements CommandExecutor {
             throw new CommandExecutorException("Exception on showing logs. " + e.getMessage(), e);
         }
     }
-
 
 }

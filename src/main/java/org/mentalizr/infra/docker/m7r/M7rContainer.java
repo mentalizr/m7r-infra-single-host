@@ -18,7 +18,7 @@ public class M7rContainer {
     private static final Logger logger = LoggerFactory.getLogger(LoggerUtils.DOCKER_LOGGER);
 
     public static boolean exists(String name) {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
         try {
             return Container.exists(context, name);
         } catch (DockerExecutionException e) {
@@ -27,7 +27,7 @@ public class M7rContainer {
     }
 
     public static boolean isRunning(String name) {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
         try {
             return Container.isRunning(context, name);
         } catch (DockerExecutionException e) {
@@ -36,7 +36,7 @@ public class M7rContainer {
     }
 
     public static boolean isStopped(String name) {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
         try {
             return !Container.isRunning(context, name);
         } catch (DockerExecutionException e) {
@@ -45,7 +45,7 @@ public class M7rContainer {
     }
 
     public static void start(String name) {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
         try {
             Container.start(context, name);
         } catch (DockerExecutionException | IllegalInfraStateException e) {
@@ -54,7 +54,7 @@ public class M7rContainer {
     }
 
     public static void stop(String name) {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
         try {
             Container.stop(context, name);
         } catch (DockerExecutionException | IllegalInfraStateException e) {
@@ -63,7 +63,7 @@ public class M7rContainer {
     }
 
     public static void remove(String name) {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
         try {
             Container.remove(context, name);
         } catch (DockerExecutionException | IllegalInfraStateException e) {
@@ -79,7 +79,7 @@ public class M7rContainer {
     }
 
     public static void copyInitFileToContainer(InitFile initFile, String containerName, String destinationDir) {
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
 
         String messageHeader = "Copy configuration file [" + initFile.getFileName() + "] to [" + containerName + "]:";
         if (context.isVerbose()) {

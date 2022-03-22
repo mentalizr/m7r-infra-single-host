@@ -92,6 +92,13 @@ public class InfraCli {
         );
 
         commands.add(new CommandSequenceBuilder()
+                .addCommands("deploy")
+                .withCommandExecutor(new DeployExecutor())
+                .withDescription("Deploys to server instances.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
                 .addCommands("shell", "mongo")
                 .withCommandExecutor(new ShellMongoExecutor())
                 .withDescription("Opens shell on mongo container.")
@@ -137,7 +144,12 @@ public class InfraCli {
     }
 
     public static void main(String[] args) {
-        ApplicationInitialization.execute();
+        try {
+            ApplicationInitialization.execute();
+        } catch (ApplicationInitializationException e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
 
         Cli cli = createCli();
         CliCall cliCall = null;

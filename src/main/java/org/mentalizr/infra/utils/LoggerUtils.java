@@ -6,7 +6,7 @@ import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.FileAppender;
-import org.mentalizr.commons.dirs.host.hostDir.M7rHostLogDir;
+import org.mentalizr.commons.paths.host.hostDir.M7rHostLogDir;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;

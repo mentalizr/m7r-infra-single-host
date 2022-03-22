@@ -18,11 +18,10 @@ public class IOUtils {
         ClassLoader classLoader = IOUtils.class.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(fileName);
         if (inputStream == null) {
-            throw new IllegalArgumentException("File not found in ressources: [" + fileName + "].");
+            throw new IllegalArgumentException("File not found in resources: [" + fileName + "].");
         } else {
             return inputStream;
         }
     }
-
 
 }

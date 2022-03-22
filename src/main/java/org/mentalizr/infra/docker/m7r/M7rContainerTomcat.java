@@ -1,11 +1,14 @@
 package org.mentalizr.infra.docker.m7r;
 
-import org.mentalizr.commons.dirs.host.ContentDir;
-import org.mentalizr.commons.dirs.host.GitReposDir;
-import org.mentalizr.commons.dirs.host.hostDir.TomcatLogDir;
+import de.arthurpicht.taskRunner.task.TaskPreconditionException;
+import org.mentalizr.commons.paths.build.M7rWarFile;
+import org.mentalizr.commons.paths.host.ContentDir;
+import org.mentalizr.commons.paths.host.GitReposDir;
+import org.mentalizr.commons.paths.host.hostDir.TomcatLogDir;
 import org.mentalizr.infra.*;
 import org.mentalizr.infra.buildEntities.initFiles.tomcat.TomcatContextXml;
 import org.mentalizr.infra.docker.Docker;
+import org.mentalizr.infra.docker.DockerCopy;
 import org.mentalizr.infra.docker.DockerExecutionContext;
 import org.mentalizr.infra.processExecutor.ProcessResultCollection;
 import org.mentalizr.infra.utils.LoggerUtils;
@@ -23,7 +26,7 @@ public class M7rContainerTomcat {
             throw new InfraRuntimeException("Cannot create container [" + Const.CONTAINER_TOMCAT + "]." +
                     " Already existing.");
 
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
         Path imageBaseTempDir = GitReposDir.getInstance().asPath().resolve("core/m7r-img-base-tmp");
         ProcessResultCollection result;
         try {
@@ -51,24 +54,6 @@ public class M7rContainerTomcat {
                 TomcatContextXml.getInstanceFromConfiguration(),
                 Const.CONTAINER_TOMCAT,
                 "/man/tomcat/conf/");
-
-//        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
-//
-//        TomcatContextXml tomcatContextXml = TomcatContextXml.getInstanceFromConfiguration();
-//        String messageHeader = "Copy configuration file [" + tomcatContextXml.getFileName() + "] to [" + Const.CONTAINER_TOMCAT + "]:";
-//        if (context.isVerbose()) {
-//            System.out.println(messageHeader);
-//            System.out.println(tomcatContextXml.getContent());
-//        }
-//        logger.debug(messageHeader);
-//        logger.debug(tomcatContextXml.getContent());
-//
-//        try {
-//            Path tomcatContextXMLinTempDir = tomcatContextXml.writeToHostTempDir();
-//            DockerCopy.copyFileWithPreservedRights(context, tomcatContextXMLinTempDir, Const.CONTAINER_TOMCAT, "/man/tomcat/conf/");
-//        } catch (DockerExecutionException | IOException e) {
-//            throw new InfraRuntimeException(e.getMessage(), e);
-//        }
     }
 
     public static boolean exists() {
@@ -83,6 +68,10 @@ public class M7rContainerTomcat {
         return M7rContainer.isRunning(Const.CONTAINER_TOMCAT);
     }
 
+    public static void assertIsRunning() throws TaskPreconditionException {
+        if (!isRunning()) throw new TaskPreconditionException("[" + Const.CONTAINER_TOMCAT + "] not running.");
+    }
+
     public static void stop() {
         M7rContainer.stop(Const.CONTAINER_TOMCAT);
     }
@@ -93,6 +82,16 @@ public class M7rContainerTomcat {
 
     public static void remove() {
         M7rContainer.remove(Const.CONTAINER_TOMCAT);
+    }
+
+    public static void deployWar() {
+        M7rWarFile m7rWarFile = M7rWarFile.createInstance();
+        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        try {
+            DockerCopy.copyFile(context, m7rWarFile.asPath(), Const.CONTAINER_TOMCAT, "/man/tomcat/webapps/");
+        } catch (DockerExecutionException e) {
+            throw new InfraRuntimeException(e);
+        }
     }
 
 }

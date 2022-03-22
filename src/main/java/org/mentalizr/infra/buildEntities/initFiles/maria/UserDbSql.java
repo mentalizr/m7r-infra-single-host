@@ -1,7 +1,7 @@
 package org.mentalizr.infra.buildEntities.initFiles.maria;
 
 import de.arthurpicht.utils.io.nio2.FileUtils;
-import org.mentalizr.commons.dirs.host.GitReposDir;
+import org.mentalizr.commons.paths.host.GitReposDir;
 import org.mentalizr.infra.InfraRuntimeException;
 import org.mentalizr.infra.buildEntities.initFiles.InitFile;
 import org.mentalizr.infra.utils.document.Document;

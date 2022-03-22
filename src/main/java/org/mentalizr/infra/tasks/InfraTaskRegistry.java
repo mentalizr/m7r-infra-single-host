@@ -18,6 +18,7 @@ import org.mentalizr.infra.tasks.create.tomcat.CreateContainerTomcat;
 import org.mentalizr.infra.tasks.create.tomcat.CreateTomcat;
 import org.mentalizr.infra.tasks.create.tomcat.CreateVolumeTomcat;
 import org.mentalizr.infra.tasks.create.tomcat.InitializeContainerTomcat;
+import org.mentalizr.infra.tasks.deploy.*;
 import org.mentalizr.infra.tasks.remove.*;
 import org.mentalizr.infra.tasks.remove.maria.RemoveContainerMaria;
 import org.mentalizr.infra.tasks.remove.maria.RemoveMaria;
@@ -113,6 +114,15 @@ public class InfraTaskRegistry {
                 .withTask(StopMaria.create())
                 .withTask(StopTomcat.create())
                 .withTask(StopNginx.create());
+
+        taskRegistryBuilder
+                .withTask(Deploy.create())
+                .withTask(DeployHtml.create())
+                .withTask(DeployResrc.create())
+                .withTask(DeployWar.create())
+                .withTask(InitDbAdmin.create())
+                .withTask(InitDbSchema.create())
+                .withTask(Recover.create());
 
         return taskRegistryBuilder.build();
     }

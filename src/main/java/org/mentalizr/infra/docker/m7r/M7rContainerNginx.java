@@ -1,7 +1,7 @@
 package org.mentalizr.infra.docker.m7r;
 
-import org.mentalizr.commons.dirs.host.hostDir.CertsDir;
-import org.mentalizr.infra.ApplicationContext;
+import org.mentalizr.commons.paths.host.hostDir.CertsDir;
+import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.DockerExecutionException;
 import org.mentalizr.infra.InfraRuntimeException;
@@ -23,7 +23,7 @@ public class M7rContainerNginx {
             throw new InfraRuntimeException("Cannot create container [" + Const.CONTAINER_NGINX + "]." +
                     " Already existing.");
 
-        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
+        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
 
         ProcessResultCollection result;
         try {
