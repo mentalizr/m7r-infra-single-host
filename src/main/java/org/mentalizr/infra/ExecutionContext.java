@@ -3,6 +3,7 @@ package org.mentalizr.infra;
 import de.arthurpicht.cli.CliCall;
 import org.mentalizr.infra.docker.DockerExecutionContext;
 import org.mentalizr.infra.utils.LoggerUtils;
+import org.mentalizr.infra.utils.StringSubstitutorConfiguration;
 import org.slf4j.LoggerFactory;
 
 public class ExecutionContext {

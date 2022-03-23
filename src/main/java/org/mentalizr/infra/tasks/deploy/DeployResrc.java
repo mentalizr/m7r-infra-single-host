@@ -2,6 +2,7 @@ package org.mentalizr.infra.tasks.deploy;
 
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
+import org.mentalizr.infra.buildEntities.webAppResources.WebAppResources;
 
 public class DeployResrc {
 
@@ -10,7 +11,7 @@ public class DeployResrc {
                 .name("deploy-resrc")
                 .description("deploy resources")
                 .dependencies("deploy-html")
-                .execute(() -> {})
+                .execute(WebAppResources::deploy)
                 .build();
     }
 

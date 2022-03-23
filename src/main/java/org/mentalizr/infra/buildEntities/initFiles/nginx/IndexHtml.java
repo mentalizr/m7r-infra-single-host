@@ -1,10 +1,10 @@
 package org.mentalizr.infra.buildEntities.initFiles.nginx;
 
 import de.arthurpicht.utils.core.strings.Strings;
+import de.arthurpicht.utils.io.InputStreams;
 import org.mentalizr.infra.InfraRuntimeException;
 import org.mentalizr.infra.buildEntities.initFiles.InitFile;
 import org.mentalizr.infra.utils.IOUtils;
-import org.mentalizr.infra.utils.InputStreams;
 
 import java.io.IOException;
 import java.io.InputStream;

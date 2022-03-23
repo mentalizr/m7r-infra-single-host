@@ -1,7 +1,7 @@
 package org.mentalizr.infra.utils.document;
 
 import de.arthurpicht.utils.io.nio2.FileUtils;
-import org.mentalizr.infra.utils.InputStreams;
+import de.arthurpicht.utils.io.InputStreams;
 
 import java.io.IOException;
 import java.io.InputStream;

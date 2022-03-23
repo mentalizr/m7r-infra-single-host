@@ -1,8 +1,8 @@
 package org.mentalizr.infra.buildEntities.connections;
 
+import de.arthurpicht.utils.io.InputStreams;
 import org.mentalizr.infra.InfraRuntimeException;
 import org.mentalizr.infra.build.Backend;
-import org.mentalizr.infra.utils.InputStreams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,6 +57,30 @@ public class ConnectionTomcat {
             } catch (InterruptedException e) {
                 throw new InfraRuntimeException(e);
             }
+        }
+    }
+
+    public static String getResrcChecksum() {
+        String message = "If available, read resource checksum from tomcat.";
+        try {
+            URL url = new URL("http://localhost:8080/resrc/checksum");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            if (connection.getResponseCode() != 200) {
+                logger.debug(message + " Failed. ResponseCode is: " + connection.getResponseCode() + ".");
+                return "";
+            }
+            List<String> strings = InputStreams.toStrings(connection.getInputStream());
+            if (strings.size() == 0) {
+                logger.debug(message + " Failed. No response.");
+                return "";
+            }
+            String checksum = strings.get(0);
+            logger.debug(message + " Success. Deployed checksum is: " + checksum);
+            return checksum;
+        } catch (IOException e) {
+            logger.debug(message + " Failed. IOException: " + e.getMessage());
+            return "";
         }
     }
 

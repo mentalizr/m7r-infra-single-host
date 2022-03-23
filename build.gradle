@@ -18,7 +18,7 @@ repositories {
 
 dependencies {
     implementation 'com.github.arthurpicht:utils-core:1.8.0'
-    implementation 'com.github.arthurpicht:utils-io:0.0.9'
+    implementation 'com.github.arthurpicht:utils-io:0.0.11'
     implementation 'com.github.arthurpicht:cli:0.1-beta1'
     implementation 'com.github.arthurpicht:taskRunner:1.0-SNAPSHOT'
     implementation 'org.mentalizr:m7r-backend-config:1.0-SNAPSHOT'

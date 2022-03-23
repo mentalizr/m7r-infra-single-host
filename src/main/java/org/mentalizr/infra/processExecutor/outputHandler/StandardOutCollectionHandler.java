@@ -1,7 +1,8 @@
 package org.mentalizr.infra.processExecutor.outputHandler;
 
 import org.mentalizr.infra.processExecutor.StandardOutHandler;
-import org.mentalizr.infra.utils.InputStreams;
+
+import de.arthurpicht.utils.io.InputStreams;
 
 import java.io.IOException;
 import java.io.InputStream;
