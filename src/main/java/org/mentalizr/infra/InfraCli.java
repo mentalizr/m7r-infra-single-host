@@ -119,6 +119,12 @@ public class InfraCli {
                 .build()
         );
 
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("shell", "sql")
+                .withCommandExecutor(new ShellSqlExecutor())
+                .withDescription("Opens mysql client on maria container as root.")
+                .build()
+        );
 
         Options specificLogsOptions = new Options()
                 .add(new OptionBuilder().withShortName('f').withLongName("follow").withDescription("Follow logs.").build(SPECIFIC_OPTION_FOLLOW));

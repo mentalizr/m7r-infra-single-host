@@ -20,7 +20,7 @@ public class ShellTomcatExecutor implements CommandExecutor {
 
         DockerExecutionContext dockerExecutionContext = ExecutionContext.getDockerExecutionContext();
         try {
-            Shell.open(dockerExecutionContext, Const.CONTAINER_TOMCAT);
+            Shell.openBashShell(dockerExecutionContext, Const.CONTAINER_TOMCAT);
         } catch (DockerExecutionException | IllegalInfraStateException e) {
             throw new CommandExecutorException(e.getMessage(), e);
         }

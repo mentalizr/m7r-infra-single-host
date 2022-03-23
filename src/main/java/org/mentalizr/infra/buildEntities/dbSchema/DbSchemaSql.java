@@ -3,8 +3,6 @@ package org.mentalizr.infra.buildEntities.dbSchema;
 import org.mentalizr.commons.paths.M7rFile;
 import org.mentalizr.commons.paths.build.PersistenceRdbmsDir;
 
-import java.nio.file.Path;
-
 public class DbSchemaSql extends M7rFile {
 
     public DbSchemaSql() {

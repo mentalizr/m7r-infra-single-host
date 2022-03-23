@@ -10,7 +10,7 @@ public class DeployResrc {
         return new TaskBuilder()
                 .name("deploy-resrc")
                 .description("deploy resources")
-                .dependencies("deploy-html")
+                .dependencies("update-html")
                 .execute(WebAppResources::deploy)
                 .build();
     }

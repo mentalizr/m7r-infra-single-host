@@ -20,7 +20,7 @@ public class ShellMongoExecutor implements CommandExecutor {
 
         DockerExecutionContext dockerExecutionContext = ExecutionContext.getDockerExecutionContext();
         try {
-            Shell.open(dockerExecutionContext, Const.CONTAINER_MONGO);
+            Shell.openBashShell(dockerExecutionContext, Const.CONTAINER_MONGO);
         } catch (DockerExecutionException | IllegalInfraStateException e) {
             throw new CommandExecutorException(e.getMessage(), e);
         }

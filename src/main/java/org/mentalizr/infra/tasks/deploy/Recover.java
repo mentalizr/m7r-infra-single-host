@@ -9,7 +9,7 @@ public class Recover {
         return new TaskBuilder()
                 .name("recover")
                 .description("recover")
-                .dependencies("init-db-admin")
+                .dependencies("init-m7r-admin")
                 .execute(() -> {})
                 .build();
     }

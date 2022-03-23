@@ -117,10 +117,10 @@ public class InfraTaskRegistry {
 
         taskRegistryBuilder
                 .withTask(Deploy.create())
-                .withTask(DeployHtml.create())
+                .withTask(UpdateHtml.create())
                 .withTask(DeployResrc.create())
                 .withTask(DeployWar.create())
-                .withTask(InitDbAdmin.create())
+                .withTask(InitM7rAdmin.create())
                 .withTask(InitDbSchema.create())
                 .withTask(Recover.create());
 
