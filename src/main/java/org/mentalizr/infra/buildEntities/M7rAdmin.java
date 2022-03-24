@@ -1,10 +1,8 @@
 package org.mentalizr.infra.buildEntities;
 
-import de.arthurpicht.utils.core.collection.Lists;
 import org.mentalizr.backend.config.Configuration;
 import org.mentalizr.infra.InfraRuntimeException;
 import org.mentalizr.infra.buildEntities.connections.ConnectionMaria;
-import org.mentalizr.persistence.rdbms.barnacle.connectionManager.DataSourceException;
 import org.mentalizr.persistence.rdbms.barnacle.connectionManager.EntityNotFoundException;
 import org.mentalizr.persistence.rdbms.barnacle.dao.RoleAdminDAO;
 import org.mentalizr.persistence.rdbms.barnacle.dao.UserDAO;
@@ -18,8 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
 
 public class M7rAdmin {
 
@@ -67,15 +63,6 @@ public class M7rAdmin {
             throw new InfraRuntimeException("Exception on initializing m7r admin user: " + e.getMessage(), e);
         }
 
-    }
-
-    private static void executeSQLStatement(Connection connection, String sql) {
-        try {
-            Statement statement = connection.createStatement();
-            statement.execute(sql);
-        } catch (SQLException e) {
-            throw new InfraRuntimeException("Error on executing SQL: " + e.getMessage(), e);
-        }
     }
 
 }
