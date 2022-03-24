@@ -13,19 +13,19 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HtmlFiles {
+public class HtmlFilesSingleton {
 
-    private static HtmlFiles htmlFiles;
+    private static HtmlFilesSingleton htmlFilesSingleton;
 
     private final List<Path> htmlFileList;
     private long checksum;
 
-    public static HtmlFiles getInstance() {
-        if (htmlFiles == null) htmlFiles = new HtmlFiles();
-        return htmlFiles;
+    public static HtmlFilesSingleton getInstance() {
+        if (htmlFilesSingleton == null) htmlFilesSingleton = new HtmlFilesSingleton();
+        return htmlFilesSingleton;
     }
 
-    private HtmlFiles() {
+    private HtmlFilesSingleton() {
         this.htmlFileList = new ArrayList<>();
         this.htmlFileList.add(new InitHtml().asPath());
         this.htmlFileList.add(new LoginChunkHtml().asPath());

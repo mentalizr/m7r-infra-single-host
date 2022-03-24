@@ -2,7 +2,7 @@ package org.mentalizr.infra.tasks.deploy;
 
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
-import org.mentalizr.infra.buildEntities.webAppResources.WebAppResources;
+import org.mentalizr.infra.taskAgent.WebAppResources;
 
 public class DeployResrc {
 
@@ -11,6 +11,8 @@ public class DeployResrc {
                 .name("deploy-resrc")
                 .description("deploy resources")
                 .dependencies("update-html")
+                .inputChanged(() -> false)
+                .outputExists(WebAppResources::isDeployed)
                 .execute(WebAppResources::deploy)
                 .build();
     }

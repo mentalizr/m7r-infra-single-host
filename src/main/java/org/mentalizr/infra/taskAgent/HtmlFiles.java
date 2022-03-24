@@ -1,11 +1,11 @@
-package org.mentalizr.infra.taskEntities;
+package org.mentalizr.infra.taskAgent;
 
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.DockerExecutionException;
 import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.InfraRuntimeException;
 import org.mentalizr.infra.buildEntities.html.HtmlChecksum;
-import org.mentalizr.infra.buildEntities.html.HtmlFiles;
+import org.mentalizr.infra.buildEntities.html.HtmlFilesSingleton;
 import org.mentalizr.infra.docker.DockerCopy;
 import org.mentalizr.infra.docker.DockerExecutionContext;
 import org.slf4j.Logger;
@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 import java.nio.file.Path;
 import java.util.List;
 
-public class HtmlFilesTE {
+public class HtmlFiles {
 
-    private static final Logger logger = LoggerFactory.getLogger(HtmlFilesTE.class.getSimpleName());
+    private static final Logger logger = LoggerFactory.getLogger(HtmlFiles.class.getSimpleName());
 
     public static void deploy() {
         logger.info("Deploy html files.");
@@ -38,7 +38,7 @@ public class HtmlFilesTE {
 
     private static void copyHtmlFilesToContainer() {
         DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
-        List<Path> htmlFileList = HtmlFiles.getInstance().getHtmlFileList();
+        List<Path> htmlFileList = HtmlFilesSingleton.getInstance().getHtmlFileList();
         for (Path file : htmlFileList) {
             try {
                 DockerCopy.copyFile(

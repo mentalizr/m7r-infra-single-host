@@ -60,30 +60,6 @@ public class ConnectionTomcat {
         }
     }
 
-    public static String getResrcChecksum() {
-        String message = "If available, read resource checksum from tomcat.";
-        try {
-            URL url = new URL("http://localhost:8080/resrc/checksum");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            if (connection.getResponseCode() != 200) {
-                logger.debug(message + " Failed. ResponseCode is: " + connection.getResponseCode() + ".");
-                return "";
-            }
-            List<String> strings = InputStreams.toStrings(connection.getInputStream());
-            if (strings.size() == 0) {
-                logger.debug(message + " Failed. No response.");
-                return "";
-            }
-            String checksum = strings.get(0);
-            logger.debug(message + " Success. Deployed checksum is: " + checksum);
-            return checksum;
-        } catch (IOException e) {
-            logger.debug(message + " Failed. IOException: " + e.getMessage());
-            return "";
-        }
-    }
-
     public static boolean hasBuildDate(String buildDateString) {
         String message = "Check if running webApp has BuildDate [" + buildDateString + "].";
         try {

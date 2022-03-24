@@ -2,8 +2,7 @@ package org.mentalizr.infra.tasks.deploy;
 
 import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
-import org.mentalizr.infra.buildEntities.html.files.HtmlDeployState;
-import org.mentalizr.infra.taskEntities.HtmlFilesTE;
+import org.mentalizr.infra.taskAgent.HtmlFiles;
 
 public class UpdateHtml {
 
@@ -13,8 +12,8 @@ public class UpdateHtml {
                 .description("deploy html")
                 .dependencies("deploy-war")
                 .inputChanged(() -> false)
-                .outputExists(HtmlFilesTE::isDeployed)
-                .execute(HtmlFilesTE::deploy)
+                .outputExists(HtmlFiles::isDeployed)
+                .execute(HtmlFiles::deploy)
                 .build();
     }
 

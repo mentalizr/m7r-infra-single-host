@@ -1,6 +1,5 @@
 package org.mentalizr.infra.buildEntities.webAppResources;
 
-import de.arthurpicht.utils.core.strings.Strings;
 import de.arthurpicht.utils.io.tempDir.TempDir;
 import org.mentalizr.commons.paths.build.DockerInfraInitResrcDir;
 import org.mentalizr.commons.paths.build.FrontendDir;
@@ -8,7 +7,7 @@ import org.mentalizr.commons.paths.build.FrontendProjectDir;
 import org.mentalizr.commons.paths.build.WebComponentsDir;
 import org.mentalizr.infra.utils.StringSubstitutorConfiguration;
 
-public class SubstitutorConfiguration {
+public class SubstitutorConfigurationFactory {
 
     public static StringSubstitutorConfiguration create(TempDir tempDir) {
 

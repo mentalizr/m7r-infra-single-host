@@ -3,7 +3,7 @@ package org.mentalizr.infra.utils;
 import de.arthurpicht.utils.io.nio2.FileUtils;
 import de.arthurpicht.utils.io.tempDir.TempDir;
 import org.mentalizr.infra.InfraRuntimeException;
-import org.mentalizr.infra.buildEntities.webAppResources.SubstitutorConfiguration;
+import org.mentalizr.infra.buildEntities.webAppResources.SubstitutorConfigurationFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +18,7 @@ public class M7rFiles {
     private final StringSubstitutorConfiguration configuration;
 
     public M7rFiles(TempDir tempDir) {
-        this.configuration = SubstitutorConfiguration.create(tempDir);
+        this.configuration = SubstitutorConfigurationFactory.create(tempDir);
     }
 
     public void copy(String source, String destination) {

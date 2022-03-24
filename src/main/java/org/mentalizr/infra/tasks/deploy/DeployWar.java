@@ -4,10 +4,8 @@ import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.taskRunner.task.TaskBuilder;
 import org.mentalizr.infra.build.Backend;
 import org.mentalizr.infra.buildEntities.connections.ConnectionTomcat;
-import org.mentalizr.infra.buildEntities.html.HtmlChecksum;
-import org.mentalizr.infra.docker.m7r.M7rContainerMaria;
 import org.mentalizr.infra.docker.m7r.M7rContainerTomcat;
-import org.mentalizr.infra.taskEntities.HtmlFilesTE;
+import org.mentalizr.infra.taskAgent.HtmlFiles;
 
 public class DeployWar {
 
@@ -20,7 +18,7 @@ public class DeployWar {
                 .outputExists(Backend::isCurrentBuildAlreadyDeployed)
                 .execute(() -> {
                     M7rContainerTomcat.deployWar();
-                    HtmlFilesTE.writeChecksumToContainer();
+                    HtmlFiles.writeChecksumToContainer();
                     ConnectionTomcat.awaitDeployment();
                 })
                 .build();
