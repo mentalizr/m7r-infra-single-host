@@ -13,24 +13,27 @@ public class InfraTaskRunner {
         TaskRegistry taskRegistry = InfraTaskRegistry.create();
         return new TaskRunnerBuilder()
                 .withTaskRegistry(taskRegistry)
-                .withPreExecution(task -> {
+                .withOnPreExecuteCallback(task -> {
                     System.out.print("[" + task.getName() + "] ... ");
                 })
-                .withSuccessExecution(task -> {
+                .withOnSuccessCallback(task -> {
                     System.out.println("OK");
                 })
-                .withSkipExecution(task -> {
-                    System.out.println("skipped");
+                .withOnSkipCallback(task -> {
+                    System.out.println("SKIPPED");
                 })
-                .withFailByTaskPreconditionException((task, taskPreconditionException) -> {
+                .withOnUpToDateCallback(task -> {
+                    System.out.println("UP-TO-DATE");
+                })
+                .withOnFailByTaskPreconditionExceptionCallback((task, taskPreconditionException) -> {
                     System.out.println("Precondition failed: " + taskPreconditionException.getMessage());
                     if (showStacktrace) taskPreconditionException.printStackTrace();
                 })
-                .withFailByTaskExecutionException((task, taskExecutionException) -> {
+                .withOnFailByTaskExecutionExceptionCallback((task, taskExecutionException) -> {
                     System.out.println("Error: " + taskExecutionException.getMessage());
                     if (showStacktrace) taskExecutionException.printStackTrace();
                 })
-                .withFailByRuntimeException((task, runtimeException) -> {
+                .withOnFailByRuntimeExceptionCallback((task, runtimeException) -> {
                     System.out.println("RuntimeError: " + runtimeException.getMessage());
                     if (showStacktrace) runtimeException.printStackTrace();
                 })
