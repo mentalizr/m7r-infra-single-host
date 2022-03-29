@@ -12,8 +12,7 @@ public class StartContainerNginx {
         return new TaskBuilder()
                 .name("start-container-nginx")
                 .description("start [" + Const.CONTAINER_NGINX + "]")
-                .inputChanged(() -> false)
-                .outputExists(M7rContainerNginx::isRunning)
+                .isUpToDate(M7rContainerNginx::isRunning)
                 .execute(M7rContainerNginx::start)
                 .build();
     }

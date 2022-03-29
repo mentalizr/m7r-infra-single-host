@@ -11,8 +11,7 @@ public class CreateContainerTomcat {
                 .name("create-container-tomcat")
                 .description("create container tomcat")
                 .dependencies("create-volume-tomcat")
-                .inputChanged(() -> false)
-                .outputExists(M7rContainerTomcat::exists)
+                .isUpToDate(M7rContainerTomcat::exists)
                 .execute(M7rContainerTomcat::create)
                 .build();
     }

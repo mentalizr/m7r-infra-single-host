@@ -11,8 +11,7 @@ public class InitDbSchema {
                 .name("init-db-schema")
                 .description("init database schema")
                 .dependencies("deploy-resrc")
-                .inputChanged(() -> false)
-                .outputExists(DbSchema::hasDbCreatedTables)
+                .isUpToDate(DbSchema::hasDbCreatedTables)
                 .execute(DbSchema::deploy)
                 .build();
     }

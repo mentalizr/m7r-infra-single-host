@@ -12,8 +12,7 @@ public class CreateContainerMongo {
                 .name("create-container-mongo")
                 .description("create container mongo")
                 .dependencies("create-volume-mongo")
-                .inputChanged(() -> false)
-                .outputExists(M7rContainerMongo::exists)
+                .isUpToDate(M7rContainerMongo::exists)
                 .execute(M7rContainerMongo::create)
                 .build();
     }

@@ -13,8 +13,7 @@ public class RemoveVolumeMongo {
                 .name("remove-volume-mongo")
                 .description("remove docker volume [" + Const.VOLUME_MONGO + "]")
                 .dependencies("remove-container-mongo")
-                .inputChanged(() -> false)
-                .outputExists(() -> !M7rVolumeMongo.exists())
+                .isUpToDate(() -> !M7rVolumeMongo.exists())
                 .execute(M7rVolumeMongo::remove)
                 .build();
     }

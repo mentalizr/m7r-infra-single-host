@@ -11,8 +11,7 @@ public class CreateVolumeTomcat {
                 .name("create-volume-tomcat")
                 .description("create docker volume for tomcat")
                 .dependencies("create-network")
-                .inputChanged(() -> false)
-                .outputExists(M7rVolumeTomcat::exists)
+                .isUpToDate(M7rVolumeTomcat::exists)
                 .execute(M7rVolumeTomcat::create)
                 .build();
     }

@@ -11,8 +11,7 @@ public class DeployResrc {
                 .name("deploy-resrc")
                 .description("deploy resources")
                 .dependencies("update-html")
-                .inputChanged(() -> false)
-                .outputExists(WebAppResources::isDeployed)
+                .isUpToDate(WebAppResources::isDeployed)
                 .execute(WebAppResources::deploy)
                 .build();
     }

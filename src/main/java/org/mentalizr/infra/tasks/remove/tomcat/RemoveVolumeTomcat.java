@@ -12,8 +12,7 @@ public class RemoveVolumeTomcat {
                 .name("remove-volume-tomcat")
                 .description("remove docker volume [" + Const.VOLUME_TOMCAT + "]")
                 .dependencies("remove-container-tomcat")
-                .inputChanged(() -> false)
-                .outputExists(() -> !M7rVolumeTomcat.exists())
+                .isUpToDate(() -> !M7rVolumeTomcat.exists())
                 .execute(M7rVolumeTomcat::remove)
                 .build();
     }

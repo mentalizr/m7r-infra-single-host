@@ -13,8 +13,7 @@ public class RemoveVolumeMaria {
                 .name("remove-volume-maria")
                 .description("remove docker volume [" + Const.VOLUME_MARIA + "]")
                 .dependencies("remove-container-maria")
-                .inputChanged(() -> false)
-                .outputExists(() -> !M7rVolumeMaria.exists())
+                .isUpToDate(() -> !M7rVolumeMaria.exists())
                 .execute(M7rVolumeMaria::remove)
                 .build();
     }

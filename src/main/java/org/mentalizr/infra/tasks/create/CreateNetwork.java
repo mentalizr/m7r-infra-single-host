@@ -12,8 +12,7 @@ public class CreateNetwork {
                 .name("create-network")
                 .description("create docker network [" + Const.NETWORK + "]")
                 .dependencies("create-dirs")
-                .inputChanged(() -> false)
-                .outputExists(M7rNetwork::exists)
+                .isUpToDate(M7rNetwork::exists)
                 .execute(M7rNetwork::create)
                 .build();
     }

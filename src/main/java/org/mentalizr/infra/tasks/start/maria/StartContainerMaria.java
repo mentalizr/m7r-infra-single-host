@@ -11,8 +11,7 @@ public class StartContainerMaria {
         return new TaskBuilder()
                 .name("start-container-maria")
                 .description("start container [" + Const.CONTAINER_MARIA + "]")
-                .inputChanged(() -> true)
-                .outputExists(M7rContainerMaria::isRunning)
+                .isUpToDate(M7rContainerMaria::isRunning)
                 .execute(M7rContainerMaria::start)
                 .build();
     }

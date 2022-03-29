@@ -11,8 +11,7 @@ public class RemoveContainerNginx {
         return new TaskBuilder()
                 .name("remove-container-nginx")
                 .description("remove container nginx")
-                .inputChanged(() -> false)
-                .outputExists(() -> !M7rContainerNginx.exists())
+                .isUpToDate(() -> !M7rContainerNginx.exists())
                 .execute(M7rContainerNginx::remove)
                 .build();
     }

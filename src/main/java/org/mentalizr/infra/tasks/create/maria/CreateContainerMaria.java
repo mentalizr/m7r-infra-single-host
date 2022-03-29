@@ -12,8 +12,7 @@ public class CreateContainerMaria {
                 .name("create-container-maria")
                 .description("create container maria")
                 .dependencies("create-volume-maria")
-                .inputChanged(() -> false)
-                .outputExists(M7rContainerMaria::exists)
+                .isUpToDate(M7rContainerMaria::exists)
                 .execute(M7rContainerMaria::create)
                 .build();
     }

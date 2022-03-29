@@ -33,7 +33,6 @@ public class StatusExecutor implements CommandExecutor {
     private static final String SKIPPED = Ansi.colorize("SKIPPED", Attribute.YELLOW_TEXT());
     private static final String FAILED = Ansi.colorize("FAILED", Attribute.RED_TEXT());
 
-
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
         ExecutionContext.initialize(cliCall);
@@ -188,7 +187,6 @@ public class StatusExecutor implements CommandExecutor {
         } catch (UnknownHostException e) {
             return "UNKNOWN";
         }
-
     }
 
 }

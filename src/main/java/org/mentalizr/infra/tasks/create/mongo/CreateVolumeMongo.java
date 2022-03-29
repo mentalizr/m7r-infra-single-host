@@ -13,8 +13,7 @@ public class CreateVolumeMongo {
                 .name("create-volume-mongo")
                 .description("create docker volume for mongo")
                 .dependencies("create-network")
-                .inputChanged(() -> false)
-                .outputExists(M7rVolumeMongo::exists)
+                .isUpToDate(M7rVolumeMongo::exists)
                 .execute(M7rVolumeMongo::create)
                 .build();
     }

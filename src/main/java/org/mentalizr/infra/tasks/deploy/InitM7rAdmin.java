@@ -11,8 +11,7 @@ public class InitM7rAdmin {
                 .name("init-m7r-admin")
                 .description("init database admin user")
                 .dependencies("init-db-schema")
-                .inputChanged(() -> false)
-                .outputExists(M7rAdmin::isAdminUserInitialized)
+                .isUpToDate(M7rAdmin::isAdminUserInitialized)
                 .execute(M7rAdmin::init)
                 .build();
     }

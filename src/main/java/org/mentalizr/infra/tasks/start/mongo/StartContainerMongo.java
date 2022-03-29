@@ -11,8 +11,7 @@ public class StartContainerMongo {
         return new TaskBuilder()
                 .name("start-container-mongo")
                 .description("start container [" + Const.CONTAINER_MONGO + "]")
-                .inputChanged(() -> false)
-                .outputExists(M7rContainerMongo::isRunning)
+                .isUpToDate(M7rContainerMongo::isRunning)
                 .execute(M7rContainerMongo::start)
                 .build();
     }

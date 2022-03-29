@@ -11,8 +11,7 @@ public class UpdateHtml {
                 .name("update-html")
                 .description("deploy html")
                 .dependencies("deploy-war")
-                .inputChanged(() -> false)
-                .outputExists(HtmlFiles::isDeployed)
+                .isUpToDate(HtmlFiles::isDeployed)
                 .execute(HtmlFiles::deploy)
                 .build();
     }

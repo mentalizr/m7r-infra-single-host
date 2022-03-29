@@ -12,8 +12,7 @@ public class StartContainerTomcat {
                 .name("start-container-tomcat")
                 .description("start [" + Const.CONTAINER_TOMCAT + "]")
                 .dependencies("start-maria", "start-mongo")
-                .inputChanged(() -> false)
-                .outputExists(M7rContainerTomcat::isRunning)
+                .isUpToDate(M7rContainerTomcat::isRunning)
                 .execute(M7rContainerTomcat::start)
                 .build();
     }

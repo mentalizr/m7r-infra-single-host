@@ -12,8 +12,7 @@ public class CreateVolumeMaria {
                 .name("create-volume-maria")
                 .description("create docker volume for maria")
                 .dependencies("create-network")
-                .inputChanged(() -> false)
-                .outputExists(M7rVolumeMaria::exists)
+                .isUpToDate(M7rVolumeMaria::exists)
                 .execute(M7rVolumeMaria::create)
                 .build();
     }

@@ -12,8 +12,7 @@ public class RemoveContainerMongo {
         return new TaskBuilder()
                 .name("remove-container-mongo")
                 .description("remove container mongo")
-                .inputChanged(() -> false)
-                .outputExists(() -> !M7rContainerMongo.exists())
+                .isUpToDate(() -> !M7rContainerMongo.exists())
                 .execute(M7rContainerMongo::remove)
                 .build();
     }

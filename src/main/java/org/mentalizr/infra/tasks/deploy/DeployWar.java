@@ -13,9 +13,8 @@ public class DeployWar {
         return new TaskBuilder()
                 .name("deploy-war")
                 .description("deploy war")
-                .inputChanged(() -> false)
                 .precondition(M7rContainerTomcat::assertIsRunning)
-                .outputExists(Backend::isCurrentBuildAlreadyDeployed)
+                .isUpToDate(Backend::isCurrentBuildAlreadyDeployed)
                 .execute(() -> {
                     M7rContainerTomcat.deployWar();
                     HtmlFiles.writeChecksumToContainer();

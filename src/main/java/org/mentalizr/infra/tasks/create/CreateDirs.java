@@ -12,8 +12,7 @@ public class CreateDirs {
         return new TaskBuilder()
                 .name("create-dirs")
                 .description("create directories")
-                .inputChanged(() -> false)
-                .outputExists(LogDirs::existsAllLogDirs)
+                .isUpToDate(LogDirs::existsAllLogDirs)
                 .execute(LogDirs::createAllLogDirs)
                 .build();
     }

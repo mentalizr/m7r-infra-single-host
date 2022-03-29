@@ -12,8 +12,7 @@ public class RemoveNetwork {
                 .name("remove-network")
                 .description("remove docker network [" + Const.NETWORK + "]")
                 .dependencies("remove-mongo", "remove-maria", "remove-tomcat", "remove-nginx")
-                .inputChanged(() -> false)
-                .outputExists(() -> !M7rNetwork.exists())
+                .isUpToDate(() -> !M7rNetwork.exists())
                 .execute(M7rNetwork::remove)
                 .build();
     }
