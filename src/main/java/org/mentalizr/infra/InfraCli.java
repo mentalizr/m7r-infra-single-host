@@ -21,6 +21,7 @@ public class InfraCli {
     public static final String OPTION_SILENT = "silent";
 
     public static final String SPECIFIC_OPTION_FOLLOW = "follow";
+    public static final String SPECIFIC_OPTION_CONFIGURATION = "configuration";
 
     private static Cli createCli() {
 
@@ -35,8 +36,12 @@ public class InfraCli {
 
         commands.setDefaultCommand(new InfoDefaultCommand());
 
+        Options specificOptionsStatus = new Options()
+                .add(new OptionBuilder().withLongName("configuration").withShortName('c').withDescription("show configuration also").build(SPECIFIC_OPTION_CONFIGURATION));
+
         commands.add(new CommandSequenceBuilder()
                 .addCommands("status")
+                .withSpecificOptions(specificOptionsStatus)
                 .withCommandExecutor(new StatusExecutor())
                 .withDescription("Show status.")
                 .build()
@@ -95,6 +100,20 @@ public class InfraCli {
                 .addCommands("deploy")
                 .withCommandExecutor(new DeployExecutor())
                 .withDescription("Deploys to server instances.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("recover")
+                .withCommandExecutor(new DeployExecutor())
+                .withDescription("Recovers databases.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("backup")
+                .withCommandExecutor(new BackupExecutor())
+                .withDescription("Backups databases.")
                 .build()
         );
 

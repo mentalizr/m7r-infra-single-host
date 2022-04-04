@@ -5,26 +5,21 @@ import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
 import de.arthurpicht.taskRunner.TaskRunner;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
-import de.arthurpicht.utils.core.collection.Lists;
 import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
-import org.mentalizr.infra.utils.ListUtils;
 
-import java.util.List;
-
-public class PullUpExecutor implements CommandExecutor {
+public class BackupExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
         ExecutionContext.initialize(cliCall);
 
-        System.out.println("pullup");
+        System.out.println("Backup");
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
-        List<TaskRunnerResult> taskRunnerResults = taskRunner.run("create", "start", "deploy", "recover");
+        TaskRunnerResult result = taskRunner.run("backup");
 
-        if (!ListUtils.getLastElement(taskRunnerResults).isSuccess())
-            throw new CommandExecutorException();
+        if (!result.isSuccess()) throw new CommandExecutorException();
     }
 
 }

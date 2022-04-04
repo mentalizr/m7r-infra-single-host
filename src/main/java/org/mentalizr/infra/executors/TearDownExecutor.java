@@ -7,6 +7,9 @@ import de.arthurpicht.taskRunner.TaskRunner;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
 import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
+import org.mentalizr.infra.utils.ListUtils;
+
+import java.util.List;
 
 public class TearDownExecutor implements CommandExecutor {
 
@@ -17,8 +20,10 @@ public class TearDownExecutor implements CommandExecutor {
         System.out.println("tear down mentalizr infrastructure.");
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
-        TaskRunnerResult result = taskRunner.run("stop");
-        if (result.isSuccess()) result = taskRunner.run("remove");
+        List<TaskRunnerResult> taskRunnerResults = taskRunner.run("backup", "stop", "remove");
+
+        if (!ListUtils.getLastElement(taskRunnerResults).isSuccess())
+            throw new CommandExecutorException();
     }
 
 }

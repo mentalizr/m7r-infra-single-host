@@ -18,6 +18,8 @@ public class StopExecutor implements CommandExecutor {
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         TaskRunnerResult result = taskRunner.run("stop");
+
+        if (!result.isSuccess()) throw new CommandExecutorException();
     }
 
 }

@@ -6,8 +6,10 @@ import de.arthurpicht.cli.CliCall;
 import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
 import de.arthurpicht.utils.core.strings.Strings;
+import org.mentalizr.commons.paths.host.hostDir.M7rInfraConfigDir;
 import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.Const;
+import org.mentalizr.infra.InfraCli;
 import org.mentalizr.infra.buildEntities.connections.ConnectionMaria;
 import org.mentalizr.infra.buildEntities.connections.ConnectionMongo;
 import org.mentalizr.infra.buildEntities.connections.ConnectionTomcat;
@@ -39,6 +41,12 @@ public class StatusExecutor implements CommandExecutor {
 
         System.out.println("mentalizr infrastructure status on " + Ansi.colorize(getHostname(), Attribute.WHITE_TEXT(), Attribute.BOLD()));
 
+        boolean showConfiguration
+                = cliCall.getOptionParserResultSpecific().hasOption(InfraCli.SPECIFIC_OPTION_CONFIGURATION);
+        if (showConfiguration) {
+
+        }
+
         String networkString = Strings.fillUpAfter("Network [" + Const.NETWORK + "]: ", ' ', minLengthString);
         if (M7rNetwork.exists()) {
             System.out.println(networkString + UP);
@@ -61,7 +69,7 @@ public class StatusExecutor implements CommandExecutor {
                 System.out.println(containerMongoString + UP + " " + STOPPED);
             }
         } else {
-            System.out.println(containerMongoString + "--");
+            System.out.println(containerMongoString + DOWN);
         }
 
         String portMongoString = Strings.fillUpAfter("MongoDB port 27017: ", ' ', minLengthString);
@@ -187,6 +195,13 @@ public class StatusExecutor implements CommandExecutor {
         } catch (UnknownHostException e) {
             return "UNKNOWN";
         }
+    }
+
+    private static void showConfiguration() {
+        M7rInfraConfigDir m7rInfraConfigDir = M7rInfraConfigDir.createInstance();
+        System.out.println("Host config directory ["
+                + m7rInfraConfigDir.asPath().toAbsolutePath() + "].");
+
     }
 
 }

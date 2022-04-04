@@ -2,6 +2,7 @@ package org.mentalizr.infra.tasks;
 
 import de.arthurpicht.taskRunner.taskRegistry.TaskRegistry;
 import de.arthurpicht.taskRunner.taskRegistry.TaskRegistryBuilder;
+import org.mentalizr.infra.tasks.backup.Backup;
 import org.mentalizr.infra.tasks.create.*;
 import org.mentalizr.infra.tasks.create.maria.CreateContainerMaria;
 import org.mentalizr.infra.tasks.create.maria.CreateMaria;
@@ -19,6 +20,7 @@ import org.mentalizr.infra.tasks.create.tomcat.CreateTomcat;
 import org.mentalizr.infra.tasks.create.tomcat.CreateVolumeTomcat;
 import org.mentalizr.infra.tasks.create.tomcat.InitializeContainerTomcat;
 import org.mentalizr.infra.tasks.deploy.*;
+import org.mentalizr.infra.tasks.recover.Recover;
 import org.mentalizr.infra.tasks.remove.*;
 import org.mentalizr.infra.tasks.remove.maria.RemoveContainerMaria;
 import org.mentalizr.infra.tasks.remove.maria.RemoveMaria;
@@ -121,8 +123,13 @@ public class InfraTaskRegistry {
                 .withTask(DeployResrc.create())
                 .withTask(DeployWar.create())
                 .withTask(InitM7rAdmin.create())
-                .withTask(InitDbSchema.create())
+                .withTask(InitDbSchema.create());
+
+        taskRegistryBuilder
                 .withTask(Recover.create());
+
+        taskRegistryBuilder
+                .withTask(Backup.create());
 
         return taskRegistryBuilder.build();
     }

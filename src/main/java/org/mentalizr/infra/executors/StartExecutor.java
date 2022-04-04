@@ -18,6 +18,8 @@ public class StartExecutor implements CommandExecutor {
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         TaskRunnerResult result = taskRunner.run("start");
+
+        if (!result.isSuccess()) throw new CommandExecutorException();
     }
 
 }

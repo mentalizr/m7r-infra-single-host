@@ -9,7 +9,7 @@ public class Deploy {
         return new TaskBuilder()
                 .name("deploy")
                 .description("deploy")
-                .dependencies("recover")
+                .dependencies("init-m7r-admin")
                 .isTarget()
                 .execute(() -> {})
                 .build();
