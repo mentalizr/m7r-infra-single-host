@@ -2,6 +2,8 @@ package org.mentalizr.infra.utils;
 
 import de.arthurpicht.utils.core.assertion.MethodPreconditions;
 
+import java.util.List;
+
 public class StringUtils {
 
     public static String assureEndsWith(String string, String ending) {
@@ -15,6 +17,10 @@ public class StringUtils {
         StringBuilder stringBuilder = new StringBuilder();
         objects.forEach(stringBuilder::append);
         return stringBuilder.toString();
+    }
+
+    public static String[] toArray(List<String> list) {
+        return list.toArray(new String[0]);
     }
 
 }

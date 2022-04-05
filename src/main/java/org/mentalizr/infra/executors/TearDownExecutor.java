@@ -20,7 +20,7 @@ public class TearDownExecutor implements CommandExecutor {
         System.out.println("tear down mentalizr infrastructure.");
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
-        List<TaskRunnerResult> taskRunnerResults = taskRunner.run("backup", "stop", "remove");
+        List<TaskRunnerResult> taskRunnerResults = taskRunner.run("stop", "remove");
 
         if (!ListUtils.getLastElement(taskRunnerResults).isSuccess())
             throw new CommandExecutorException();

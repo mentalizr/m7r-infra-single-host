@@ -10,9 +10,6 @@ import de.arthurpicht.cli.option.OptionBuilder;
 import de.arthurpicht.cli.option.Options;
 import de.arthurpicht.cli.option.VersionOption;
 import org.mentalizr.infra.executors.*;
-import org.mentalizr.infra.utils.LoggerUtils;
-
-import java.nio.file.Path;
 
 public class InfraCli {
 
@@ -22,6 +19,10 @@ public class InfraCli {
 
     public static final String SPECIFIC_OPTION_FOLLOW = "follow";
     public static final String SPECIFIC_OPTION_CONFIGURATION = "configuration";
+
+    public static final String SPECIFIC_OPTION_DEV = "default";
+    public static final String SPECIFIC_OPTION_LATEST = "latest";
+    public static final String SPECIFIC_OPTION_NO_RECOVER = "no-recover";
 
     private static Cli createCli() {
 
@@ -82,8 +83,14 @@ public class InfraCli {
                 .build()
         );
 
+        Options specificOptionsPullUp = new Options()
+                .add(new OptionBuilder().withLongName("dev").withShortName('d').withDescription("recover from dev backup").build(SPECIFIC_OPTION_DEV))
+                .add(new OptionBuilder().withLongName("latest").withShortName('l').withDescription("recover from latest backup").build(SPECIFIC_OPTION_LATEST))
+                .add(new OptionBuilder().withLongName("no-recover").withShortName('x').withDescription("omit recover").build(SPECIFIC_OPTION_NO_RECOVER));
+
         commands.add(new CommandSequenceBuilder()
                 .addCommands("pullup")
+                .withSpecificOptions(specificOptionsPullUp)
                 .withCommandExecutor(new PullUpExecutor())
                 .withDescription("Pulls up mentalizr docker infrastructure.")
                 .build()
@@ -103,8 +110,13 @@ public class InfraCli {
                 .build()
         );
 
+        Options specificOptionsRecover = new Options()
+                .add(new OptionBuilder().withLongName("dev").withShortName('d').withDescription("recover from dev backup").build(SPECIFIC_OPTION_DEV))
+                .add(new OptionBuilder().withLongName("latest").withShortName('l').withDescription("recover from latest backup").build(SPECIFIC_OPTION_LATEST));
+
         commands.add(new CommandSequenceBuilder()
                 .addCommands("recover")
+                .withSpecificOptions(specificOptionsRecover)
                 .withCommandExecutor(new DeployExecutor())
                 .withDescription("Recovers databases.")
                 .build()

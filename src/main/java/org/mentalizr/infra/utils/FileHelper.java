@@ -133,5 +133,12 @@ public class FileHelper {
         return pathList;
     }
 
+    public static boolean hasSubdirectories(Path path) throws IOException {
+        assertArgumentNotNull("path", path);
+        if (!FileUtils.isExistingDirectory(path))
+            throw new IllegalArgumentException("Specified path is no existing directory.");
+
+        return Files.list(path).anyMatch(Files::isDirectory);
+    }
 
 }
