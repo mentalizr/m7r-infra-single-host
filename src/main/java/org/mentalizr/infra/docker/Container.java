@@ -1,6 +1,5 @@
 package org.mentalizr.infra.docker;
 
-import org.mentalizr.infra.Const;
 import org.mentalizr.infra.DockerExecutionException;
 import org.mentalizr.infra.IllegalInfraStateException;
 import org.mentalizr.infra.processExecutor.ProcessResultCollection;

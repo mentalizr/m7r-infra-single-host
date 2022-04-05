@@ -6,14 +6,18 @@ import org.mentalizr.infra.utils.LoggerUtils;
 import org.mentalizr.infra.utils.StringSubstitutorConfiguration;
 import org.slf4j.LoggerFactory;
 
+import java.time.Instant;
+
 public class ExecutionContext {
 
+    private static Instant callTimestamp;
     private static DockerExecutionContext dockerExecutionContext = null;
     private static CliCall cliCall;
     private static boolean verbose;
     private static boolean showStacktrace;
 
     public static void initialize(CliCall cliCall) {
+        callTimestamp = Instant.now();
         ExecutionContext.dockerExecutionContext = new DockerExecutionContext.Builder()
                 .beVerbose(cliCall.getOptionParserResultGlobal().hasOption(InfraCli.OPTION_VERBOSE))
                 .withLogger(LoggerFactory.getLogger(LoggerUtils.DOCKER_LOGGER))
@@ -21,6 +25,10 @@ public class ExecutionContext {
         ExecutionContext.cliCall = cliCall;
         verbose = cliCall.getOptionParserResultGlobal().hasOption(InfraCli.OPTION_VERBOSE);
         showStacktrace = cliCall.getOptionParserResultGlobal().hasOption(InfraCli.OPTION_STACKTRACE);
+    }
+
+    public static Instant getCallTimestamp() {
+        return callTimestamp;
     }
 
     public static DockerExecutionContext getDockerExecutionContext() {

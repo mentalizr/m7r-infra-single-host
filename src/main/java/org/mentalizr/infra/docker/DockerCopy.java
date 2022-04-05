@@ -9,8 +9,6 @@ import org.mentalizr.infra.processExecutor.outputHandler.generalOutputHandler.Ge
 import org.mentalizr.infra.processExecutor.outputHandler.generalOutputHandler.GeneralStandardOutHandler;
 import org.mentalizr.infra.utils.StringUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,7 +48,7 @@ public class DockerCopy {
         List<String> allCommandsForOutput = new ArrayList<>(commands1);
         allCommandsForOutput.add("|");
         allCommandsForOutput.addAll(commands2);
-        Docker.output(context, allCommandsForOutput);
+        Docker.userOutput(context, allCommandsForOutput);
 
         GeneralStandardOutHandler stdOutHandler = new GeneralStandardOutHandler(context.getLogger(), context.isVerbose());
         GeneralStandardErrorHandler stdErrorHandler = new GeneralStandardErrorHandler(context.getLogger(), context.isVerbose());

@@ -130,6 +130,20 @@ public class InfraCli {
         );
 
         commands.add(new CommandSequenceBuilder()
+                .addCommands("create-images")
+                .withCommandExecutor(new CreateImagesExecutor())
+                .withDescription("Creates images.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("remove-images")
+                .withCommandExecutor(new RemoveImagesExecutor())
+                .withDescription("Removes images.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
                 .addCommands("shell", "mongo")
                 .withCommandExecutor(new ShellMongoExecutor())
                 .withDescription("Opens shell on mongo container.")
@@ -201,8 +215,6 @@ public class InfraCli {
 
         boolean showStacktrace = cliCall.getOptionParserResultGlobal().hasOption(OPTION_STACKTRACE);
 
-
-
         try {
             cli.execute(cliCall);
             System.out.println("m7r-instance execution succeeded.");
@@ -215,6 +227,5 @@ public class InfraCli {
             if (showStacktrace) e.printStackTrace();
             System.exit(1);
         }
-
     }
 }

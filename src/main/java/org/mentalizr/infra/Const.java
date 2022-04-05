@@ -15,8 +15,19 @@ public class Const {
     public static final String IMAGE_TOMCAT = "arthurpicht/tomcat-9:latest";
     public static final String VOLUME_TOMCAT = "m7r-tomcat-vol";
     public static final String CONTAINER_TOMCAT = "m7r-tomcat";
+    public static final String IMAGE_TOMCAT_URL = "https://github.com/arthurpicht/docker-tomcat-9.git";
 
     public static final String IMAGE_NGINX = "arthurpicht/nginx";
     public static final String CONTAINER_NGINX = "m7r-nginx";
+    public static final String IMAGE_NGINX_URL = "https://github.com/arthurpicht/docker-nginx.git";
+
+    public static final String IMAGE_DEBIAN = "arthurpicht/debian-11:latest";
+    public static final String IMAGE_DEBIAN_URL = "https://github.com/arthurpicht/docker-debian-11.git#develop";
+
+    public static final String IMAGE_JDK = "arthurpicht/adoptopenjdk-11:latest";
+    public static final String IMAGE_JDK_URL = "https://github.com/arthurpicht/docker-adoptOpenJDK-11.git#develop";
+
+
+
 
 }

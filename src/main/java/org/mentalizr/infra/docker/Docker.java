@@ -11,7 +11,7 @@ import java.util.List;
 public class Docker {
 
     public static ProcessResultCollection call(DockerExecutionContext dockerExecutionContext, String... commands) throws DockerExecutionException {
-        output(dockerExecutionContext, commands);
+        userOutput(dockerExecutionContext, commands);
         ProcessResultCollection result;
         try {
             result = ProcessExecution.execute(
@@ -26,7 +26,7 @@ public class Docker {
     }
 
     public static ProcessResultCollection call(DockerExecutionContext dockerExecutionContext, InputStream inputStream, String... commands) throws DockerExecutionException {
-        output(dockerExecutionContext, commands);
+        userOutput(dockerExecutionContext, commands);
         ProcessResultCollection result;
         try {
             result = ProcessExecution.execute(
@@ -41,11 +41,11 @@ public class Docker {
         return result;
     }
 
-    public static void output(DockerExecutionContext dockerExecutionContext, String... commands) {
-        output(dockerExecutionContext, Arrays.asList(commands));
+    public static void userOutput(DockerExecutionContext dockerExecutionContext, String... commands) {
+        userOutput(dockerExecutionContext, Arrays.asList(commands));
     }
 
-    public static void output(DockerExecutionContext dockerExecutionContext, List<String> commands) {
+    public static void userOutput(DockerExecutionContext dockerExecutionContext, List<String> commands) {
         String commandString = "> " + Strings.listing(commands, " ");
         dockerExecutionContext.getLogger().info(commandString);
         if (dockerExecutionContext.isVerbose()) System.out.println(commandString);
