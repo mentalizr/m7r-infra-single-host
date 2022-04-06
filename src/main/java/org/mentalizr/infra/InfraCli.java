@@ -83,6 +83,13 @@ public class InfraCli {
                 .build()
         );
 
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("restart")
+                .withCommandExecutor(new RestartExecutor())
+                .withDescription("Restarts docker infrastructure.")
+                .build()
+        );
+
         Options specificOptionsPullUp = new Options()
                 .add(new OptionBuilder().withLongName("dev").withShortName('d').withDescription("recover from dev backup").build(SPECIFIC_OPTION_DEV))
                 .add(new OptionBuilder().withLongName("latest").withShortName('l').withDescription("recover from latest backup").build(SPECIFIC_OPTION_LATEST))
