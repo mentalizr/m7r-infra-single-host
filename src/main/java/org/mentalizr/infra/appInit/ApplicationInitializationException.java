@@ -1,4 +1,4 @@
-package org.mentalizr.infra;
+package org.mentalizr.infra.appInit;
 
 public class ApplicationInitializationException extends Exception {
 

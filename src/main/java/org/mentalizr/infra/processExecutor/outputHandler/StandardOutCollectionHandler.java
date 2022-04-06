@@ -1,5 +1,6 @@
 package org.mentalizr.infra.processExecutor.outputHandler;
 
+import org.mentalizr.infra.processExecutor.CollectionHandler;
 import org.mentalizr.infra.processExecutor.StandardOutHandler;
 
 import de.arthurpicht.utils.io.InputStreams;
@@ -9,7 +10,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StandardOutCollectionHandler implements StandardOutHandler {
+public class StandardOutCollectionHandler implements StandardOutHandler, CollectionHandler {
 
     private List<String> lines;
 

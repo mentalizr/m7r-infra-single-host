@@ -19,7 +19,7 @@ public class UserDbSql implements InitFile {
     }
 
     private UserDbSql() {
-        Path file = GitReposDir.getInstance().asPath().resolve("core/m7r-persistence-rdbms/build/sql/userdb.sql");
+        Path file = GitReposDir.createInstance().asPath().resolve("core/m7r-persistence-rdbms/build/sql/userdb.sql");
         if (!FileUtils.isExistingRegularFile(file)) throw new InfraRuntimeException("File not found. [" + file.toAbsolutePath() + "]");
         try {
             this.document = Documents.createFrom(file);

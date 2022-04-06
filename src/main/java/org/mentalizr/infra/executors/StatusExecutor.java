@@ -6,7 +6,11 @@ import de.arthurpicht.cli.CliCall;
 import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
 import de.arthurpicht.utils.core.strings.Strings;
-import org.mentalizr.commons.paths.host.hostDir.M7rInfraConfigDir;
+import org.mentalizr.commons.paths.client.M7rClientDir;
+import org.mentalizr.commons.paths.host.ContentDir;
+import org.mentalizr.commons.paths.host.GitReposDir;
+import org.mentalizr.commons.paths.host.hostDir.M7rHostConfigDir;
+import org.mentalizr.commons.paths.host.hostDir.M7rHostDir;
 import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.InfraCli;
@@ -17,6 +21,7 @@ import org.mentalizr.infra.buildEntities.ports.PortMaria;
 import org.mentalizr.infra.buildEntities.ports.PortMongo;
 import org.mentalizr.infra.buildEntities.ports.PortTomcat;
 import org.mentalizr.infra.docker.m7r.*;
+import org.mentalizr.infra.utils.StringUtils;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -44,7 +49,14 @@ public class StatusExecutor implements CommandExecutor {
         boolean showConfiguration
                 = cliCall.getOptionParserResultSpecific().hasOption(InfraCli.SPECIFIC_OPTION_CONFIGURATION);
         if (showConfiguration) {
-
+            System.out.println(StringUtils.rightPad("m7r-host dir:", minLengthString)
+                    + "[" + M7rHostDir.createInstance().toAbsolutePathString() + "].");
+            System.out.println(StringUtils.rightPad("m7r client dir:", minLengthString)
+                    + "[" + M7rClientDir.createInstance().toAbsolutePathString() + "].");
+            System.out.println(StringUtils.rightPad("m7r repos dir:", minLengthString)
+                    + "[" + GitReposDir.createInstance().toAbsolutePathString() + "].");
+            System.out.println(StringUtils.rightPad("m7r content dir:", minLengthString)
+                    + "[" + ContentDir.createInstance().toAbsolutePathString() + "].");
         }
 
         String networkString = Strings.fillUpAfter("Network [" + Const.NETWORK + "]: ", ' ', minLengthString);
@@ -198,9 +210,9 @@ public class StatusExecutor implements CommandExecutor {
     }
 
     private static void showConfiguration() {
-        M7rInfraConfigDir m7rInfraConfigDir = M7rInfraConfigDir.createInstance();
+        M7rHostConfigDir m7RHostConfigDir = M7rHostConfigDir.createInstance();
         System.out.println("Host config directory ["
-                + m7rInfraConfigDir.asPath().toAbsolutePath() + "].");
+                + m7RHostConfigDir.asPath().toAbsolutePath() + "].");
 
     }
 

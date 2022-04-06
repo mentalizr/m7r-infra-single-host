@@ -1,6 +1,7 @@
 package org.mentalizr.infra.utils;
 
 import de.arthurpicht.utils.core.assertion.MethodPreconditions;
+import de.arthurpicht.utils.core.strings.Strings;
 
 import java.util.List;
 
@@ -21,6 +22,10 @@ public class StringUtils {
 
     public static String[] toArray(List<String> list) {
         return list.toArray(new String[0]);
+    }
+
+    public static String rightPad(String string, int length) {
+        return Strings.fillUpAfter(string, ' ', length);
     }
 
 }

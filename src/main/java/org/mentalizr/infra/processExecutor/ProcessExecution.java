@@ -1,5 +1,7 @@
 package org.mentalizr.infra.processExecutor;
 
+import org.mentalizr.infra.processExecutor.outputHandler.StandardErrorCollectionHandler;
+import org.mentalizr.infra.processExecutor.outputHandler.StandardOutCollectionHandler;
 import org.mentalizr.infra.processExecutor.outputHandler.generalOutputHandler.GeneralStandardErrorHandler;
 import org.mentalizr.infra.processExecutor.outputHandler.generalOutputHandler.GeneralStandardOutHandler;
 import org.slf4j.Logger;
@@ -46,6 +48,22 @@ public class ProcessExecution {
         ProcessExecutor processExecutor = new ProcessExecutorBuilder()
                 .withCommands(commands)
                 .withInput(inputStream)
+                .withStandardOutHandler(stdOutHandler)
+                .withStandardErrorHandler(stdErrorHandler)
+                .build();
+
+        processExecutor.execute();
+
+        return new ProcessResultCollection(
+                processExecutor, stdOutHandler, stdErrorHandler
+        );
+    }
+
+    public static ProcessResultCollection execute(String... commands) throws ProcessExecutionException {
+        StandardOutCollectionHandler stdOutHandler = new StandardOutCollectionHandler();
+        StandardErrorCollectionHandler stdErrorHandler = new StandardErrorCollectionHandler();
+        ProcessExecutor processExecutor = new ProcessExecutorBuilder()
+                .withCommands(commands)
                 .withStandardOutHandler(stdOutHandler)
                 .withStandardErrorHandler(stdErrorHandler)
                 .build();

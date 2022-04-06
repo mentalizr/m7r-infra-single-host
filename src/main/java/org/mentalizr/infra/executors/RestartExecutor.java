@@ -21,7 +21,7 @@ public class RestartExecutor implements CommandExecutor {
         TaskRunnerResult result = taskRunner.run("stop");
         if (!result.isSuccess()) throw new CommandExecutorException();
 
-        System.out.println("[Pause]");
+        System.out.println("[wait]");
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {

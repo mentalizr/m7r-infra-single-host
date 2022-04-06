@@ -27,7 +27,7 @@ public class M7rContainerTomcat {
                     " Already existing.");
 
         DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
-        Path imageBaseTempDir = GitReposDir.getInstance().asPath().resolve("core/m7r-img-base-tmp");
+        Path imageBaseTempDir = GitReposDir.createInstance().asPath().resolve("core/m7r-img-base-tmp");
         ProcessResultCollection result;
         try {
             result = Docker.call(
@@ -38,7 +38,7 @@ public class M7rContainerTomcat {
                     "--network-alias", "tomcat",
                     "-e", "TIME_ZONE=\"Europe/Berlin\"",
                     "--mount", "source=" + Const.VOLUME_TOMCAT +",target=/man/tomcat/webapps",
-                    "--mount", "type=bind,source=" + ContentDir.getInstance().toAbsolutePathString() + ",target=/mentalizr/content",
+                    "--mount", "type=bind,source=" + ContentDir.createInstance().toAbsolutePathString() + ",target=/mentalizr/content",
                     "--mount", "type=bind,source=" + imageBaseTempDir.toAbsolutePath() + ",target=/mentalizr/img-base-tmp",
                     "--mount", "type=bind,source=" + TomcatLogDir.createInstance().toAbsolutePathString() + ",target=/man/tomcat/logs",
                     "-p", "8080:8080",

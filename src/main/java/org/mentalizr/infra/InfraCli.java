@@ -9,6 +9,8 @@ import de.arthurpicht.cli.option.ManOption;
 import de.arthurpicht.cli.option.OptionBuilder;
 import de.arthurpicht.cli.option.Options;
 import de.arthurpicht.cli.option.VersionOption;
+import org.mentalizr.infra.appInit.ApplicationInitialization;
+import org.mentalizr.infra.appInit.ApplicationInitializationException;
 import org.mentalizr.infra.executors.*;
 
 public class InfraCli {
