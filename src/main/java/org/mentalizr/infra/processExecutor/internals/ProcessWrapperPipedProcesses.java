@@ -1,6 +1,6 @@
 package org.mentalizr.infra.processExecutor.internals;
 
-import org.mentalizr.infra.utils.ListUtils;
+import de.arthurpicht.utils.core.collection.Lists;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,22 +23,22 @@ public class ProcessWrapperPipedProcesses implements ProcessWrapper {
 
     @Override
     public InputStream getStandardOut() {
-        return ListUtils.getLastElement(this.processList).getInputStream();
+        return Lists.getLastElement(this.processList).getInputStream();
     }
 
     @Override
     public InputStream getErrorOut() {
-        return ListUtils.getLastElement(this.processList).getErrorStream();
+        return Lists.getLastElement(this.processList).getErrorStream();
     }
 
     @Override
     public OutputStream getStandardIn() {
-        return ListUtils.getFirstElement(this.processList).getOutputStream();
+        return Lists.getFirstElement(this.processList).getOutputStream();
     }
 
     @Override
     public int waitFor() throws InterruptedException {
-        return ListUtils.getLastElement(this.processList).waitFor();
+        return Lists.getLastElement(this.processList).waitFor();
     }
 
 }

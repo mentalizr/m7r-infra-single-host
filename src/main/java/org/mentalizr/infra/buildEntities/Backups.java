@@ -1,9 +1,9 @@
 package org.mentalizr.infra.buildEntities;
 
+import de.arthurpicht.utils.core.collection.Lists;
 import org.mentalizr.commons.paths.host.hostDir.BackupDestinationDir;
 import org.mentalizr.infra.InfraRuntimeException;
 import org.mentalizr.infra.utils.FileHelper;
-import org.mentalizr.infra.utils.ListUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,7 +26,7 @@ public class Backups {
         BackupDestinationDir backupDestinationDir = BackupDestinationDir.createInstance();
         List<String> pathList = getSortedFileBackupNames(backupDestinationDir.asPath());
         if (pathList.isEmpty()) throw new IllegalStateException("No backups found.");
-        return backupDestinationDir.asPath().resolve(ListUtils.getLastElement(pathList));
+        return backupDestinationDir.asPath().resolve(Lists.getLastElement(pathList));
     }
 
     private static List<String> getSortedFileBackupNames(Path backupDestinationDir) {

@@ -1,11 +1,11 @@
 package org.mentalizr.infra.buildEntities.webAppResources;
 
 import de.arthurpicht.utils.io.tempDir.TempDir;
+import de.arthurpicht.utils.core.strings.StringSubstitutorConfiguration;
 import org.mentalizr.commons.paths.build.DockerInfraInitResrcDir;
 import org.mentalizr.commons.paths.build.FrontendDir;
 import org.mentalizr.commons.paths.build.FrontendProjectDir;
 import org.mentalizr.commons.paths.build.WebComponentsDir;
-import org.mentalizr.infra.utils.StringSubstitutorConfiguration;
 
 public class SubstitutorConfigurationFactory {
 

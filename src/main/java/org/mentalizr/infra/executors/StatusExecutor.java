@@ -21,7 +21,6 @@ import org.mentalizr.infra.buildEntities.ports.PortMaria;
 import org.mentalizr.infra.buildEntities.ports.PortMongo;
 import org.mentalizr.infra.buildEntities.ports.PortTomcat;
 import org.mentalizr.infra.docker.m7r.*;
-import org.mentalizr.infra.utils.StringUtils;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -49,13 +48,13 @@ public class StatusExecutor implements CommandExecutor {
         boolean showConfiguration
                 = cliCall.getOptionParserResultSpecific().hasOption(InfraCli.SPECIFIC_OPTION_CONFIGURATION);
         if (showConfiguration) {
-            System.out.println(StringUtils.rightPad("m7r-host dir:", minLengthString)
+            System.out.println(Strings.rightPad("m7r-host dir:", minLengthString)
                     + "[" + M7rHostDir.createInstance().toAbsolutePathString() + "].");
-            System.out.println(StringUtils.rightPad("m7r client dir:", minLengthString)
+            System.out.println(Strings.rightPad("m7r client dir:", minLengthString)
                     + "[" + M7rClientDir.createInstance().toAbsolutePathString() + "].");
-            System.out.println(StringUtils.rightPad("m7r repos dir:", minLengthString)
+            System.out.println(Strings.rightPad("m7r repos dir:", minLengthString)
                     + "[" + GitReposDir.createInstance().toAbsolutePathString() + "].");
-            System.out.println(StringUtils.rightPad("m7r content dir:", minLengthString)
+            System.out.println(Strings.rightPad("m7r content dir:", minLengthString)
                     + "[" + ContentDir.createInstance().toAbsolutePathString() + "].");
         }
 

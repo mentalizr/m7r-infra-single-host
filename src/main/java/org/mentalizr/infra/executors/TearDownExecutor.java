@@ -5,9 +5,9 @@ import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
 import de.arthurpicht.taskRunner.TaskRunner;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
+import de.arthurpicht.utils.core.collection.Lists;
 import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
-import org.mentalizr.infra.utils.ListUtils;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class TearDownExecutor implements CommandExecutor {
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         List<TaskRunnerResult> taskRunnerResults = taskRunner.run("stop", "remove");
 
-        if (!ListUtils.getLastElement(taskRunnerResults).isSuccess())
+        if (!Lists.getLastElement(taskRunnerResults).isSuccess())
             throw new CommandExecutorException();
     }
 

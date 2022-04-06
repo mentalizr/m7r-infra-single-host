@@ -1,7 +1,7 @@
 package org.mentalizr.infra.docker.m7r;
 
+import de.arthurpicht.utils.core.strings.Timestamps;
 import org.mentalizr.infra.ExecutionContext;
-import org.mentalizr.infra.utils.Timestamps;
 
 import java.time.Instant;
 

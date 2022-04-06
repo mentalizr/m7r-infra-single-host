@@ -5,13 +5,11 @@ import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
 import de.arthurpicht.taskRunner.TaskRunner;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
-import de.arthurpicht.taskRunner.task.Task;
 import de.arthurpicht.utils.core.collection.Lists;
+import de.arthurpicht.utils.core.strings.Strings;
 import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.taskAgent.RecoverSpecificOptions;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
-import org.mentalizr.infra.utils.ListUtils;
-import org.mentalizr.infra.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,9 +40,9 @@ public class PullUpExecutor implements CommandExecutor {
             targetChain.add("recover-latest");
         }
 
-        List<TaskRunnerResult> taskRunnerResults = taskRunner.run(StringUtils.toArray(targetChain));
+        List<TaskRunnerResult> taskRunnerResults = taskRunner.run(Strings.toArray(targetChain));
 
-        if (!ListUtils.getLastElement(taskRunnerResults).isSuccess())
+        if (!Lists.getLastElement(taskRunnerResults).isSuccess())
             throw new CommandExecutorException();
     }
 

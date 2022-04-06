@@ -1,5 +1,6 @@
 package org.mentalizr.infra.docker;
 
+import de.arthurpicht.utils.core.strings.Strings;
 import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.infra.DockerExecutionException;
 import org.mentalizr.infra.processExecutor.ProcessExecutionException;
@@ -7,7 +8,6 @@ import org.mentalizr.infra.processExecutor.ProcessExecutor;
 import org.mentalizr.infra.processExecutor.ProcessExecutorBuilder;
 import org.mentalizr.infra.processExecutor.outputHandler.generalOutputHandler.GeneralStandardErrorHandler;
 import org.mentalizr.infra.processExecutor.outputHandler.generalOutputHandler.GeneralStandardOutHandler;
-import org.mentalizr.infra.utils.StringUtils;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class DockerCopy {
         String parentDir = sourceFile.getParent().toString();
         String fileName = sourceFile.getFileName().toString();
         String target = containerName + ":" + destinationDir;
-        target = StringUtils.assureEndsWith(target, "/");
+        target = Strings.assureEndsWith(target, "/");
 
         List<String> commands1 = Arrays.asList("tar", "-cf", "-", "-C", parentDir, fileName, "--mode", "777", "--owner", "root", "--group", "root");
         List<String> commands2 = Arrays.asList("docker", "cp", "-", target);

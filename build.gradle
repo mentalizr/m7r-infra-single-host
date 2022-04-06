@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.arthurpicht:utils-core:1.8.0'
+    implementation 'com.github.arthurpicht:utils-core:1.9.0'
     implementation 'com.github.arthurpicht:utils-io:0.0.11'
     implementation 'com.github.arthurpicht:cli:0.1-beta1'
     implementation 'com.github.arthurpicht:ap-taskRunner:1.0-SNAPSHOT'
