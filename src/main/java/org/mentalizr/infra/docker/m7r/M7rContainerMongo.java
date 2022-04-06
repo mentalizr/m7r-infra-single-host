@@ -1,18 +1,16 @@
 package org.mentalizr.infra.docker.m7r;
 
-import org.mentalizr.infra.*;
+import de.arthurpicht.processExecutor.ProcessResultCollection;
+import org.mentalizr.infra.Const;
+import org.mentalizr.infra.DockerExecutionException;
+import org.mentalizr.infra.ExecutionContext;
+import org.mentalizr.infra.InfraRuntimeException;
 import org.mentalizr.infra.buildEntities.initFiles.mongo.ConfigFileInitMongoJs;
-import org.mentalizr.infra.buildEntities.initFiles.tomcat.TomcatContextXml;
 import org.mentalizr.infra.docker.Docker;
-import org.mentalizr.infra.docker.DockerCopy;
 import org.mentalizr.infra.docker.DockerExecutionContext;
-import org.mentalizr.infra.processExecutor.ProcessResultCollection;
 import org.mentalizr.infra.utils.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.nio.file.Path;
 
 public class M7rContainerMongo {
 
@@ -62,27 +60,6 @@ public class M7rContainerMongo {
                 ConfigFileInitMongoJs.getInstanceFromConfiguration(),
                 Const.CONTAINER_MONGO,
                 "docker-entrypoint-initdb.d");
-
-//        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
-//
-//        // tar -cf - -C ${__init_rel} init-mongo.js --mode 777 --owner root --group root
-//        // | docker cp - $NAME_MONGO:/docker-entrypoint-initdb.d/
-//
-//        try {
-//            ConfigFileInitMongoJs configFileInitMongoJs = ConfigFileInitMongoJs.getInstanceFromConfiguration();
-//            String messageHeader = "Copy configuration file [" + configFileInitMongoJs.getFileName() + "] to [" + Const.CONTAINER_MONGO + "]:";
-//            if (context.isVerbose()) {
-//                System.out.println(messageHeader);
-//                System.out.println(configFileInitMongoJs.getContent());
-//            }
-//            logger.debug(messageHeader);
-//            logger.debug(configFileInitMongoJs.getContent());
-//
-//            Path initMongoFile = configFileInitMongoJs.writeToHostTempDir();
-//            DockerCopy.copyFileWithPreservedRights(context, initMongoFile, Const.CONTAINER_MONGO, "docker-entrypoint-initdb.d");
-//        } catch (IOException | DockerExecutionException e) {
-//            throw new InfraRuntimeException(e.getMessage(), e);
-//        }
     }
 
     public static boolean exists() {

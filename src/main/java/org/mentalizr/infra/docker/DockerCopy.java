@@ -1,13 +1,13 @@
 package org.mentalizr.infra.docker;
 
+import de.arthurpicht.processExecutor.ProcessExecutionException;
+import de.arthurpicht.processExecutor.ProcessExecutor;
+import de.arthurpicht.processExecutor.ProcessExecutorBuilder;
+import de.arthurpicht.processExecutor.outputHandler.generalOutputHandler.GeneralStandardErrorHandler;
+import de.arthurpicht.processExecutor.outputHandler.generalOutputHandler.GeneralStandardOutHandler;
 import de.arthurpicht.utils.core.strings.Strings;
 import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.infra.DockerExecutionException;
-import org.mentalizr.infra.processExecutor.ProcessExecutionException;
-import org.mentalizr.infra.processExecutor.ProcessExecutor;
-import org.mentalizr.infra.processExecutor.ProcessExecutorBuilder;
-import org.mentalizr.infra.processExecutor.outputHandler.generalOutputHandler.GeneralStandardErrorHandler;
-import org.mentalizr.infra.processExecutor.outputHandler.generalOutputHandler.GeneralStandardOutHandler;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

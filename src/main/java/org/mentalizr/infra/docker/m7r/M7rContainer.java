@@ -1,11 +1,11 @@
 package org.mentalizr.infra.docker.m7r;
 
+import de.arthurpicht.processExecutor.ProcessResultCollection;
 import org.mentalizr.infra.*;
 import org.mentalizr.infra.buildEntities.initFiles.InitFile;
 import org.mentalizr.infra.docker.Container;
 import org.mentalizr.infra.docker.DockerCopy;
 import org.mentalizr.infra.docker.DockerExecutionContext;
-import org.mentalizr.infra.processExecutor.ProcessResultCollection;
 import org.mentalizr.infra.utils.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

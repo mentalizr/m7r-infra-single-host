@@ -1,8 +1,8 @@
 package org.mentalizr.infra.docker;
 
+import de.arthurpicht.processExecutor.ProcessResultCollection;
 import de.arthurpicht.utils.core.assertion.MethodPreconditions;
 import org.mentalizr.infra.DockerExecutionException;
-import org.mentalizr.infra.processExecutor.ProcessResultCollection;
 
 import static org.mentalizr.infra.docker.Docker.call;
 

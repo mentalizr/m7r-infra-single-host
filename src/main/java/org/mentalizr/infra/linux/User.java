@@ -1,22 +1,13 @@
 package org.mentalizr.infra.linux;
 
-import org.mentalizr.infra.process.collect.ProcessCollect;
-import org.mentalizr.infra.process.collect.ProcessCollectBuilder;
-import org.mentalizr.infra.process.collect.ProcessCollectResult;
-
-import java.io.IOException;
+import de.arthurpicht.processExecutor.ProcessExecution;
+import de.arthurpicht.processExecutor.ProcessExecutionException;
+import de.arthurpicht.processExecutor.ProcessResultCollection;
 
 public class User {
 
-    public static int getUserId() throws LinuxExecutionException {
-        // TODO rework: use ProcessExecutor
-        ProcessCollect processCollect = new ProcessCollectBuilder("id", "-u").build();
-        ProcessCollectResult result;
-        try {
-            result = processCollect.call();
-        } catch (IOException | InterruptedException e) {
-            throw new LinuxExecutionException(e);
-        }
+    public static int getUserId() throws LinuxExecutionException, ProcessExecutionException {
+        ProcessResultCollection result = ProcessExecution.execute("id", "-u");
         if (result.getExitCode() != 0)
             throw new LinuxExecutionException("Unexpected exit of linux process with exit code "
                     + result.getExitCode() + ".");

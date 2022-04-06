@@ -1,5 +1,6 @@
 package org.mentalizr.infra.docker.m7r;
 
+import de.arthurpicht.processExecutor.ProcessResultCollection;
 import org.mentalizr.commons.paths.host.hostDir.CertsDir;
 import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.Const;
@@ -9,7 +10,6 @@ import org.mentalizr.infra.buildEntities.initFiles.nginx.IndexHtml;
 import org.mentalizr.infra.buildEntities.initFiles.nginx.LocalDevConf;
 import org.mentalizr.infra.docker.Docker;
 import org.mentalizr.infra.docker.DockerExecutionContext;
-import org.mentalizr.infra.processExecutor.ProcessResultCollection;
 import org.mentalizr.infra.utils.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

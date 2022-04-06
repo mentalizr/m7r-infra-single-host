@@ -1,8 +1,10 @@
 package org.mentalizr.infra.docker;
 
+import de.arthurpicht.processExecutor.ProcessExecution;
+import de.arthurpicht.processExecutor.ProcessExecutionException;
+import de.arthurpicht.processExecutor.ProcessResultCollection;
 import de.arthurpicht.utils.core.strings.Strings;
 import org.mentalizr.infra.DockerExecutionException;
-import org.mentalizr.infra.processExecutor.*;
 
 import java.io.InputStream;
 import java.util.Arrays;

@@ -1,9 +1,8 @@
 package org.mentalizr.infra.docker;
 
+import de.arthurpicht.processExecutor.ProcessResultCollection;
 import org.mentalizr.infra.IllegalInfraStateException;
 import org.mentalizr.infra.InfraException;
-import org.mentalizr.infra.process.collect.ProcessCollectResult;
-import org.mentalizr.infra.processExecutor.ProcessResultCollection;
 
 import static org.mentalizr.infra.docker.Docker.call;
 

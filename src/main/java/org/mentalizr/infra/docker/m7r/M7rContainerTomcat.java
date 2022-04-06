@@ -1,5 +1,6 @@
 package org.mentalizr.infra.docker.m7r;
 
+import de.arthurpicht.processExecutor.ProcessResultCollection;
 import de.arthurpicht.taskRunner.task.TaskPreconditionException;
 import org.mentalizr.commons.paths.build.M7rWarFile;
 import org.mentalizr.commons.paths.host.ContentDir;
@@ -10,7 +11,6 @@ import org.mentalizr.infra.buildEntities.initFiles.tomcat.TomcatContextXml;
 import org.mentalizr.infra.docker.Docker;
 import org.mentalizr.infra.docker.DockerCopy;
 import org.mentalizr.infra.docker.DockerExecutionContext;
-import org.mentalizr.infra.processExecutor.ProcessResultCollection;
 import org.mentalizr.infra.utils.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
