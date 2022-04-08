@@ -7,8 +7,8 @@ import de.arthurpicht.processExecutor.ProcessExecution;
 import de.arthurpicht.processExecutor.ProcessExecutionException;
 import de.arthurpicht.utils.core.strings.Strings;
 import de.arthurpicht.utils.io.nio2.FileUtils;
+import org.mentalizr.commons.paths.host.hostDir.M7rHostLogFile;
 import org.mentalizr.infra.*;
-import org.mentalizr.infra.utils.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +26,7 @@ public class LogsExecutor implements CommandExecutor {
 
         System.out.println("Show logs ...");
 
-        Path logFile = LoggerUtils.getLogFile();
+        Path logFile = M7rHostLogFile.createInstance().asPath();
         if (!FileUtils.isExistingRegularFile(logFile))
             throw new CommandExecutorException("Log file not found: [" + logFile.toAbsolutePath() + "].");
 

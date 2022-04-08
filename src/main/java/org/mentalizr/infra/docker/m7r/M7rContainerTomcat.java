@@ -11,7 +11,6 @@ import org.mentalizr.infra.buildEntities.initFiles.tomcat.TomcatContextXml;
 import org.mentalizr.infra.docker.Docker;
 import org.mentalizr.infra.docker.DockerCopy;
 import org.mentalizr.infra.docker.DockerExecutionContext;
-import org.mentalizr.infra.utils.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +18,7 @@ import java.nio.file.Path;
 
 public class M7rContainerTomcat {
 
-    private static final Logger logger = LoggerFactory.getLogger(LoggerUtils.DOCKER_LOGGER);
+    private static final Logger logger = LoggerFactory.getLogger(Const.DOCKER_LOGGER);
 
     public static void create() {
         if (exists())

@@ -5,13 +5,12 @@ import org.mentalizr.backend.config.Configuration;
 import org.mentalizr.infra.*;
 import org.mentalizr.infra.docker.Docker;
 import org.mentalizr.infra.docker.DockerExecutionContext;
-import org.mentalizr.infra.utils.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class M7rContainerMaria {
 
-    private static final Logger logger = LoggerFactory.getLogger(LoggerUtils.DOCKER_LOGGER);
+    private static final Logger logger = LoggerFactory.getLogger(Const.DOCKER_LOGGER);
 
     public static void create() {
         if (exists())

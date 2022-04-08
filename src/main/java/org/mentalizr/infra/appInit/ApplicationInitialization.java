@@ -1,16 +1,21 @@
 package org.mentalizr.infra.appInit;
 
+import ch.qos.logback.classic.Level;
 import de.arthurpicht.processExecutor.ProcessExecution;
 import de.arthurpicht.processExecutor.ProcessExecutionException;
 import de.arthurpicht.processExecutor.ProcessResultCollection;
+import de.arthurpicht.utils.logging.LoggerInit;
 import org.mentalizr.commons.paths.M7rDir;
 import org.mentalizr.commons.paths.M7rFile;
 import org.mentalizr.commons.paths.client.M7rClientCliConfigFile;
 import org.mentalizr.commons.paths.client.M7rClientCredentialsFile;
-import org.mentalizr.commons.paths.host.hostDir.*;
-import org.mentalizr.infra.utils.LoggerUtils;
+import org.mentalizr.commons.paths.host.hostDir.M7rHostLogDir;
+import org.mentalizr.commons.paths.host.hostDir.M7rInfraUserConfigFile;
+import org.mentalizr.commons.paths.host.hostDir.M7rPrivateKeyFile;
+import org.mentalizr.commons.paths.host.hostDir.M7rSslCertFile;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 public class ApplicationInitialization {
 
@@ -26,7 +31,7 @@ public class ApplicationInitialization {
         assertCommand("git");
 
         createLogDir();
-        LoggerUtils.initialize();
+        initLogging();
         setConfigSystemProperty();
     }
 
@@ -64,6 +69,12 @@ public class ApplicationInitialization {
                         + m7rHostLogDir.toAbsolutePathString() + "]");
             }
         }
+    }
+
+    private static void initLogging() {
+        M7rHostLogDir m7rHostLogDir = M7rHostLogDir.createInstance();
+        Path logFile = m7rHostLogDir.asPath().resolve("m7r-infra.log");
+        LoggerInit.consoleAndFile(logFile, Level.DEBUG, Level.DEBUG);
     }
 
     private static void setConfigSystemProperty() {

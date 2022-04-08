@@ -2,6 +2,8 @@ package org.mentalizr.infra;
 
 public class Const {
 
+    public static final String DOCKER_LOGGER = "docker";
+
     public static final String NETWORK = "m7r";
 
     public static final String IMAGE_MONGO = "mongo:4.4";
@@ -26,8 +28,5 @@ public class Const {
 
     public static final String IMAGE_JDK = "arthurpicht/adoptopenjdk-11:latest";
     public static final String IMAGE_JDK_URL = "https://github.com/arthurpicht/docker-adoptOpenJDK-11.git#develop";
-
-
-
 
 }
