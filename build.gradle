@@ -21,7 +21,7 @@ dependencies {
     implementation 'com.github.arthurpicht:utils-io:0.0.11'
     implementation 'com.github.arthurpicht:cli:0.1-beta1'
     implementation 'com.github.arthurpicht:processExecutor:0.0.1'
-    implementation 'com.github.arthurpicht:ap-taskRunner:1.0-SNAPSHOT'
+    implementation 'com.github.arthurpicht:taskRunner:0.0.1'
     implementation 'org.mentalizr:m7r-backend-config:1.0-SNAPSHOT'
     implementation 'org.mentalizr:m7r-commons:0.0.1-SNAPSHOT'
     implementation 'org.mentalizr:m7r-persistence-rdbms:1.0-SNAPSHOT'
