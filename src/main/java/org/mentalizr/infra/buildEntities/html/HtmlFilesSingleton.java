@@ -1,12 +1,12 @@
 package org.mentalizr.infra.buildEntities.html;
 
+import de.arthurpicht.utils.io.checksum.Checksums;
 import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.infra.InfraRuntimeException;
 import org.mentalizr.infra.buildEntities.html.files.InitHtml;
 import org.mentalizr.infra.buildEntities.html.files.LoginChunkHtml;
 import org.mentalizr.infra.buildEntities.html.files.LoginVoucherChunkHtml;
 import org.mentalizr.infra.buildEntities.html.files.PatientChunkHtml;
-import org.mentalizr.infra.utils.FileHelper;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -45,7 +45,7 @@ public class HtmlFilesSingleton {
 
     private void computeChecksum() {
         try {
-            this.checksum = FileHelper.computeCrc32(this.htmlFileList);
+            this.checksum = Checksums.computeCrc32(this.htmlFileList);
         } catch (IOException e) {
             throw new InfraRuntimeException("Exception on computing crc32 checksum: " + e.getMessage(), e);
         }

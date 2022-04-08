@@ -4,7 +4,6 @@ import de.arthurpicht.utils.core.strings.Strings;
 import de.arthurpicht.utils.io.InputStreams;
 import org.mentalizr.infra.InfraRuntimeException;
 import org.mentalizr.infra.buildEntities.initFiles.InitFile;
-import org.mentalizr.infra.utils.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,7 +33,7 @@ public class IndexHtml implements InitFile {
     }
 
     private List<String> getAsStrings() {
-        InputStream inputStream = IOUtils.getFileFromResourceAsStream("nginx/index.html");
+        InputStream inputStream = InputStreams.getFileFromResourceAsStream("nginx/index.html");
         try {
             return InputStreams.toStrings(inputStream);
         } catch (IOException e) {

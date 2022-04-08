@@ -1,9 +1,9 @@
 package org.mentalizr.infra.buildEntities;
 
 import de.arthurpicht.utils.core.collection.Lists;
+import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.commons.paths.host.hostDir.BackupDestinationDir;
 import org.mentalizr.infra.InfraRuntimeException;
-import org.mentalizr.infra.utils.FileHelper;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,7 +16,7 @@ public class Backups {
     public static boolean hasBackup() {
         BackupDestinationDir backupDestinationDir = BackupDestinationDir.createInstance();
         try {
-            return FileHelper.hasSubdirectories(backupDestinationDir.asPath());
+            return FileUtils.hasSubdirectories(backupDestinationDir.asPath());
         } catch (IOException e) {
             throw new InfraRuntimeException(e.getMessage(), e);
         }

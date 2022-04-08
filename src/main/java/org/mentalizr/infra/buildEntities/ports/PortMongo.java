@@ -1,11 +1,11 @@
 package org.mentalizr.infra.buildEntities.ports;
 
-import org.mentalizr.infra.utils.IOUtils;
+import de.arthurpicht.utils.io.net.Sockets;
 
 public class PortMongo {
 
     public static boolean isListening() {
-        return IOUtils.isPortListening(27017);
+        return Sockets.isPortListening("localhost", 27017);
     }
 
 }

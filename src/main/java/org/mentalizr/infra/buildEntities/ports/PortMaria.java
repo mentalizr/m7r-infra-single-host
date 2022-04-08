@@ -1,11 +1,11 @@
 package org.mentalizr.infra.buildEntities.ports;
 
-import org.mentalizr.infra.utils.IOUtils;
+import de.arthurpicht.utils.io.net.Sockets;
 
 public class PortMaria {
 
     public static boolean isListening() {
-        return IOUtils.isPortListening(3306);
+        return Sockets.isPortListening("localhost", 3306);
     }
 
 }

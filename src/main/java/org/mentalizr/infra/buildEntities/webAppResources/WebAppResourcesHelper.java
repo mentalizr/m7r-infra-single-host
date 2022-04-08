@@ -3,10 +3,11 @@ package org.mentalizr.infra.buildEntities.webAppResources;
 import de.arthurpicht.processExecutor.ProcessExecution;
 import de.arthurpicht.processExecutor.ProcessExecutionException;
 import de.arthurpicht.processExecutor.ProcessResultCollection;
+import de.arthurpicht.utils.io.checksum.Checksums;
+import de.arthurpicht.utils.io.nio2.FileUtils;
 import de.arthurpicht.utils.io.tempDir.TempDir;
 import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.InfraRuntimeException;
-import org.mentalizr.infra.utils.FileHelper;
 import org.mentalizr.infra.utils.M7rFiles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +24,8 @@ public class WebAppResourcesHelper {
     public static String computeChecksum(TempDir tempDir) {
         Path resrcPath = tempDir.asPath().resolve("resrc");
         try {
-            List<Path> containedFiles = FileHelper.getContainingFiles(resrcPath);
-            long crc32 = FileHelper.computeCrc32(containedFiles);
+            List<Path> containedFiles = FileUtils.getContainingFiles(resrcPath);
+            long crc32 = Checksums.computeCrc32(containedFiles);
             logger.info("CRC32 checksum for all resources: " + crc32);
             return Long.toString(crc32);
         } catch (IOException e) {
