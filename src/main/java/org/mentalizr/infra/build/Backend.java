@@ -1,10 +1,10 @@
 package org.mentalizr.infra.build;
 
+import de.arthurpicht.utils.struct.document.Document;
+import de.arthurpicht.utils.struct.document.Documents;
 import org.mentalizr.commons.paths.build.BuildDateFile;
 import org.mentalizr.infra.InfraRuntimeException;
 import org.mentalizr.infra.buildEntities.connections.ConnectionTomcat;
-import org.mentalizr.infra.utils.document.Document;
-import org.mentalizr.infra.utils.document.Documents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
