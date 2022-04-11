@@ -15,28 +15,28 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class PullUpExecutor implements CommandExecutor {
+public class FullPullExecutor implements CommandExecutor {
 
-    private static final Logger logger = LoggerFactory.getLogger(PullUpExecutor.class.getSimpleName());
+    private static final Logger logger = LoggerFactory.getLogger(FullPullExecutor.class.getSimpleName());
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
         ExecutionContext.initialize(cliCall);
 
-        System.out.println("pullup infrastructure");
+        System.out.println("full pull-up infrastructure");
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
-        List<String> targetChain = Lists.newArrayList("create", "start", "deploy");
+        List<String> targetChain = Lists.newArrayList("create-images", "create", "start", "deploy");
         if (RecoverSpecificOptions.isRecoverFromDefault()) {
-            logger.info("execute pullup with recover for dev.");
+            logger.info("execute full-pull with recover for dev.");
             targetChain.add("recover-dev");
         } else if (RecoverSpecificOptions.isRecoverFromLatest()) {
-            logger.info("execute pullup with recover from latest backup.");
+            logger.info("execute full-pull with recover from latest backup.");
             targetChain.add("recover-latest");
         } else if (RecoverSpecificOptions.isOmitRecover()){
-            logger.info("execute pullup without recover.");
+            logger.info("execute full-pull without recover.");
         } else {
-            logger.info("execute pullup with recover from latest backup.");
+            logger.info("execute full-pull with recover from latest backup.");
             targetChain.add("recover-latest");
         }
 

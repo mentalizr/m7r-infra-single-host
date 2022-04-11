@@ -27,9 +27,10 @@ import java.net.UnknownHostException;
 
 public class StatusExecutor implements CommandExecutor {
 
-    private static final int minLengthString = 33;
+    private static final int minLengthString = 44;
 
     private static final String UP = Ansi.colorize("UP", Attribute.GREEN_TEXT());
+    private static final String PRESENT = Ansi.colorize("PRESENT", Attribute.GREEN_TEXT());
     private static final String DOWN = Ansi.colorize("--", Attribute.RED_TEXT());
     private static final String RUNNING = Ansi.colorize("RUNNING", Attribute.GREEN_TEXT());
     private static final String STOPPED = Ansi.colorize("STOPPED", Attribute.RED_TEXT());
@@ -64,6 +65,8 @@ public class StatusExecutor implements CommandExecutor {
         } else {
             System.out.println(networkString + DOWN);
         }
+
+        outputImageStatus("MongoDB", Const.IMAGE_MONGO);
 
         String volumeMongoString = Strings.fillUpAfter("MongoDB volume [" + Const.VOLUME_MONGO + "]: ", ' ', minLengthString);
         if (M7rVolumeMongo.exists()) {
@@ -103,6 +106,8 @@ public class StatusExecutor implements CommandExecutor {
             System.out.println(SKIPPED);
         }
 
+        outputImageStatus("MariaDB", Const.IMAGE_MARIA);
+
         String volumeMariaString = Strings.fillUpAfter("MariaDB volume [" + Const.VOLUME_MARIA + "]: ", ' ', minLengthString);
         if (M7rVolumeMaria.exists()) {
             System.out.println(volumeMariaString + UP);
@@ -140,6 +145,8 @@ public class StatusExecutor implements CommandExecutor {
         } else {
             System.out.println(SKIPPED);
         }
+
+        outputImageStatus("Tomcat", Const.IMAGE_TOMCAT);
 
         String volumeTomcatString = Strings.fillUpAfter("Tomcat volume [" + Const.VOLUME_TOMCAT + "]: ", ' ', minLengthString);
         if (M7rVolumeTomcat.exists()) {
@@ -179,6 +186,8 @@ public class StatusExecutor implements CommandExecutor {
             System.out.println(SKIPPED);
         }
 
+        outputImageStatus("nginx", Const.IMAGE_NGINX);
+
         String containerNginxString = Strings.fillUpAfter("nginx container [" + Const.CONTAINER_NGINX + "]: ", ' ', minLengthString);
         if (M7rContainerNginx.exists()) {
             if (M7rContainerNginx.isRunning()) {
@@ -208,11 +217,13 @@ public class StatusExecutor implements CommandExecutor {
         }
     }
 
-    private static void showConfiguration() {
-        M7rHostConfigDir m7RHostConfigDir = M7rHostConfigDir.createInstance();
-        System.out.println("Host config directory ["
-                + m7RHostConfigDir.asPath().toAbsolutePath() + "].");
-
+    private static void outputImageStatus(String serverName, String taggedImageName) {
+        String imageString = Strings.fillUpAfter(serverName + " image [" + taggedImageName + "]: ", ' ', minLengthString);
+        if (M7rImage.exists(taggedImageName)) {
+            System.out.println(imageString + PRESENT);
+        } else {
+            System.out.println(imageString + DOWN);
+        }
     }
 
 }

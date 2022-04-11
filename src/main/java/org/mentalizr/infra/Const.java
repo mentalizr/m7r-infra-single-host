@@ -19,7 +19,7 @@ public class Const {
     public static final String CONTAINER_TOMCAT = "m7r-tomcat";
     public static final String IMAGE_TOMCAT_URL = "https://github.com/arthurpicht/docker-tomcat-9.git";
 
-    public static final String IMAGE_NGINX = "arthurpicht/nginx";
+    public static final String IMAGE_NGINX = "arthurpicht/nginx:latest";
     public static final String CONTAINER_NGINX = "m7r-nginx";
     public static final String IMAGE_NGINX_URL = "https://github.com/arthurpicht/docker-nginx.git";
 

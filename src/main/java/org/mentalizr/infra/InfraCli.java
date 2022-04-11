@@ -106,6 +106,14 @@ public class InfraCli {
         );
 
         commands.add(new CommandSequenceBuilder()
+                .addCommands("fullpull")
+                .withSpecificOptions(specificOptionsPullUp)
+                .withCommandExecutor(new FullPullExecutor())
+                .withDescription("Full pull-up of mentalizr docker infrastructure.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
                 .addCommands("teardown")
                 .withCommandExecutor(new TearDownExecutor())
                 .withDescription("Tears down mentalizr docker infrastructure.")
@@ -116,6 +124,13 @@ public class InfraCli {
                 .addCommands("deploy")
                 .withCommandExecutor(new DeployExecutor())
                 .withDescription("Deploys to server instances.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
+                .addCommands("clean")
+                .withCommandExecutor(new TearDownExecutor())
+                .withDescription("Cleans mentalizr docker infrastructure.")
                 .build()
         );
 
@@ -226,7 +241,6 @@ public class InfraCli {
 
         try {
             cli.execute(cliCall);
-            System.out.println("m7r-instance execution succeeded.");
         } catch (CommandExecutorException e) {
             System.out.println("m7r-instance execution failed.");
             if (e.getMessage() != null) System.out.println(e.getMessage());
