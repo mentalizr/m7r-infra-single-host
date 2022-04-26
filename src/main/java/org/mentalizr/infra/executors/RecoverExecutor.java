@@ -19,7 +19,7 @@ public class RecoverExecutor implements CommandExecutor {
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         TaskRunnerResult result;
-        if (RecoverSpecificOptions.isRecoverFromDefault()) {
+        if (RecoverSpecificOptions.isRecoverDev()) {
             result = taskRunner.run("recover-dev");
         } else {
             result = taskRunner.run("recover-latest");

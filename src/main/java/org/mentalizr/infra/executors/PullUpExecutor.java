@@ -27,7 +27,7 @@ public class PullUpExecutor implements CommandExecutor {
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         List<String> targetChain = Lists.newArrayList("create", "start", "deploy");
-        if (RecoverSpecificOptions.isRecoverFromDefault()) {
+        if (RecoverSpecificOptions.isRecoverDev()) {
             logger.info("execute pullup with recover for dev.");
             targetChain.add("recover-dev");
         } else if (RecoverSpecificOptions.isRecoverFromLatest()) {

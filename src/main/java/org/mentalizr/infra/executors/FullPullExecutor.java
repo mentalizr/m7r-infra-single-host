@@ -27,7 +27,7 @@ public class FullPullExecutor implements CommandExecutor {
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         List<String> targetChain = Lists.newArrayList("create-images", "create", "start", "deploy");
-        if (RecoverSpecificOptions.isRecoverFromDefault()) {
+        if (RecoverSpecificOptions.isRecoverDev()) {
             logger.info("execute full-pull with recover for dev.");
             targetChain.add("recover-dev");
         } else if (RecoverSpecificOptions.isRecoverFromLatest()) {

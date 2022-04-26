@@ -5,7 +5,7 @@ import org.mentalizr.infra.InfraCli;
 
 public class RecoverSpecificOptions {
 
-    public static boolean isRecoverFromDefault() {
+    public static boolean isRecoverDev() {
         return ExecutionContext.getCliCall().getOptionParserResultSpecific().hasOption(InfraCli.SPECIFIC_OPTION_DEV);
     }
 

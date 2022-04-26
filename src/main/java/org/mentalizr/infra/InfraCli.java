@@ -136,12 +136,12 @@ public class InfraCli {
 
         Options specificOptionsRecover = new Options()
                 .add(new OptionBuilder().withLongName("dev").withShortName('d').withDescription("recover from dev backup").build(SPECIFIC_OPTION_DEV))
-                .add(new OptionBuilder().withLongName("latest").withShortName('l').withDescription("recover from latest backup").build(SPECIFIC_OPTION_LATEST));
+                .add(new OptionBuilder().withLongName("latest").withShortName('l').withDescription("recover from latest backup (default)").build(SPECIFIC_OPTION_LATEST));
 
         commands.add(new CommandSequenceBuilder()
                 .addCommands("recover")
                 .withSpecificOptions(specificOptionsRecover)
-                .withCommandExecutor(new DeployExecutor())
+                .withCommandExecutor(new RecoverExecutor())
                 .withDescription("Recovers databases.")
                 .build()
         );
