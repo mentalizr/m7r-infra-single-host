@@ -5,10 +5,7 @@ import de.arthurpicht.cli.command.CommandSequenceBuilder;
 import de.arthurpicht.cli.command.Commands;
 import de.arthurpicht.cli.command.InfoDefaultCommand;
 import de.arthurpicht.cli.common.UnrecognizedArgumentException;
-import de.arthurpicht.cli.option.ManOption;
-import de.arthurpicht.cli.option.OptionBuilder;
-import de.arthurpicht.cli.option.Options;
-import de.arthurpicht.cli.option.VersionOption;
+import de.arthurpicht.cli.option.*;
 import org.mentalizr.infra.appInit.ApplicationInitialization;
 import org.mentalizr.infra.appInit.ApplicationInitializationException;
 import org.mentalizr.infra.executors.*;
@@ -34,6 +31,18 @@ public class InfraCli {
                 .add(new OptionBuilder().withLongName("verbose").withDescription("verbose output").build(OPTION_VERBOSE))
                 .add(new OptionBuilder().withShortName('s').withLongName("stacktrace").withDescription("Show stacktrace when running on error.").build(OPTION_STACKTRACE))
                 .add(new OptionBuilder().withLongName("silent").withDescription("Make no output to console.").build(OPTION_SILENT));
+
+        Option recoverDevOption = new OptionBuilder()
+                .withLongName("dev")
+                .withShortName('d')
+                .withDescription("recover from dev backup [~/.m7r-host/backup-default]")
+                .build(SPECIFIC_OPTION_DEV);
+
+        Option recoverLatestOption = new OptionBuilder()
+                .withLongName("latest")
+                .withShortName('l')
+                .withDescription("recover from latest backup in [~/.m7r-host/backup] (default)")
+                .build(SPECIFIC_OPTION_LATEST);
 
         Commands commands = new Commands();
 
@@ -93,9 +102,13 @@ public class InfraCli {
         );
 
         Options specificOptionsPullUp = new Options()
-                .add(new OptionBuilder().withLongName("dev").withShortName('d').withDescription("recover from dev backup").build(SPECIFIC_OPTION_DEV))
-                .add(new OptionBuilder().withLongName("latest").withShortName('l').withDescription("recover from latest backup").build(SPECIFIC_OPTION_LATEST))
-                .add(new OptionBuilder().withLongName("no-recover").withShortName('x').withDescription("omit recover").build(SPECIFIC_OPTION_NO_RECOVER));
+                .add(recoverDevOption)
+                .add(recoverLatestOption)
+                .add(new OptionBuilder()
+                        .withLongName("no-recover")
+                        .withShortName('x')
+                        .withDescription("omit recover")
+                        .build(SPECIFIC_OPTION_NO_RECOVER));
 
         commands.add(new CommandSequenceBuilder()
                 .addCommands("pullup")
@@ -135,8 +148,20 @@ public class InfraCli {
         );
 
         Options specificOptionsRecover = new Options()
-                .add(new OptionBuilder().withLongName("dev").withShortName('d').withDescription("recover from dev backup").build(SPECIFIC_OPTION_DEV))
-                .add(new OptionBuilder().withLongName("latest").withShortName('l').withDescription("recover from latest backup (default)").build(SPECIFIC_OPTION_LATEST));
+                .add(recoverDevOption)
+                .add(recoverLatestOption);
+
+//        Options specificOptionsRecover = new Options()
+//                .add(new OptionBuilder()
+//                        .withLongName("dev")
+//                        .withShortName('d')
+//                        .withDescription("recover from dev backup [~/.m7r-host/backup-default]")
+//                        .build(SPECIFIC_OPTION_DEV))
+//                .add(new OptionBuilder()
+//                        .withLongName("latest")
+//                        .withShortName('l')
+//                        .withDescription("recover from latest backup in [~/.m7r-host/backup] (default)")
+//                        .build(SPECIFIC_OPTION_LATEST));
 
         commands.add(new CommandSequenceBuilder()
                 .addCommands("recover")
@@ -208,7 +233,7 @@ public class InfraCli {
 
         CliDescription cliDescription = new CliDescriptionBuilder()
                 .withDescription("mentalizr infra structure manager CLI\nhttps://github.com/mentalizr/m7r-infra")
-                .withVersionByTag("0.0.1-SNAPSHOT", "2022-04-12")
+                .withVersionByTag("0.0.1-SNAPSHOT", "2022-05-18")
                 .build("m7r-infra");
 
         return new CliBuilder()
