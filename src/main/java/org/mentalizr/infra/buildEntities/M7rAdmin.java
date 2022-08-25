@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 
 public class M7rAdmin {
 
@@ -46,6 +47,7 @@ public class M7rAdmin {
         try (Connection connection = ConnectionMaria.getConnectionToDbAsRoot()) {
             UserVO userVO = new UserVO(ADMIN_ID);
             userVO.setActive(true);
+            userVO.setPolicyConsent(0L);
             UserDAO.create(userVO, connection);
 
             RoleAdminVO roleAdminVO = new RoleAdminVO(ADMIN_ID);
@@ -58,6 +60,9 @@ public class M7rAdmin {
             userLoginVO.setLastName("admin");
             userLoginVO.setGender(1);
             userLoginVO.setPasswordHash(pwHash);
+            userLoginVO.setSecondFA(false);
+            userLoginVO.setEmailConfirmation(0L);
+            userLoginVO.setRenewPasswordRequired(false);
             UserLoginDAO.create(userLoginVO, connection);
         } catch (SQLException e) {
             throw new InfraRuntimeException("Exception on initializing m7r admin user: " + e.getMessage(), e);
