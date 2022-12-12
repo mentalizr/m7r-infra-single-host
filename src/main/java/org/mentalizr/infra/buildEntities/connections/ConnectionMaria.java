@@ -1,6 +1,6 @@
 package org.mentalizr.infra.buildEntities.connections;
 
-import org.mentalizr.backend.config.Configuration;
+import org.mentalizr.backend.config.infraUser.InfraUserConfiguration;
 import org.mentalizr.infra.InfraRuntimeException;
 
 import java.sql.Connection;
@@ -13,11 +13,11 @@ public class ConnectionMaria {
 
     private static final int timeoutSeconds = 30;
 
-    private static final String username = Configuration.getUserDbUser();
-    private static final String password = Configuration.getUserDbPassword();
+    private static final String username = InfraUserConfiguration.getUserDbUser();
+    private static final String password = InfraUserConfiguration.getUserDbPassword();
 
-    private static final String database = Configuration.getUserDbName();
-    private static final String rootPassword = Configuration.getUserDbRootPassword();
+    private static final String database = InfraUserConfiguration.getUserDbName();
+    private static final String rootPassword = InfraUserConfiguration.getUserDbRootPassword();
 
     public static boolean probe() {
         try {

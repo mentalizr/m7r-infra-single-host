@@ -1,6 +1,6 @@
 package org.mentalizr.infra.buildEntities;
 
-import org.mentalizr.backend.config.Configuration;
+import org.mentalizr.backend.config.infraUser.InfraUserConfiguration;
 import org.mentalizr.infra.InfraRuntimeException;
 import org.mentalizr.infra.buildEntities.connections.ConnectionMaria;
 import org.mentalizr.persistence.rdbms.barnacle.connectionManager.EntityNotFoundException;
@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Date;
 
 public class M7rAdmin {
 
@@ -24,8 +23,8 @@ public class M7rAdmin {
 
     private static final Logger logger = LoggerFactory.getLogger(M7rAdmin.class.getSimpleName());
 
-    private static final String m7rAdminUser = Configuration.getM7rAdminUser();
-    private static final String m7rAdminPassword = Configuration.getM7rAdminPassword();
+    private static final String m7rAdminUser = InfraUserConfiguration.getM7rAdminUser();
+    private static final String m7rAdminPassword = InfraUserConfiguration.getM7rAdminPassword();
 
     public static boolean isAdminUserInitialized() {
         try (Connection connection = ConnectionMaria.getConnectionToDbAsRoot()) {

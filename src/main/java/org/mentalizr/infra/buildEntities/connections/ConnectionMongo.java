@@ -4,15 +4,15 @@ import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
 import org.bson.Document;
-import org.mentalizr.backend.config.Configuration;
+import org.mentalizr.backend.config.infraUser.InfraUserConfiguration;
 import org.mentalizr.infra.InfraRuntimeException;
 
 public class ConnectionMongo {
 
-    public static final String USERNAME = Configuration.getDocumentDbUser();
-    public static final String PASSWORD = Configuration.getDocumentDbPassword();
+    public static final String USERNAME = InfraUserConfiguration.getDocumentDbUser();
+    public static final String PASSWORD = InfraUserConfiguration.getDocumentDbPassword();
     public static final String HOST = "localhost";
-    public static final String DATABASE = Configuration.getDocumentDbName();
+    public static final String DATABASE = InfraUserConfiguration.getDocumentDbName();
 
     public static void probe() {
 
