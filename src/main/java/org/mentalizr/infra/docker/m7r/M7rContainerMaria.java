@@ -3,6 +3,7 @@ package org.mentalizr.infra.docker.m7r;
 import de.arthurpicht.processExecutor.ProcessResultCollection;
 import org.mentalizr.backend.config.infraUser.InfraUserConfiguration;
 import org.mentalizr.infra.*;
+import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.docker.Docker;
 import org.mentalizr.infra.docker.DockerExecutionContext;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ public class M7rContainerMaria {
                     " Already existing.");
 
         DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        InfraUserConfiguration infraUserConfiguration = ApplicationContext.getInfraUserConfiguration();
         ProcessResultCollection result;
         try {
             result = Docker.call(
@@ -27,10 +29,10 @@ public class M7rContainerMaria {
                     "--network", Const.NETWORK,
                     "--network-alias", "maria",
                     "--mount", "source=" + Const.VOLUME_MARIA +",target=/var/lib/mysql",
-                    "-e", "MYSQL_ROOT_PASSWORD=" + InfraUserConfiguration.getUserDbRootPassword(),
-                    "-e", "MYSQL_DATABASE=" + InfraUserConfiguration.getUserDbName(),
-                    "-e", "MYSQL_USER=" + InfraUserConfiguration.getUserDbUser(),
-                    "-e", "MYSQL_PASSWORD=" + InfraUserConfiguration.getUserDbPassword(),
+                    "-e", "MYSQL_ROOT_PASSWORD=" + infraUserConfiguration.getUserDbRootPassword(),
+                    "-e", "MYSQL_DATABASE=" + infraUserConfiguration.getUserDbName(),
+                    "-e", "MYSQL_USER=" + infraUserConfiguration.getUserDbUser(),
+                    "-e", "MYSQL_PASSWORD=" + infraUserConfiguration.getUserDbPassword(),
                     "-p", "3306:3306",
                     Const.IMAGE_MARIA,
                     "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci");

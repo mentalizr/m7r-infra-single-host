@@ -32,7 +32,7 @@ public class ApplicationInitialization {
 
         createLogDir();
         initLogging();
-        setConfigSystemProperty();
+        ApplicationContext.initialize();
     }
 
     private static void assertExistsM7rDir(M7rDir m7rDir) throws ApplicationInitializationException {
@@ -77,10 +77,10 @@ public class ApplicationInitialization {
         LoggerInit.consoleAndFile(logFile, Level.DEBUG, Level.OFF);
     }
 
-    private static void setConfigSystemProperty() {
-        System.setProperty(
-                "m7r.config",
-                M7rInfraUserConfigFile.createInstance().toAbsolutePathString());
-    }
+//    private static void setConfigSystemProperty() {
+//        System.setProperty(
+//                "m7r.config",
+//                M7rInfraUserConfigFile.createInstance().toAbsolutePathString());
+//    }
 
 }

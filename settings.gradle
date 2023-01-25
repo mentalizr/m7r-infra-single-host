@@ -3,7 +3,7 @@ rootProject.name = 'm7r-infra'
 includeBuild('../m7r-backend-config')
 includeBuild('../m7r-commons')
 includeBuild('../m7r-persistence-rdbms')
-includeBuild('../m7r-persistence-mongo')
+//includeBuild('../m7r-persistence-mongo')
 includeBuild('../m7r-cli')
 
 

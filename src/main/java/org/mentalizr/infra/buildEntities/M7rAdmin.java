@@ -2,6 +2,7 @@ package org.mentalizr.infra.buildEntities;
 
 import org.mentalizr.backend.config.infraUser.InfraUserConfiguration;
 import org.mentalizr.infra.InfraRuntimeException;
+import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.buildEntities.connections.ConnectionMaria;
 import org.mentalizr.persistence.rdbms.barnacle.connectionManager.EntityNotFoundException;
 import org.mentalizr.persistence.rdbms.barnacle.dao.RoleAdminDAO;
@@ -23,8 +24,8 @@ public class M7rAdmin {
 
     private static final Logger logger = LoggerFactory.getLogger(M7rAdmin.class.getSimpleName());
 
-    private static final String m7rAdminUser = InfraUserConfiguration.getM7rAdminUser();
-    private static final String m7rAdminPassword = InfraUserConfiguration.getM7rAdminPassword();
+//    private static final String m7rAdminUser = InfraUserConfiguration.getM7rAdminUser();
+//    private static final String m7rAdminPassword = InfraUserConfiguration.getM7rAdminPassword();
 
     public static boolean isAdminUserInitialized() {
         try (Connection connection = ConnectionMaria.getConnectionToDbAsRoot()) {
@@ -41,6 +42,10 @@ public class M7rAdmin {
     }
 
     public static void init() {
+        InfraUserConfiguration infraUserConfiguration = ApplicationContext.getInfraUserConfiguration();
+        String m7rAdminUser = infraUserConfiguration.getM7rAdminUser();
+        String m7rAdminPassword = infraUserConfiguration.getM7rAdminPassword();
+
         String pwHash = Argon2Hash.getHash(m7rAdminPassword.toCharArray());
 
         try (Connection connection = ConnectionMaria.getConnectionToDbAsRoot()) {

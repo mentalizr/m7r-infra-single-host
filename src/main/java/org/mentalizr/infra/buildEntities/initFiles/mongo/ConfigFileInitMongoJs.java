@@ -1,6 +1,7 @@
 package org.mentalizr.infra.buildEntities.initFiles.mongo;
 
 import org.mentalizr.backend.config.infraUser.InfraUserConfiguration;
+import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.buildEntities.initFiles.InitFile;
 
 public class ConfigFileInitMongoJs implements InitFile {
@@ -12,11 +13,12 @@ public class ConfigFileInitMongoJs implements InitFile {
     private final String password;
 
     public static ConfigFileInitMongoJs getInstanceFromConfiguration() {
-        String adminUsername = InfraUserConfiguration.getDocumentDbAdminName();
-        String adminPassword = InfraUserConfiguration.getDocumentDbAdminPassword();
-        String dbName = InfraUserConfiguration.getDocumentDbName();
-        String userName = InfraUserConfiguration.getDocumentDbUser();
-        String password = InfraUserConfiguration.getDocumentDbPassword();
+        InfraUserConfiguration infraUserConfiguration = ApplicationContext.getInfraUserConfiguration();
+        String adminUsername = infraUserConfiguration.getDocumentDbAdminName();
+        String adminPassword = infraUserConfiguration.getDocumentDbAdminPassword();
+        String dbName = infraUserConfiguration.getDocumentDbName();
+        String userName = infraUserConfiguration.getDocumentDbUser();
+        String password = infraUserConfiguration.getDocumentDbPassword();
         return new ConfigFileInitMongoJs(adminUsername, adminPassword, dbName, userName, password);
     }
 

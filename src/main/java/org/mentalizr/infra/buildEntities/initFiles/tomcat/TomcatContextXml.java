@@ -1,6 +1,7 @@
 package org.mentalizr.infra.buildEntities.initFiles.tomcat;
 
 import org.mentalizr.backend.config.infraUser.InfraUserConfiguration;
+import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.buildEntities.initFiles.InitFile;
 
 public class TomcatContextXml implements InitFile {
@@ -9,8 +10,9 @@ public class TomcatContextXml implements InitFile {
     private final String password;
 
     public static TomcatContextXml getInstanceFromConfiguration() {
-        String userName = InfraUserConfiguration.getUserDbUser();
-        String password = InfraUserConfiguration.getUserDbPassword();
+        InfraUserConfiguration infraUserConfiguration = ApplicationContext.getInfraUserConfiguration();
+        String userName = infraUserConfiguration.getUserDbUser();
+        String password = infraUserConfiguration.getUserDbPassword();
         return new TomcatContextXml(userName, password);
     }
 
