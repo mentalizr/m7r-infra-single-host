@@ -5,9 +5,12 @@ import de.arthurpicht.taskRunner.task.TaskPreconditionException;
 import org.mentalizr.commons.paths.build.M7rWarFile;
 import org.mentalizr.commons.paths.container.TomcatContainerContentDir;
 import org.mentalizr.commons.paths.container.TomcatContainerImgBaseTmpDir;
+import org.mentalizr.commons.paths.container.TomcatContainerM7rHostConfigDir;
 import org.mentalizr.commons.paths.container.TomcatContainerWebAppsDir;
 import org.mentalizr.commons.paths.host.ContentDir;
 import org.mentalizr.commons.paths.host.GitReposDir;
+import org.mentalizr.commons.paths.host.hostDir.M7rHostConfigDir;
+import org.mentalizr.commons.paths.host.hostDir.M7rHostDir;
 import org.mentalizr.commons.paths.host.hostDir.TomcatLogDir;
 import org.mentalizr.infra.*;
 import org.mentalizr.infra.buildEntities.initFiles.tomcat.TomcatContextXml;
@@ -43,6 +46,7 @@ public class M7rContainerTomcat {
                     "--mount", "type=bind,source=" + ContentDir.createInstance().toAbsolutePathString() + ",target=" + new TomcatContainerContentDir().toAbsolutePathString(),
                     "--mount", "type=bind,source=" + imageBaseTempDir.toAbsolutePath() + ",target=" + new TomcatContainerImgBaseTmpDir().toAbsolutePathString(),
                     "--mount", "type=bind,source=" + TomcatLogDir.createInstance().toAbsolutePathString() + ",target=/man/tomcat/logs",
+                    "--mount", "type=bind,source=" + M7rHostConfigDir.createInstance().toAbsolutePathString() + ",target=" + TomcatContainerM7rHostConfigDir.asAbsolutePathString(),
                     "-p", "8080:8080",
                     Const.IMAGE_TOMCAT);
         } catch (DockerExecutionException e) {

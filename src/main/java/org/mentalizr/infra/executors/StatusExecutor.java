@@ -174,7 +174,19 @@ public class StatusExecutor implements CommandExecutor {
             System.out.println(portTomcatString + CLOSED);
         }
 
-        String connectionTomcatString = Strings.fillUpAfter("Tomcat probe web content: ", ' ', minLengthString);
+        String connectionTomcatGenericString = Strings.fillUpAfter("Tomcat probe web content: ", ' ', minLengthString);
+        System.out.print(connectionTomcatGenericString);
+        if (tomcatPortIsListening) {
+            if (ConnectionTomcat.probeGeneric()) {
+                System.out.println(SUCCESS);
+            } else {
+                System.out.println(FAILED);
+            }
+        } else {
+            System.out.println(SKIPPED);
+        }
+
+        String connectionTomcatString = Strings.fillUpAfter("Tomcat probe M7R service: ", ' ', minLengthString);
         System.out.print(connectionTomcatString);
         if (tomcatPortIsListening) {
             if (ConnectionTomcat.probe()) {

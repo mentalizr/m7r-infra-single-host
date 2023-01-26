@@ -19,7 +19,20 @@ public class ConnectionTomcat {
 
     private static final int timeoutSeconds = 30;
 
+    //http://localhost:8080/m7r/service/v1
     public static boolean probe() {
+        try {
+            URL url = new URL("http://localhost:8080/m7r/service/v1");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            int responseCode = connection.getResponseCode();
+            return responseCode == 200;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public static boolean probeGeneric() {
         try {
             URL url = new URL("http://localhost:8080");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
