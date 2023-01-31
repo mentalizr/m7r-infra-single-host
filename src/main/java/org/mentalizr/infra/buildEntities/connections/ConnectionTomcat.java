@@ -19,7 +19,6 @@ public class ConnectionTomcat {
 
     private static final int timeoutSeconds = 30;
 
-    //http://localhost:8080/m7r/service/v1
     public static boolean probe() {
         try {
             URL url = new URL("http://localhost:8080/m7r/service/v1");
@@ -49,7 +48,7 @@ public class ConnectionTomcat {
         LocalDateTime startTimestamp = LocalDateTime.now();
 
         while (true) {
-            success = probe();
+            success = probeGeneric();
 
             LocalDateTime current = LocalDateTime.now();
             Duration duration = Duration.between(startTimestamp, current);

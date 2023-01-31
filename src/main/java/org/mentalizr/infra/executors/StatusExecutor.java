@@ -9,10 +9,9 @@ import de.arthurpicht.utils.core.strings.Strings;
 import org.mentalizr.commons.paths.client.M7rClientDir;
 import org.mentalizr.commons.paths.host.ContentDir;
 import org.mentalizr.commons.paths.host.GitReposDir;
-import org.mentalizr.commons.paths.host.hostDir.M7rHostConfigDir;
 import org.mentalizr.commons.paths.host.hostDir.M7rHostDir;
-import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.Const;
+import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.InfraCli;
 import org.mentalizr.infra.buildEntities.connections.ConnectionMaria;
 import org.mentalizr.infra.buildEntities.connections.ConnectionMongo;
@@ -50,7 +49,7 @@ public class StatusExecutor implements CommandExecutor {
                 = cliCall.getOptionParserResultSpecific().hasOption(InfraCli.SPECIFIC_OPTION_CONFIGURATION);
         if (showConfiguration) {
             System.out.println(Strings.rightPad("m7r-host dir:", minLengthString)
-                    + "[" + M7rHostDir.createInstance().toAbsolutePathString() + "].");
+                    + "[" + new M7rHostDir().toAbsolutePathString() + "].");
             System.out.println(Strings.rightPad("m7r client dir:", minLengthString)
                     + "[" + M7rClientDir.createInstance().toAbsolutePathString() + "].");
             System.out.println(Strings.rightPad("m7r repos dir:", minLengthString)
@@ -174,7 +173,7 @@ public class StatusExecutor implements CommandExecutor {
             System.out.println(portTomcatString + CLOSED);
         }
 
-        String connectionTomcatGenericString = Strings.fillUpAfter("Tomcat probe web content: ", ' ', minLengthString);
+        String connectionTomcatGenericString = Strings.fillUpAfter("Tomcat probe http connector: ", ' ', minLengthString);
         System.out.print(connectionTomcatGenericString);
         if (tomcatPortIsListening) {
             if (ConnectionTomcat.probeGeneric()) {

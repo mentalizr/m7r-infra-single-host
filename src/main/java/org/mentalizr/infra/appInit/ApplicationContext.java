@@ -1,7 +1,6 @@
 package org.mentalizr.infra.appInit;
 
 import org.mentalizr.backend.config.infraUser.InfraUserConfiguration;
-import org.mentalizr.commons.paths.host.hostDir.M7rInfraUserConfigFile;
 
 public class ApplicationContext {
 
@@ -9,7 +8,7 @@ public class ApplicationContext {
     private static boolean isInitialized = false;
 
     public static void initialize() {
-        infraUserConfiguration = new InfraUserConfiguration(M7rInfraUserConfigFile.createInstance());
+        infraUserConfiguration = new InfraUserConfiguration();
         isInitialized = true;
     }
 

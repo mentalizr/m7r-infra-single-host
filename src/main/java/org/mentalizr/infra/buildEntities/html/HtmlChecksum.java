@@ -62,7 +62,7 @@ public class HtmlChecksum {
 
     private static Path createTempDir() {
         try {
-            return TempDirs.createUniqueTempDirAutoRemove(M7rHostTempDir.createInstance().asPath()).asPath();
+            return TempDirs.createUniqueTempDirAutoRemove(new M7rHostTempDir().asPath()).asPath();
         } catch (IOException e) {
             throw new InfraRuntimeException("Exception on creating temp dir: " + e.getMessage(), e);
         }

@@ -16,7 +16,7 @@ public class TomcatContextXml implements InitFile {
         return new TomcatContextXml(userName, password);
     }
 
-    public TomcatContextXml(String userName, String password) {
+    private TomcatContextXml(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }

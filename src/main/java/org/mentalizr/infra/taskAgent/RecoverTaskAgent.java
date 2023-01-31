@@ -40,7 +40,7 @@ public class RecoverTaskAgent {
     }
 
     public static void recoverDev() {
-        BackupDefaultDir backupDefaultDir = BackupDefaultDir.createInstance();
+        BackupDefaultDir backupDefaultDir = new BackupDefaultDir();
         logger.info("Recover from backup for dev.");
         try {
             Session.loginWithLocalConfiguration();

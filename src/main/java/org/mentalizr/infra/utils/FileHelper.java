@@ -12,7 +12,7 @@ import java.nio.file.Path;
 public class FileHelper {
 
     public static Path writeToM7rInfraTempDir(String fileName, String content) throws IOException {
-        M7rHostTempDir m7RHostTempDir = M7rHostTempDir.createInstance();
+        M7rHostTempDir m7RHostTempDir = new M7rHostTempDir();
         if (!m7RHostTempDir.exists()) Files.createDirectories(m7RHostTempDir.asPath());
         TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(m7RHostTempDir.asPath());
         Path file = tempDir.asPath().resolve(fileName);
@@ -21,7 +21,7 @@ public class FileHelper {
     }
 
     public static TempDir createM7rInfraTempDir() {
-        M7rHostTempDir m7RHostTempDir = M7rHostTempDir.createInstance();
+        M7rHostTempDir m7RHostTempDir = new M7rHostTempDir();
         try {
             if (!m7RHostTempDir.exists()) Files.createDirectories(m7RHostTempDir.asPath());
             return TempDirs.createUniqueTempDirAutoRemove(m7RHostTempDir.asPath());
