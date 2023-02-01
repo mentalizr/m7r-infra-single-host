@@ -8,6 +8,7 @@ import org.mentalizr.persistence.rdbms.barnacle.connectionManager.EntityNotFound
 import org.mentalizr.persistence.rdbms.barnacle.dao.RoleAdminDAO;
 import org.mentalizr.persistence.rdbms.barnacle.dao.UserDAO;
 import org.mentalizr.persistence.rdbms.barnacle.dao.UserLoginDAO;
+import org.mentalizr.persistence.rdbms.barnacle.vo.PolicyConsentPK;
 import org.mentalizr.persistence.rdbms.barnacle.vo.RoleAdminVO;
 import org.mentalizr.persistence.rdbms.barnacle.vo.UserLoginVO;
 import org.mentalizr.persistence.rdbms.barnacle.vo.UserVO;
@@ -51,7 +52,6 @@ public class M7rAdmin {
         try (Connection connection = ConnectionMaria.getConnectionToDbAsRoot()) {
             UserVO userVO = new UserVO(ADMIN_ID);
             userVO.setActive(true);
-            userVO.setPolicyConsent(0L);
             UserDAO.create(userVO, connection);
 
             RoleAdminVO roleAdminVO = new RoleAdminVO(ADMIN_ID);
@@ -68,6 +68,7 @@ public class M7rAdmin {
             userLoginVO.setEmailConfirmation(0L);
             userLoginVO.setRenewPasswordRequired(false);
             UserLoginDAO.create(userLoginVO, connection);
+
         } catch (SQLException e) {
             throw new InfraRuntimeException("Exception on initializing m7r admin user: " + e.getMessage(), e);
         }
