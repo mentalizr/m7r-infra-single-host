@@ -8,9 +8,9 @@ public class StopMongo {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("stop-mongo")
-                .description("stop mongo")
-                .dependencies("stop-maria")
+                .withName("stop-mongo")
+                .withDescription("stop mongo")
+                .withDependencies("stop-maria")
                 .execute(M7rContainerMongo::stop)
                 .build();
     }

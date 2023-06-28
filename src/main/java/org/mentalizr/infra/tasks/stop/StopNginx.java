@@ -8,8 +8,8 @@ public class StopNginx {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("stop-nginx")
-                .description("stop nginx")
+                .withName("stop-nginx")
+                .withDescription("stop nginx")
                 .execute(M7rContainerNginx::stop)
                 .build();
     }

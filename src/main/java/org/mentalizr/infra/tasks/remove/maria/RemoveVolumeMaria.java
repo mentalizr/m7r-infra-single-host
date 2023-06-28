@@ -10,9 +10,9 @@ public class RemoveVolumeMaria {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-volume-maria")
-                .description("remove docker volume [" + Const.VOLUME_MARIA + "]")
-                .dependencies("remove-container-maria")
+                .withName("remove-volume-maria")
+                .withDescription("remove docker volume [" + Const.VOLUME_MARIA + "]")
+                .withDependencies("remove-container-maria")
                 .isUpToDate(() -> !M7rVolumeMaria.exists())
                 .execute(M7rVolumeMaria::remove)
                 .build();

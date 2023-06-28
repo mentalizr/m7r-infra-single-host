@@ -8,9 +8,9 @@ public class InitM7rAdmin {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("init-m7r-admin")
-                .description("init database admin user")
-                .dependencies("init-db-schema")
+                .withName("init-m7r-admin")
+                .withDescription("init database admin user")
+                .withDependencies("init-db-schema")
                 .isUpToDate(M7rAdmin::isAdminUserInitialized)
                 .execute(M7rAdmin::init)
                 .build();

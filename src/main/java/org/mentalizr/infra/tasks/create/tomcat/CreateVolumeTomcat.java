@@ -8,9 +8,9 @@ public class CreateVolumeTomcat {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-volume-tomcat")
-                .description("create docker volume for tomcat")
-                .dependencies("create-network")
+                .withName("create-volume-tomcat")
+                .withDescription("create docker volume for tomcat")
+                .withDependencies("create-network")
                 .isUpToDate(M7rVolumeTomcat::exists)
                 .execute(M7rVolumeTomcat::create)
                 .build();

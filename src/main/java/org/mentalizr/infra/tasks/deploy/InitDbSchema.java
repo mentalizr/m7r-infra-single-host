@@ -8,9 +8,9 @@ public class InitDbSchema {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("init-db-schema")
-                .description("init database schema")
-                .dependencies("deploy-resrc")
+                .withName("init-db-schema")
+                .withDescription("init database schema")
+                .withDependencies("deploy-resrc")
                 .isUpToDate(DbSchema::hasDbCreatedTables)
                 .execute(DbSchema::deploy)
                 .build();

@@ -9,9 +9,9 @@ public class AwaitUpTomcat {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("await-up-tomcat")
-                .description("await up [" + Const.CONTAINER_TOMCAT + "]")
-                .dependencies("start-container-tomcat")
+                .withName("await-up-tomcat")
+                .withDescription("await up [" + Const.CONTAINER_TOMCAT + "]")
+                .withDependencies("start-container-tomcat")
                 .execute(ConnectionTomcat::awaitUp)
                 .build();
     }

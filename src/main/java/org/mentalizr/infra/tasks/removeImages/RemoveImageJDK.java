@@ -9,7 +9,7 @@ public class RemoveImageJDK {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-image-jdk")
+                .withName("remove-image-jdk")
                 .isUpToDate(() -> !M7rImageJDK.exists())
                 .execute(M7rImageJDK::remove)
                 .build();

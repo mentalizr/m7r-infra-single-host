@@ -7,10 +7,10 @@ public class Deploy {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("deploy")
-                .description("deploy")
-                .dependencies("init-m7r-admin")
-                .isTarget()
+                .withName("deploy")
+                .withDescription("deploy")
+                .withDependencies("init-m7r-admin")
+                .asTarget()
                 .execute(() -> {})
                 .build();
     }

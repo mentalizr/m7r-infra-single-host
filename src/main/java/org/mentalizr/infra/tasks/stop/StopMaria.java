@@ -8,9 +8,9 @@ public class StopMaria {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("stop-maria")
-                .description("stop maria")
-                .dependencies("stop-tomcat")
+                .withName("stop-maria")
+                .withDescription("stop maria")
+                .withDependencies("stop-tomcat")
                 .execute(M7rContainerMaria::stop)
                 .build();
     }

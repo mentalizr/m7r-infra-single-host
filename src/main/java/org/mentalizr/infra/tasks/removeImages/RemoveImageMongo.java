@@ -8,8 +8,8 @@ public class RemoveImageMongo {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-image-mongo")
-                .dependencies("create-backup-tag-mongo")
+                .withName("remove-image-mongo")
+                .withDependencies("create-backup-tag-mongo")
                 .isUpToDate(() -> !M7rImageMongo.exists())
                 .execute(M7rImageMongo::remove)
                 .build();

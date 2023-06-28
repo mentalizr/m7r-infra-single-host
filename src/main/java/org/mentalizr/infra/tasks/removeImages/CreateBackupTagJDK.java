@@ -8,7 +8,7 @@ public class CreateBackupTagJDK {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-backup-tag-jdk")
+                .withName("create-backup-tag-jdk")
                 .skip(() -> !M7rImageJDK.exists())
                 .execute(M7rImageJDK::createBackupTag)
                 .build();

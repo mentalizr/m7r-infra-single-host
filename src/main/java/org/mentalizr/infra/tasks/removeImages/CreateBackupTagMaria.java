@@ -8,7 +8,7 @@ public class CreateBackupTagMaria {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-backup-tag-maria")
+                .withName("create-backup-tag-maria")
                 .skip(() -> !M7rImageMaria.exists())
                 .execute(M7rImageMaria::createBackupTag)
                 .build();

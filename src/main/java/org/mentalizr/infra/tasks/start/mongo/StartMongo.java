@@ -8,9 +8,9 @@ public class StartMongo {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("start-mongo")
-                .description("start mongo")
-                .dependencies("await-up-mongo")
+                .withName("start-mongo")
+                .withDescription("start mongo")
+                .withDependencies("await-up-mongo")
                 .execute(() -> {})
                 .build();
     }

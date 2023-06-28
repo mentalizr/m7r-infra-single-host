@@ -8,9 +8,9 @@ public class CreateContainerNginx {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-container-nginx")
-                .description("create container nginx")
-                .dependencies("create-network")
+                .withName("create-container-nginx")
+                .withDescription("create container nginx")
+                .withDependencies("create-network")
                 .isUpToDate(M7rContainerNginx::exists)
                 .execute(M7rContainerNginx::create)
                 .build();

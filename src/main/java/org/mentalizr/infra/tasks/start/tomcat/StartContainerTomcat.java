@@ -9,9 +9,9 @@ public class StartContainerTomcat {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("start-container-tomcat")
-                .description("start [" + Const.CONTAINER_TOMCAT + "]")
-                .dependencies("start-maria", "start-mongo")
+                .withName("start-container-tomcat")
+                .withDescription("start [" + Const.CONTAINER_TOMCAT + "]")
+                .withDependencies("start-maria", "start-mongo")
                 .isUpToDate(M7rContainerTomcat::isRunning)
                 .execute(M7rContainerTomcat::start)
                 .build();

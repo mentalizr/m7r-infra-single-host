@@ -8,9 +8,9 @@ public class InitializeContainerTomcat {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("initialize-container-tomcat")
-                .description("initialize container tomcat")
-                .dependencies("create-container-tomcat")
+                .withName("initialize-container-tomcat")
+                .withDescription("initialize container tomcat")
+                .withDependencies("create-container-tomcat")
                 .execute(M7rContainerTomcat::initialize)
                 .build();
     }

@@ -8,9 +8,9 @@ public class InitializeContainerMaria {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("initialize-container-maria")
-                .description("initialize container maria")
-                .dependencies("create-container-maria")
+                .withName("initialize-container-maria")
+                .withDescription("initialize container maria")
+                .withDependencies("create-container-maria")
                 .execute(() -> {})
                 .build();
     }

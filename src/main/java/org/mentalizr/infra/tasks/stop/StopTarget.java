@@ -7,10 +7,10 @@ public class StopTarget {
 
     public static Task create() {
         return new TaskBuilder()
-                .isTarget()
-                .name("stop")
-                .description("stop docker infrastructure")
-                .dependencies("stop-mongo")
+                .asTarget()
+                .withName("stop")
+                .withDescription("stop docker infrastructure")
+                .withDependencies("stop-mongo")
                 .execute(()-> {})
                 .build();
     }

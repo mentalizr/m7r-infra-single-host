@@ -9,9 +9,9 @@ public class AwaitUpMaria {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("await-up-maria")
-                .description("await up [" + Const.CONTAINER_MARIA + "]")
-                .dependencies("start-container-maria")
+                .withName("await-up-maria")
+                .withDescription("await up [" + Const.CONTAINER_MARIA + "]")
+                .withDependencies("start-container-maria")
                 .execute(ConnectionMaria::awaitUp)
                 .build();
     }

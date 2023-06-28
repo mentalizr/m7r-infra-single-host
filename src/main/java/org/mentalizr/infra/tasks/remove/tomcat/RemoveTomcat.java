@@ -7,9 +7,9 @@ public class RemoveTomcat {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-tomcat")
-                .description("remove tomcat")
-                .dependencies("remove-volume-tomcat")
+                .withName("remove-tomcat")
+                .withDescription("remove tomcat")
+                .withDependencies("remove-volume-tomcat")
                 .execute(() -> {})
                 .build();
     }

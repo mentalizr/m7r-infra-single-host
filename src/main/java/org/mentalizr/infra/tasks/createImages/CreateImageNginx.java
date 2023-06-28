@@ -8,7 +8,7 @@ public class CreateImageNginx {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-image-nginx")
+                .withName("create-image-nginx")
                 .execute(M7rImageNginx::build)
                 .build();
     }

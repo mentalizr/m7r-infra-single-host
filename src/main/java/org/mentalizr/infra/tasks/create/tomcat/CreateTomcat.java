@@ -7,10 +7,10 @@ public class CreateTomcat {
 
     public static Task create() {
         return new TaskBuilder()
-                .isTarget()
-                .name("create-tomcat")
-                .description("create tomcat")
-                .dependencies("initialize-container-tomcat")
+                .asTarget()
+                .withName("create-tomcat")
+                .withDescription("create tomcat")
+                .withDependencies("initialize-container-tomcat")
                 .execute(()-> {})
                 .build();
     }

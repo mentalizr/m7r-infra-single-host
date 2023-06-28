@@ -8,7 +8,7 @@ public class CreateBackupTagMongo {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-backup-tag-mongo")
+                .withName("create-backup-tag-mongo")
                 .skip(() -> !M7rImageMongo.exists())
                 .execute(M7rImageMongo::createBackupTag)
                 .build();

@@ -9,9 +9,9 @@ public class CreateContainerMongo {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-container-mongo")
-                .description("create container mongo")
-                .dependencies("create-volume-mongo")
+                .withName("create-container-mongo")
+                .withDescription("create container mongo")
+                .withDependencies("create-volume-mongo")
                 .isUpToDate(M7rContainerMongo::exists)
                 .execute(M7rContainerMongo::create)
                 .build();

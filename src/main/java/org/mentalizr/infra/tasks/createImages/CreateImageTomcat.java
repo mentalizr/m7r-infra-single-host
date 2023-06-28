@@ -8,8 +8,8 @@ public class CreateImageTomcat {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-image-tomcat")
-                .dependencies("create-image-jdk")
+                .withName("create-image-tomcat")
+                .withDependencies("create-image-jdk")
                 .execute(M7rImageTomcat::build)
                 .build();
     }

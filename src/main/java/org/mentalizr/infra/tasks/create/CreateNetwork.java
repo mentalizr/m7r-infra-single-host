@@ -9,9 +9,9 @@ public class CreateNetwork {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-network")
-                .description("create docker network [" + Const.NETWORK + "]")
-                .dependencies("create-dirs")
+                .withName("create-network")
+                .withDescription("create docker network [" + Const.NETWORK + "]")
+                .withDependencies("create-dirs")
                 .isUpToDate(M7rNetwork::exists)
                 .execute(M7rNetwork::create)
                 .build();

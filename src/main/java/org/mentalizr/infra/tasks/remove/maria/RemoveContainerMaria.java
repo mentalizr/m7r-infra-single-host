@@ -10,8 +10,8 @@ public class RemoveContainerMaria {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-container-maria")
-                .description("remove container [" + Const.CONTAINER_MARIA + "]")
+                .withName("remove-container-maria")
+                .withDescription("remove container [" + Const.CONTAINER_MARIA + "]")
                 .isUpToDate(() -> !M7rContainerMaria.exists())
                 .execute(M7rContainerMaria::remove)
                 .build();

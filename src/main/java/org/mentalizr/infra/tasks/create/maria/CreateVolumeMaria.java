@@ -9,9 +9,9 @@ public class CreateVolumeMaria {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-volume-maria")
-                .description("create docker volume for maria")
-                .dependencies("create-network")
+                .withName("create-volume-maria")
+                .withDescription("create docker volume for maria")
+                .withDependencies("create-network")
                 .isUpToDate(M7rVolumeMaria::exists)
                 .execute(M7rVolumeMaria::create)
                 .build();

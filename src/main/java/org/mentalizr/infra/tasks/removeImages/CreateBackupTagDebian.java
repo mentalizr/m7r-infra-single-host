@@ -8,7 +8,7 @@ public class CreateBackupTagDebian {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-backup-tag-debian")
+                .withName("create-backup-tag-debian")
                 .skip(() -> !M7rImageDebian.exists())
                 .execute(M7rImageDebian::createBackupTag)
                 .build();

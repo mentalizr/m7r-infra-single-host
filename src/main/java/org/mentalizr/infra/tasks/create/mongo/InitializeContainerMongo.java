@@ -8,9 +8,9 @@ public class InitializeContainerMongo {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("initialize-container-mongo")
-                .description("initialize container mongo")
-                .dependencies("create-container-mongo")
+                .withName("initialize-container-mongo")
+                .withDescription("initialize container mongo")
+                .withDependencies("create-container-mongo")
                 .execute(M7rContainerMongo::initialize)
                 .build();
     }

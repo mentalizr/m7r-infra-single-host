@@ -9,7 +9,7 @@ public class CreateImageDebian {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-image-debian")
+                .withName("create-image-debian")
                 .execute(M7rImageDebian::build)
                 .build();
     }

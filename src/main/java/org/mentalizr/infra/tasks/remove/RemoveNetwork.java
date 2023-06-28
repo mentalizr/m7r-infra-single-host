@@ -9,9 +9,9 @@ public class RemoveNetwork {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-network")
-                .description("remove docker network [" + Const.NETWORK + "]")
-                .dependencies("remove-mongo", "remove-maria", "remove-tomcat", "remove-nginx")
+                .withName("remove-network")
+                .withDescription("remove docker network [" + Const.NETWORK + "]")
+                .withDependencies("remove-mongo", "remove-maria", "remove-tomcat", "remove-nginx")
                 .isUpToDate(() -> !M7rNetwork.exists())
                 .execute(M7rNetwork::remove)
                 .build();

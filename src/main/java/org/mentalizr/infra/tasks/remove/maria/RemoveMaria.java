@@ -7,9 +7,9 @@ public class RemoveMaria {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-maria")
-                .description("remove mariaDB")
-                .dependencies("remove-volume-maria")
+                .withName("remove-maria")
+                .withDescription("remove mariaDB")
+                .withDependencies("remove-volume-maria")
                 .execute(() -> {})
                 .build();
     }

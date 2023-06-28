@@ -7,10 +7,10 @@ public class CreateNginx {
 
     public static Task create() {
         return new TaskBuilder()
-                .isTarget()
-                .name("create-nginx")
-                .description("create nginx")
-                .dependencies("initialize-container-nginx")
+                .asTarget()
+                .withName("create-nginx")
+                .withDescription("create nginx")
+                .withDependencies("initialize-container-nginx")
                 .execute(()-> {})
                 .build();
     }

@@ -8,9 +8,9 @@ public class Backup {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("backup")
-                .description("backup")
-                .isTarget()
+                .withName("backup")
+                .withDescription("backup")
+                .asTarget()
                 .execute(BackupTaskAgent::backup)
                 .build();
     }

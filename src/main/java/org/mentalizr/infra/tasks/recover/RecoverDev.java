@@ -8,9 +8,9 @@ public class RecoverDev {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("recover-dev")
-                .description("recover database for dev")
-                .isTarget()
+                .withName("recover-dev")
+                .withDescription("recover database for dev")
+                .asTarget()
                 .isUpToDate(RecoverTaskAgent::isDatabaseNotEmpty)
                 .execute(RecoverTaskAgent::recoverDev)
                 .build();

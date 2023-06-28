@@ -10,9 +10,9 @@ public class RemoveVolumeMongo {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-volume-mongo")
-                .description("remove docker volume [" + Const.VOLUME_MONGO + "]")
-                .dependencies("remove-container-mongo")
+                .withName("remove-volume-mongo")
+                .withDescription("remove docker volume [" + Const.VOLUME_MONGO + "]")
+                .withDependencies("remove-container-mongo")
                 .isUpToDate(() -> !M7rVolumeMongo.exists())
                 .execute(M7rVolumeMongo::remove)
                 .build();

@@ -8,9 +8,9 @@ public class DeployResrc {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("deploy-resrc")
-                .description("deploy resources")
-                .dependencies("update-html")
+                .withName("deploy-resrc")
+                .withDescription("deploy resources")
+                .withDependencies("update-html")
                 .isUpToDate(WebAppResources::isDeployed)
                 .execute(WebAppResources::deploy)
                 .build();

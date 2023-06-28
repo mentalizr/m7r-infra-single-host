@@ -9,9 +9,9 @@ public class StartTomcat {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("start-tomcat")
-                .description("start [" + Const.CONTAINER_TOMCAT + "]")
-                .dependencies("await-up-tomcat")
+                .withName("start-tomcat")
+                .withDescription("start [" + Const.CONTAINER_TOMCAT + "]")
+                .withDependencies("await-up-tomcat")
                 .execute(() -> {})
                 .build();
     }
