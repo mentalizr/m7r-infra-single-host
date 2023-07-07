@@ -39,9 +39,14 @@ test {
     useJUnitPlatform()
 }
 
-task extractDependencies(type: Copy, dependsOn: jar) {
+tasks.register('extractDependencies', Copy) {
+    dependsOn jar
     from configurations.runtimeClasspath
     into "$buildDir/dependencies"
+}
+
+tasks.register('tool') {
+    dependsOn extractDependencies
 }
 
 defaultTasks 'extractDependencies'
