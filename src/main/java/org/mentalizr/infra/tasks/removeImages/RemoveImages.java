@@ -7,9 +7,9 @@ public class RemoveImages {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-images")
-                .dependencies("remove-image-mongo", "remove-image-maria", "remove-image-debian", "remove-image-jdk", "remove-image-tomcat", "remove-image-nginx")
-                .isTarget()
+                .withName("remove-images")
+                .withDependencies("remove-image-mongo", "remove-image-maria", "remove-image-debian", "remove-image-jdk", "remove-image-tomcat", "remove-image-nginx")
+                .asTarget()
                 .execute(() -> {})
                 .build();
     }

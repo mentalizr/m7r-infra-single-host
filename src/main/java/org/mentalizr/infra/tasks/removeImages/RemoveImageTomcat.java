@@ -8,8 +8,8 @@ public class RemoveImageTomcat {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-image-tomcat")
-                .dependencies("create-backup-tag-tomcat")
+                .withName("remove-image-tomcat")
+                .withDependencies("create-backup-tag-tomcat")
                 .isUpToDate(() -> !M7rImageTomcat.exists())
                 .execute(M7rImageTomcat::remove)
                 .build();

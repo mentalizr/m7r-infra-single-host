@@ -10,8 +10,8 @@ public class CreateDirs {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-dirs")
-                .description("create directories")
+                .withName("create-dirs")
+                .withDescription("create directories")
                 .isUpToDate(LogDirs::existsAllLogDirs)
                 .execute(LogDirs::createAllLogDirs)
                 .build();

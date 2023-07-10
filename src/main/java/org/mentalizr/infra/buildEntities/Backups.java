@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class Backups {
 
     public static boolean hasBackup() {
-        BackupDestinationDir backupDestinationDir = BackupDestinationDir.createInstance();
+        BackupDestinationDir backupDestinationDir = new BackupDestinationDir();
         try {
             return FileUtils.hasSubdirectories(backupDestinationDir.asPath());
         } catch (IOException e) {
@@ -23,7 +23,7 @@ public class Backups {
     }
 
     public static Path getLatestBackup() {
-        BackupDestinationDir backupDestinationDir = BackupDestinationDir.createInstance();
+        BackupDestinationDir backupDestinationDir = new BackupDestinationDir();
         List<String> pathList = getSortedFileBackupNames(backupDestinationDir.asPath());
         if (pathList.isEmpty()) throw new IllegalStateException("No backups found.");
         return backupDestinationDir.asPath().resolve(Lists.getLastElement(pathList));

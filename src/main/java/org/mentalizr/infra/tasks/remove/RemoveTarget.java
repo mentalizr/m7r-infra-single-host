@@ -7,10 +7,10 @@ public class RemoveTarget {
 
     public static Task create() {
         return new TaskBuilder()
-                .isTarget()
-                .name("remove")
-                .description("remove docker infrastructure")
-                .dependencies("remove-network")
+                .asTarget()
+                .withName("remove")
+                .withDescription("remove docker infrastructure")
+                .withDependencies("remove-network")
                 .execute(()-> {})
                 .build();
     }

@@ -8,9 +8,9 @@ public class CreateImages {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-images")
-                .dependencies("create-image-mongo", "create-image-maria", "create-image-tomcat", "create-image-nginx")
-                .isTarget()
+                .withName("create-images")
+                .withDependencies("create-image-mongo", "create-image-maria", "create-image-tomcat", "create-image-nginx")
+                .asTarget()
                 .execute(() -> {})
                 .build();
     }

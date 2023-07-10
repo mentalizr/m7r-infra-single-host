@@ -21,6 +21,18 @@ public class ConnectionTomcat {
 
     public static boolean probe() {
         try {
+            URL url = new URL("http://localhost:8080/m7r/service/v1");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            int responseCode = connection.getResponseCode();
+            return responseCode == 200;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    public static boolean probeGeneric() {
+        try {
             URL url = new URL("http://localhost:8080");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -36,7 +48,7 @@ public class ConnectionTomcat {
         LocalDateTime startTimestamp = LocalDateTime.now();
 
         while (true) {
-            success = probe();
+            success = probeGeneric();
 
             LocalDateTime current = LocalDateTime.now();
             Duration duration = Duration.between(startTimestamp, current);

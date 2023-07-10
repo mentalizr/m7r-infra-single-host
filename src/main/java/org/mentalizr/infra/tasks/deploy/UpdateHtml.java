@@ -8,9 +8,9 @@ public class UpdateHtml {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("update-html")
-                .description("deploy html")
-                .dependencies("deploy-war")
+                .withName("update-html")
+                .withDescription("deploy html")
+                .withDependencies("deploy-war")
                 .isUpToDate(HtmlFiles::isDeployed)
                 .execute(HtmlFiles::deploy)
                 .build();

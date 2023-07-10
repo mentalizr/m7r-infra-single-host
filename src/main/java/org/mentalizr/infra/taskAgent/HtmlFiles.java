@@ -20,11 +20,13 @@ public class HtmlFiles {
 
     public static void deploy() {
         logger.info("Deploy html files.");
+        logger.debug("Call " + HtmlFiles.class.getSimpleName() + ".deploy()");
         copyHtmlFilesToContainer();
         HtmlChecksum.writeToContainer();
     }
 
     public static boolean isDeployed() {
+        logger.debug("Call " + HtmlFiles.class.getSimpleName() + ".isDeployed()");
         String checksumCode = HtmlChecksum.forHtmlFiles();
         String checksumContainer = HtmlChecksum.readFromContainer();
         boolean isDeployed = checksumCode.equals(checksumContainer);

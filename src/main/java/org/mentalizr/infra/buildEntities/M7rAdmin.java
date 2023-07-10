@@ -1,12 +1,14 @@
 package org.mentalizr.infra.buildEntities;
 
-import org.mentalizr.backend.config.Configuration;
+import org.mentalizr.backend.config.infraUser.InfraUserConfiguration;
 import org.mentalizr.infra.InfraRuntimeException;
+import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.buildEntities.connections.ConnectionMaria;
 import org.mentalizr.persistence.rdbms.barnacle.connectionManager.EntityNotFoundException;
 import org.mentalizr.persistence.rdbms.barnacle.dao.RoleAdminDAO;
 import org.mentalizr.persistence.rdbms.barnacle.dao.UserDAO;
 import org.mentalizr.persistence.rdbms.barnacle.dao.UserLoginDAO;
+import org.mentalizr.persistence.rdbms.barnacle.vo.PolicyConsentPK;
 import org.mentalizr.persistence.rdbms.barnacle.vo.RoleAdminVO;
 import org.mentalizr.persistence.rdbms.barnacle.vo.UserLoginVO;
 import org.mentalizr.persistence.rdbms.barnacle.vo.UserVO;
@@ -23,8 +25,8 @@ public class M7rAdmin {
 
     private static final Logger logger = LoggerFactory.getLogger(M7rAdmin.class.getSimpleName());
 
-    private static final String m7rAdminUser = Configuration.getM7rAdminUser();
-    private static final String m7rAdminPassword = Configuration.getM7rAdminPassword();
+//    private static final String m7rAdminUser = InfraUserConfiguration.getM7rAdminUser();
+//    private static final String m7rAdminPassword = InfraUserConfiguration.getM7rAdminPassword();
 
     public static boolean isAdminUserInitialized() {
         try (Connection connection = ConnectionMaria.getConnectionToDbAsRoot()) {
@@ -41,6 +43,10 @@ public class M7rAdmin {
     }
 
     public static void init() {
+        InfraUserConfiguration infraUserConfiguration = ApplicationContext.getInfraUserConfiguration();
+        String m7rAdminUser = infraUserConfiguration.getM7rAdminUser();
+        String m7rAdminPassword = infraUserConfiguration.getM7rAdminPassword();
+
         String pwHash = Argon2Hash.getHash(m7rAdminPassword.toCharArray());
 
         try (Connection connection = ConnectionMaria.getConnectionToDbAsRoot()) {
@@ -58,7 +64,11 @@ public class M7rAdmin {
             userLoginVO.setLastName("admin");
             userLoginVO.setGender(1);
             userLoginVO.setPasswordHash(pwHash);
+            userLoginVO.setSecondFA(false);
+            userLoginVO.setEmailConfirmation(0L);
+            userLoginVO.setRenewPasswordRequired(false);
             UserLoginDAO.create(userLoginVO, connection);
+
         } catch (SQLException e) {
             throw new InfraRuntimeException("Exception on initializing m7r admin user: " + e.getMessage(), e);
         }

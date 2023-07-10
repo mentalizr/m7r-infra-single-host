@@ -9,9 +9,9 @@ public class RemoveVolumeTomcat {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-volume-tomcat")
-                .description("remove docker volume [" + Const.VOLUME_TOMCAT + "]")
-                .dependencies("remove-container-tomcat")
+                .withName("remove-volume-tomcat")
+                .withDescription("remove docker volume [" + Const.VOLUME_TOMCAT + "]")
+                .withDependencies("remove-container-tomcat")
                 .isUpToDate(() -> !M7rVolumeTomcat.exists())
                 .execute(M7rVolumeTomcat::remove)
                 .build();

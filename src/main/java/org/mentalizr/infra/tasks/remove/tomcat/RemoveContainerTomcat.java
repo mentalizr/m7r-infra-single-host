@@ -8,8 +8,8 @@ public class RemoveContainerTomcat {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-container-tomcat")
-                .description("remove container tomcat")
+                .withName("remove-container-tomcat")
+                .withDescription("remove container tomcat")
                 .isUpToDate(() -> !M7rContainerTomcat.exists())
                 .execute(M7rContainerTomcat::remove)
                 .build();

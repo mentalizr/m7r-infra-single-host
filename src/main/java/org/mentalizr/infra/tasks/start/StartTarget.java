@@ -7,10 +7,10 @@ public class StartTarget {
 
     public static Task create() {
         return new TaskBuilder()
-                .isTarget()
-                .name("start")
-                .description("start docker infrastructure")
-                .dependencies("start-nginx")
+                .asTarget()
+                .withName("start")
+                .withDescription("start docker infrastructure")
+                .withDependencies("start-nginx")
                 .execute(()-> {})
                 .build();
     }

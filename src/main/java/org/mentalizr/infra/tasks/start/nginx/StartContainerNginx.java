@@ -10,8 +10,8 @@ public class StartContainerNginx {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("start-container-nginx")
-                .description("start [" + Const.CONTAINER_NGINX + "]")
+                .withName("start-container-nginx")
+                .withDescription("start [" + Const.CONTAINER_NGINX + "]")
                 .isUpToDate(M7rContainerNginx::isRunning)
                 .execute(M7rContainerNginx::start)
                 .build();

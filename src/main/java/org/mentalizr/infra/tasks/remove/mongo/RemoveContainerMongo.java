@@ -10,8 +10,8 @@ public class RemoveContainerMongo {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-container-mongo")
-                .description("remove container mongo")
+                .withName("remove-container-mongo")
+                .withDescription("remove container mongo")
                 .isUpToDate(() -> !M7rContainerMongo.exists())
                 .execute(M7rContainerMongo::remove)
                 .build();

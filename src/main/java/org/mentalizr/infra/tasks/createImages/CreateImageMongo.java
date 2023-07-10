@@ -8,7 +8,7 @@ public class CreateImageMongo {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-image-mongo")
+                .withName("create-image-mongo")
                 .execute(M7rImageMongo::pull)
                 .build();
     }

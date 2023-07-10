@@ -9,8 +9,8 @@ public class CreateImageJDK {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-image-jdk")
-                .dependencies("create-image-debian")
+                .withName("create-image-jdk")
+                .withDependencies("create-image-debian")
                 .execute(M7rImageJDK::build)
                 .build();
     }

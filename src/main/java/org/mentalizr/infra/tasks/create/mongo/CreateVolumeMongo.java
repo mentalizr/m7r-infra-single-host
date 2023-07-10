@@ -10,9 +10,9 @@ public class CreateVolumeMongo {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-volume-mongo")
-                .description("create docker volume for mongo")
-                .dependencies("create-network")
+                .withName("create-volume-mongo")
+                .withDescription("create docker volume for mongo")
+                .withDependencies("create-network")
                 .isUpToDate(M7rVolumeMongo::exists)
                 .execute(M7rVolumeMongo::create)
                 .build();

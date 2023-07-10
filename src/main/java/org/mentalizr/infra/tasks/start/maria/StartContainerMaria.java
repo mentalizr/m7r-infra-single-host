@@ -9,8 +9,8 @@ public class StartContainerMaria {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("start-container-maria")
-                .description("start container [" + Const.CONTAINER_MARIA + "]")
+                .withName("start-container-maria")
+                .withDescription("start container [" + Const.CONTAINER_MARIA + "]")
                 .isUpToDate(M7rContainerMaria::isRunning)
                 .execute(M7rContainerMaria::start)
                 .build();

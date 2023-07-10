@@ -19,6 +19,7 @@ public class WebAppResources {
     private static final Logger logger = LoggerFactory.getLogger(WebAppResources.class.getSimpleName());
 
     public static boolean isDeployed() {
+        logger.debug("Call " + WebAppResources.class.getSimpleName() + ".isDeployed()");
         String checksumCode = WebAppResourcesChecksum.getBuildChecksum();
         String checksumContainer = WebAppResourcesChecksum.readFromContainer();
         boolean isDeployed = checksumCode.equals(checksumContainer);
@@ -27,6 +28,7 @@ public class WebAppResources {
     }
 
     public static void deploy() {
+        logger.debug("Call " + WebAppResources.class.getSimpleName() + ".deploy()");
         ResrcArchive resrcArchive = WebAppResourcesSingleton.getInstance().getResrcArchive();
         copyResourcesToContainer(resrcArchive);
         WebAppResourcesChecksum.writeToContainer();

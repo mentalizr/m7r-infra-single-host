@@ -8,7 +8,7 @@ public class CreateImageMaria {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-image-maria")
+                .withName("create-image-maria")
                 .execute(M7rImageMaria::pull)
                 .build();
     }

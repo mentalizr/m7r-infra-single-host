@@ -36,7 +36,7 @@ public class WebAppResourcesSingleton {
 
     private static TempDir createTempDir() {
         try {
-            return TempDirs.createUniqueTempDirAutoRemove(M7rHostTempDir.createInstance().asPath());
+            return TempDirs.createUniqueTempDirAutoRemove(new M7rHostTempDir().asPath());
         } catch (IOException e) {
             throw new InfraRuntimeException(e.getMessage(), e);
         }

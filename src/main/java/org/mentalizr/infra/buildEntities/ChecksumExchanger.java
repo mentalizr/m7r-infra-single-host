@@ -34,7 +34,9 @@ public class ChecksumExchanger {
         try {
             DockerCopy.copyFileFromContainer(context, Const.CONTAINER_TOMCAT, "/" + fileName, tempDir);
         } catch (DockerExecutionException e) {
-            if (e.getMessage().contains("No such container:path:")) return "";
+            String message = e.getMessage();
+            if (message.contains("No such container:path:")
+                    || message.contains("Could not find the file")) return "";
             throw new InfraRuntimeException("Exception on copying from container: " + e.getMessage(), e);
         }
         try {

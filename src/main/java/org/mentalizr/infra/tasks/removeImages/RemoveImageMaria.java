@@ -8,8 +8,8 @@ public class RemoveImageMaria {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-image-maria")
-                .dependencies("create-backup-tag-maria")
+                .withName("remove-image-maria")
+                .withDependencies("create-backup-tag-maria")
                 .isUpToDate(() -> !M7rImageMaria.exists())
                 .execute(M7rImageMaria::remove)
                 .build();

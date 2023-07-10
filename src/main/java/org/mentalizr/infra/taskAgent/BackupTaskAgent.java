@@ -9,7 +9,7 @@ import org.mentalizr.infra.InfraRuntimeException;
 public class BackupTaskAgent {
 
     public static void backup() {
-        BackupDestinationDir backupDestinationDir = BackupDestinationDir.createInstance();
+        BackupDestinationDir backupDestinationDir = new BackupDestinationDir();
         try {
             Session.loginWithLocalConfiguration();
             Backup.execute(backupDestinationDir.asPath());

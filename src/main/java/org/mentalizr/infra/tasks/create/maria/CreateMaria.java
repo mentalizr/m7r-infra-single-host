@@ -7,10 +7,10 @@ public class CreateMaria {
 
     public static Task create() {
         return new TaskBuilder()
-                .isTarget()
-                .name("create-maria")
-                .description("create maria")
-                .dependencies("initialize-container-maria")
+                .asTarget()
+                .withName("create-maria")
+                .withDescription("create maria")
+                .withDependencies("initialize-container-maria")
                 .execute(()-> {})
                 .build();
     }

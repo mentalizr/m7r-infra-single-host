@@ -9,10 +9,10 @@ public class CreateTarget {
 
     public static Task create() {
         return new TaskBuilder()
-                .isTarget()
-                .name("create")
-                .description("create docker infrastructure")
-                .dependencies("create-maria", "create-nginx", "create-mongo", "create-tomcat")
+                .asTarget()
+                .withName("create")
+                .withDescription("create docker infrastructure")
+                .withDependencies("create-maria", "create-nginx", "create-mongo", "create-tomcat")
                 .execute(()-> {})
                 .build();
     }

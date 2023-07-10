@@ -11,8 +11,8 @@ public class DeployWar {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("deploy-war")
-                .description("deploy war")
+                .withName("deploy-war")
+                .withDescription("deploy war")
                 .precondition(M7rContainerTomcat::assertIsRunning)
                 .isUpToDate(Backend::isCurrentBuildAlreadyDeployed)
                 .execute(() -> {

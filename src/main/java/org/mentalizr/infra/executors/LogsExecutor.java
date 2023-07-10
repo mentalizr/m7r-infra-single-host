@@ -26,7 +26,7 @@ public class LogsExecutor implements CommandExecutor {
 
         System.out.println("Show logs ...");
 
-        Path logFile = M7rHostLogFile.createInstance().asPath();
+        Path logFile = new M7rHostLogFile().asPath();
         if (!FileUtils.isExistingRegularFile(logFile))
             throw new CommandExecutorException("Log file not found: [" + logFile.toAbsolutePath() + "].");
 

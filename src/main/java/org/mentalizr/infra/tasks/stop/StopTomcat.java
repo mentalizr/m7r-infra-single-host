@@ -8,9 +8,9 @@ public class StopTomcat {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("stop-tomcat")
-                .description("stop tomcat")
-                .dependencies("stop-nginx")
+                .withName("stop-tomcat")
+                .withDescription("stop tomcat")
+                .withDependencies("stop-nginx")
                 .execute(M7rContainerTomcat::stop)
                 .build();
     }

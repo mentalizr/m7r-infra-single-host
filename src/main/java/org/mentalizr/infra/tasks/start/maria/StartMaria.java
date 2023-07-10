@@ -9,9 +9,9 @@ public class StartMaria {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("start-maria")
-                .description("start maria")
-                .dependencies("await-up-maria")
+                .withName("start-maria")
+                .withDescription("start maria")
+                .withDependencies("await-up-maria")
                 .execute(() -> {})
                 .build();
     }

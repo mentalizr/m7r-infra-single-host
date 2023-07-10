@@ -7,9 +7,9 @@ public class RemoveNginx {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-nginx")
-                .description("remove nginx")
-                .dependencies("remove-container-nginx")
+                .withName("remove-nginx")
+                .withDescription("remove nginx")
+                .withDependencies("remove-container-nginx")
                 .execute(() -> {})
                 .build();
     }

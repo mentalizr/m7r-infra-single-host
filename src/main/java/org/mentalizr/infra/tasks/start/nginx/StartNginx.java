@@ -9,9 +9,9 @@ public class StartNginx {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("start-nginx")
-                .description("start nginx")
-                .dependencies("start-tomcat", "await-up-nginx")
+                .withName("start-nginx")
+                .withDescription("start nginx")
+                .withDependencies("start-tomcat", "await-up-nginx")
                 .execute(() -> {})
                 .build();
     }

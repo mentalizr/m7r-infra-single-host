@@ -9,8 +9,8 @@ public class RemoveImageDebian {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-image-debian")
-                .dependencies("create-backup-tag-debian")
+                .withName("remove-image-debian")
+                .withDependencies("create-backup-tag-debian")
                 .isUpToDate(() -> !M7rImageDebian.exists())
                 .execute(M7rImageDebian::remove)
                 .build();

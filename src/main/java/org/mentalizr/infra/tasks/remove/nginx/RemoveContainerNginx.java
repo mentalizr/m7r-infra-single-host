@@ -9,8 +9,8 @@ public class RemoveContainerNginx {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-container-nginx")
-                .description("remove container nginx")
+                .withName("remove-container-nginx")
+                .withDescription("remove container nginx")
                 .isUpToDate(() -> !M7rContainerNginx.exists())
                 .execute(M7rContainerNginx::remove)
                 .build();

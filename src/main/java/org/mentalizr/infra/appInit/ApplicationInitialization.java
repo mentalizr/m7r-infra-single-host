@@ -20,9 +20,9 @@ import java.nio.file.Path;
 public class ApplicationInitialization {
 
     public static void execute() throws ApplicationInitializationException {
-        assertExistsM7rFile(M7rInfraUserConfigFile.createInstance());
-        assertExistsM7rFile(M7rSslCertFile.createInstance());
-        assertExistsM7rFile(M7rPrivateKeyFile.createInstance());
+        assertExistsM7rFile(new M7rInfraUserConfigFile());
+        assertExistsM7rFile(new M7rSslCertFile());
+        assertExistsM7rFile(new M7rPrivateKeyFile());
 
         assertExistsM7rFile(M7rClientCliConfigFile.createInstance());
         assertExistsM7rFile(M7rClientCredentialsFile.createInstance());
@@ -32,7 +32,7 @@ public class ApplicationInitialization {
 
         createLogDir();
         initLogging();
-        setConfigSystemProperty();
+        ApplicationContext.initialize();
     }
 
     private static void assertExistsM7rDir(M7rDir m7rDir) throws ApplicationInitializationException {
@@ -60,7 +60,7 @@ public class ApplicationInitialization {
     }
 
     private static void createLogDir() throws ApplicationInitializationException {
-        M7rHostLogDir m7rHostLogDir = M7rHostLogDir.createInstance();
+        M7rHostLogDir m7rHostLogDir = new M7rHostLogDir();
         if (!m7rHostLogDir.exists()) {
             try {
                 m7rHostLogDir.create();
@@ -72,15 +72,15 @@ public class ApplicationInitialization {
     }
 
     private static void initLogging() {
-        M7rHostLogDir m7rHostLogDir = M7rHostLogDir.createInstance();
+        M7rHostLogDir m7rHostLogDir = new M7rHostLogDir();
         Path logFile = m7rHostLogDir.asPath().resolve("m7r-infra.log");
         LoggerInit.consoleAndFile(logFile, Level.DEBUG, Level.OFF);
     }
 
-    private static void setConfigSystemProperty() {
-        System.setProperty(
-                "m7r.config",
-                M7rInfraUserConfigFile.createInstance().toAbsolutePathString());
-    }
+//    private static void setConfigSystemProperty() {
+//        System.setProperty(
+//                "m7r.config",
+//                M7rInfraUserConfigFile.createInstance().toAbsolutePathString());
+//    }
 
 }

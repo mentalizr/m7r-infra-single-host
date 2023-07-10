@@ -8,7 +8,7 @@ public class CreateBackupTagNginx {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-backup-tag-nginx")
+                .withName("create-backup-tag-nginx")
                 .skip(() -> !M7rImageNginx.exists())
                 .execute(M7rImageNginx::createBackupTag)
                 .build();

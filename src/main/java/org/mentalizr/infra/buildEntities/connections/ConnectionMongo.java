@@ -4,24 +4,26 @@ import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
 import org.bson.Document;
-import org.mentalizr.backend.config.Configuration;
+import org.mentalizr.backend.config.infraUser.InfraUserConfiguration;
 import org.mentalizr.infra.InfraRuntimeException;
+import org.mentalizr.infra.appInit.ApplicationContext;
 
 public class ConnectionMongo {
 
-    public static final String USERNAME = Configuration.getDocumentDbUser();
-    public static final String PASSWORD = Configuration.getDocumentDbPassword();
-    public static final String HOST = "localhost";
-    public static final String DATABASE = Configuration.getDocumentDbName();
-
     public static void probe() {
+
+        InfraUserConfiguration infraUserConfiguration = ApplicationContext.getInfraUserConfiguration();
+        String userName = infraUserConfiguration.getDocumentDbUser();
+        String password = infraUserConfiguration.getDocumentDbPassword();
+        String host = "localhost";
+        String database = infraUserConfiguration.getDocumentDbName();
 
         try {
 
             // This is a hack! TODO: Rework after Upgrade to current mongoDB java driver.
 
             ConnectionString connectionString = new ConnectionString(
-                    "mongodb://" + USERNAME + ":" + PASSWORD + "@" + HOST + "/" + DATABASE);
+                    "mongodb://" + userName + ":" + password + "@" + host + "/" + database);
 
             MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                     .applyConnectionString(connectionString)
@@ -32,7 +34,7 @@ public class ConnectionMongo {
                     .retryWrites(true)
                     .build();
             MongoClient mongoClient = MongoClients.create(mongoClientSettings);
-            MongoDatabase mongoDatabase = mongoClient.getDatabase(DATABASE);
+            MongoDatabase mongoDatabase = mongoClient.getDatabase(database);
 
             MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("testCollection");
             Document queryDocument =

@@ -8,9 +8,9 @@ public class RecoverLatest {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("recover-latest")
-                .description("recover latest backup")
-                .isTarget()
+                .withName("recover-latest")
+                .withDescription("recover latest backup")
+                .asTarget()
                 .isUpToDate(RecoverTaskAgent::isDatabaseNotEmpty)
                 .execute(RecoverTaskAgent::recoverLatest)
                 .build();

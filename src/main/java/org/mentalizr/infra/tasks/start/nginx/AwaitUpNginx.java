@@ -8,9 +8,9 @@ public class AwaitUpNginx {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("await-up-nginx")
-                .description("await up [" + Const.CONTAINER_NGINX + "]")
-                .dependencies("start-container-nginx")
+                .withName("await-up-nginx")
+                .withDescription("await up [" + Const.CONTAINER_NGINX + "]")
+                .withDependencies("start-container-nginx")
                 .execute(() -> {})
                 .build();
     }

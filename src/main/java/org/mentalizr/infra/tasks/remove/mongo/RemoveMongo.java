@@ -9,9 +9,9 @@ public class RemoveMongo {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("remove-mongo")
-                .description("remove mongoDB")
-                .dependencies("remove-volume-mongo")
+                .withName("remove-mongo")
+                .withDescription("remove mongoDB")
+                .withDependencies("remove-volume-mongo")
                 .execute(() -> {})
                 .build();
     }

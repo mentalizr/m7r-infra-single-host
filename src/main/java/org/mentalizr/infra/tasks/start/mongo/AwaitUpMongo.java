@@ -9,9 +9,9 @@ public class AwaitUpMongo {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("await-up-mongo")
-                .description("await up [" + Const.CONTAINER_MONGO + "]")
-                .dependencies("start-container-mongo")
+                .withName("await-up-mongo")
+                .withDescription("await up [" + Const.CONTAINER_MONGO + "]")
+                .withDependencies("start-container-mongo")
                 .execute(ConnectionMongo::probe)
                 .build();
     }

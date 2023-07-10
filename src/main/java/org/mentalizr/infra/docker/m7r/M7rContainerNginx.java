@@ -2,9 +2,9 @@ package org.mentalizr.infra.docker.m7r;
 
 import de.arthurpicht.processExecutor.ProcessResultCollection;
 import org.mentalizr.commons.paths.host.hostDir.CertsDir;
-import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.DockerExecutionException;
+import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.InfraRuntimeException;
 import org.mentalizr.infra.buildEntities.initFiles.nginx.IndexHtml;
 import org.mentalizr.infra.buildEntities.initFiles.nginx.LocalDevConf;
@@ -31,7 +31,7 @@ public class M7rContainerNginx {
                     "docker", "create",
                     "--name", Const.CONTAINER_NGINX,
                     "--network", Const.NETWORK,
-                    "-v", CertsDir.createInstance().toAbsolutePathString() + ":/etc/nginx/certs",
+                    "-v", new CertsDir().toAbsolutePathString() + ":/etc/nginx/certs",
                     "-p", "443:443",
                     Const.IMAGE_NGINX);
         } catch (DockerExecutionException e) {

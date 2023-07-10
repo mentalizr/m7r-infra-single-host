@@ -9,9 +9,9 @@ public class CreateContainerMaria {
 
     public static Task create() {
         return new TaskBuilder()
-                .name("create-container-maria")
-                .description("create container maria")
-                .dependencies("create-volume-maria")
+                .withName("create-container-maria")
+                .withDescription("create container maria")
+                .withDependencies("create-volume-maria")
                 .isUpToDate(M7rContainerMaria::exists)
                 .execute(M7rContainerMaria::create)
                 .build();
