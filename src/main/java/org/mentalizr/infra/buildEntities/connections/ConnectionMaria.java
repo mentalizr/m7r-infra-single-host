@@ -12,12 +12,13 @@ import java.time.LocalDateTime;
 
 public class ConnectionMaria {
 
-    private static final int timeoutSeconds = 30;
+    private static final int defaultTimeoutSec = 30;
 
     private static final String username;
     private static final String password;
     private static final String database;
     private static final String rootPassword;
+    private static final int timeoutSec;
 
     static {
         InfraUserConfiguration infraUserConfiguration = ApplicationContext.getInfraUserConfiguration();
@@ -25,6 +26,7 @@ public class ConnectionMaria {
         password = infraUserConfiguration.getUserDbPassword();
         database = infraUserConfiguration.getUserDbName();
         rootPassword = infraUserConfiguration.getUserDbRootPassword();
+        timeoutSec = ApplicationContext.getTimeout().getTimeoutSec(defaultTimeoutSec);
     }
 
     public static boolean probe() {
@@ -54,7 +56,7 @@ public class ConnectionMaria {
 
             LocalDateTime current = LocalDateTime.now();
             Duration duration = Duration.between(startTimestamp, current);
-            if (duration.getSeconds() >= timeoutSeconds) throw new InfraRuntimeException("Connection probe timeout.");
+            if (duration.getSeconds() >= timeoutSec) throw new InfraRuntimeException("Connection probe timeout.");
 
             try {
                 //noinspection BusyWait

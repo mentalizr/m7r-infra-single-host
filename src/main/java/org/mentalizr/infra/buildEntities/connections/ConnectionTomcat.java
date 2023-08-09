@@ -2,6 +2,7 @@ package org.mentalizr.infra.buildEntities.connections;
 
 import de.arthurpicht.utils.io.InputStreams;
 import org.mentalizr.infra.InfraRuntimeException;
+import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.build.Backend;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,13 @@ public class ConnectionTomcat {
 
     private static final Logger logger = LoggerFactory.getLogger(ConnectionTomcat.class);
 
-    private static final int timeoutSeconds = 30;
+    private static final int defaultTimeoutSec = 30;
+
+    private static final int timeoutSec;
+
+    static {
+        timeoutSec = ApplicationContext.getTimeout().getTimeoutSec(defaultTimeoutSec);
+    }
 
     public static boolean probe() {
         try {
@@ -59,11 +66,11 @@ public class ConnectionTomcat {
                 return;
             }
 
-            if (duration.getSeconds() >= timeoutSeconds) throw new InfraRuntimeException("Connection probe timeout.");
+            if (duration.getSeconds() >= timeoutSec) throw new InfraRuntimeException("Connection probe timeout.");
 
             try {
                 logger.info("Probing tomcat http connector failed." +
-                        " Duration=" + duration.getSeconds() + " sec. Timeout=" + timeoutSeconds + " sec");
+                        " Duration=" + duration.getSeconds() + " sec. Timeout=" + timeoutSec + " sec");
                 //noinspection BusyWait
                 Thread.sleep(500);
             } catch (InterruptedException e) {
@@ -118,21 +125,20 @@ public class ConnectionTomcat {
                 return;
             }
 
-            if (duration.getSeconds() >= timeoutSeconds){
+            if (duration.getSeconds() >= timeoutSec){
                 logger.error("Deployment of webApp failed. Timeout.");
                 throw new InfraRuntimeException("Deployment failed. Timeout.");
             }
 
             try {
                 logger.info("Deployment of webApp pending." +
-                        " Duration=" + duration.getSeconds() + " sec. Timeout=" + timeoutSeconds + " sec");
+                        " Duration=" + duration.getSeconds() + " sec. Timeout=" + timeoutSec + " sec");
                 //noinspection BusyWait
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new InfraRuntimeException(e);
             }
         }
-
     }
 
 }

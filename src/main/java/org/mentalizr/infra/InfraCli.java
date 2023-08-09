@@ -6,6 +6,7 @@ import de.arthurpicht.cli.command.Commands;
 import de.arthurpicht.cli.command.InfoDefaultCommand;
 import de.arthurpicht.cli.common.UnrecognizedArgumentException;
 import de.arthurpicht.cli.option.*;
+import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.appInit.ApplicationInitialization;
 import org.mentalizr.infra.appInit.ApplicationInitializationException;
 import org.mentalizr.infra.executors.*;
@@ -15,6 +16,7 @@ public class InfraCli {
     public static final String OPTION_VERBOSE = "verbose";
     public static final String OPTION_STACKTRACE = "stacktrace";
     public static final String OPTION_SILENT = "silent";
+    public static final String OPTION_TIMEOUT = "timeout";
 
     public static final String SPECIFIC_OPTION_FOLLOW = "follow";
     public static final String SPECIFIC_OPTION_CONFIGURATION = "configuration";
@@ -30,7 +32,8 @@ public class InfraCli {
                 .add(new ManOption())
                 .add(new OptionBuilder().withLongName("verbose").withDescription("verbose output").build(OPTION_VERBOSE))
                 .add(new OptionBuilder().withShortName('s').withLongName("stacktrace").withDescription("Show stacktrace when running on error.").build(OPTION_STACKTRACE))
-                .add(new OptionBuilder().withLongName("silent").withDescription("Make no output to console.").build(OPTION_SILENT));
+                .add(new OptionBuilder().withLongName("silent").withDescription("Make no output to console.").build(OPTION_SILENT))
+                .add(new OptionBuilder().withShortName('t').withLongName("timeout").withArgumentName("timeout").withDescription("Override default timeout parameters (seconds)").build(OPTION_TIMEOUT));
 
         Option recoverDevOption = new OptionBuilder()
                 .withLongName("dev")
@@ -263,6 +266,8 @@ public class InfraCli {
         }
 
         boolean showStacktrace = cliCall.getOptionParserResultGlobal().hasOption(OPTION_STACKTRACE);
+        Timeout timeout = getTimeout(cliCall.getOptionParserResultGlobal());
+        ApplicationContext.setTimeout(timeout);
 
         try {
             cli.execute(cliCall);
@@ -276,4 +281,18 @@ public class InfraCli {
             System.exit(1);
         }
     }
+
+    private static Timeout getTimeout(OptionParserResult optionParserResultGlobal) {
+        if (optionParserResultGlobal.hasOption(InfraCli.OPTION_TIMEOUT)) {
+            String timeoutString = optionParserResultGlobal.getValue(InfraCli.OPTION_TIMEOUT);
+            try {
+                int timeout = Integer.parseInt(timeoutString);
+                return Timeout.getTimeout(timeout);
+            } catch (NumberFormatException e) {
+                throw new RuntimeException("No valid value for 'timeout' parameter.");
+            }
+        }
+        return Timeout.getDefaultTimeout();
+    }
+
 }
