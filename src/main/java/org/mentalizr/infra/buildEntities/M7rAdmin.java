@@ -8,13 +8,10 @@ import org.mentalizr.persistence.rdbms.barnacle.connectionManager.EntityNotFound
 import org.mentalizr.persistence.rdbms.barnacle.dao.RoleAdminDAO;
 import org.mentalizr.persistence.rdbms.barnacle.dao.UserDAO;
 import org.mentalizr.persistence.rdbms.barnacle.dao.UserLoginDAO;
-import org.mentalizr.persistence.rdbms.barnacle.vo.PolicyConsentPK;
 import org.mentalizr.persistence.rdbms.barnacle.vo.RoleAdminVO;
 import org.mentalizr.persistence.rdbms.barnacle.vo.UserLoginVO;
 import org.mentalizr.persistence.rdbms.barnacle.vo.UserVO;
 import org.mentalizr.persistence.rdbms.utils.Argon2Hash;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -22,11 +19,6 @@ import java.sql.SQLException;
 public class M7rAdmin {
 
     private static final String ADMIN_ID = "aaaaaaaa-bbbb-1234567890abcdefaaaaaa";
-
-    private static final Logger logger = LoggerFactory.getLogger(M7rAdmin.class.getSimpleName());
-
-//    private static final String m7rAdminUser = InfraUserConfiguration.getM7rAdminUser();
-//    private static final String m7rAdminPassword = InfraUserConfiguration.getM7rAdminPassword();
 
     public static boolean isAdminUserInitialized() {
         try (Connection connection = ConnectionMaria.getConnectionToDbAsRoot()) {
