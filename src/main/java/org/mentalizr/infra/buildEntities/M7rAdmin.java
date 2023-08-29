@@ -44,6 +44,7 @@ public class M7rAdmin {
         try (Connection connection = ConnectionMaria.getConnectionToDbAsRoot()) {
             UserVO userVO = new UserVO(ADMIN_ID);
             userVO.setActive(true);
+            userVO.setCreation(System.currentTimeMillis());
             UserDAO.create(userVO, connection);
 
             RoleAdminVO roleAdminVO = new RoleAdminVO(ADMIN_ID);

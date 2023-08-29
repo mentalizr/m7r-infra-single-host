@@ -236,7 +236,7 @@ public class InfraCli {
 
         CliDescription cliDescription = new CliDescriptionBuilder()
                 .withDescription("mentalizr infra structure manager CLI\nhttps://github.com/mentalizr/m7r-infra")
-                .withVersionByTag("0.0.1-SNAPSHOT", "2023-08-09")
+                .withVersionByTag("0.0.1-SNAPSHOT", "2023-08-29")
                 .build("m7r-infra");
 
         return new CliBuilder()
