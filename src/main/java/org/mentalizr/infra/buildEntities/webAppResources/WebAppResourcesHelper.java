@@ -8,6 +8,7 @@ import de.arthurpicht.utils.io.nio2.FileUtils;
 import de.arthurpicht.utils.io.tempDir.TempDir;
 import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.InfraRuntimeException;
+import org.mentalizr.infra.build.Backend;
 import org.mentalizr.infra.utils.M7rFiles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +51,7 @@ public class WebAppResourcesHelper {
     }
 
     public static void copyToTempDir(TempDir tempDir) {
+        String buildIdString = Backend.getBuildIdString();
         M7rFiles m7rFiles = new M7rFiles(tempDir);
 
         try {
@@ -95,12 +97,12 @@ public class WebAppResourcesHelper {
 
         m7rFiles.copy(
                 "$M7R_FRONTEND$/dist/m7r_spa.js",
-                "$TEMP_DIR$/resrc/js"
+                "$TEMP_DIR$/resrc/js/m7r_spa-" + buildIdString + ".js"
         );
 
         m7rFiles.copy(
                 "$M7R_FRONTEND$/dist/m7r_spa.js.map",
-                "$TEMP_DIR$/resrc/js"
+                "$TEMP_DIR$/resrc/js/m7r_spa-" + buildIdString + ".js.map"
         );
 
         m7rFiles.copyDir(

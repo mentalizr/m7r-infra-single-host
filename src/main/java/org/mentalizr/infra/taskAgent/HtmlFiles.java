@@ -42,6 +42,7 @@ public class HtmlFiles {
         DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
         List<Path> htmlFileList = HtmlFilesSingleton.getInstance().getHtmlFileList();
         for (Path file : htmlFileList) {
+            logger.info("Copy htmlFile [" + file.toAbsolutePath() + "] to WEB-INF dir in tomcat docker container");
             try {
                 DockerCopy.copyFile(
                         context,
