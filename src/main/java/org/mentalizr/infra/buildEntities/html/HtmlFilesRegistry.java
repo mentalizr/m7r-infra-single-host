@@ -19,19 +19,19 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HtmlFilesSingleton {
+public class HtmlFilesRegistry {
 
-    private static HtmlFilesSingleton htmlFilesSingleton;
+    private static HtmlFilesRegistry htmlFilesRegistry;
 
     private final List<Path> htmlFileList;
     private long checksum;
 
-    public static HtmlFilesSingleton getInstance() {
-        if (htmlFilesSingleton == null) htmlFilesSingleton = new HtmlFilesSingleton();
-        return htmlFilesSingleton;
+    public static HtmlFilesRegistry getInstance() {
+        if (htmlFilesRegistry == null) htmlFilesRegistry = new HtmlFilesRegistry();
+        return htmlFilesRegistry;
     }
 
-    private HtmlFilesSingleton() {
+    private HtmlFilesRegistry() {
         Path initHtmlExtended = buildInitHtmlExtended();
         this.htmlFileList = new ArrayList<>();
         this.htmlFileList.add(initHtmlExtended);
@@ -58,9 +58,9 @@ public class HtmlFilesSingleton {
         StringSubstitutorConfiguration stringSubstitutorConfiguration = getStringSubstitutionConfiguration();
         String initHtmlExtendedString = StringSubstitutor.substitute(initHtmlString, stringSubstitutorConfiguration);
         Path tempDir = createTempDir();
-        Path initHtmlExtended = tempDir.resolve(initHtml.getFileName());
-        writeInitHtmlExtended(initHtmlExtended, initHtmlExtendedString);
-        return initHtmlExtended;
+        Path initHtmlExtendedPath = tempDir.resolve(initHtml.getFileName());
+        writeInitHtmlExtendedToTempDir(initHtmlExtendedPath, initHtmlExtendedString);
+        return initHtmlExtendedPath;
     }
 
     private static Path createTempDir() {
@@ -80,7 +80,7 @@ public class HtmlFilesSingleton {
         }
     }
 
-    private static void writeInitHtmlExtended(Path initHtmlExtended, String initHtmlExtendedString) {
+    private static void writeInitHtmlExtendedToTempDir(Path initHtmlExtended, String initHtmlExtendedString) {
         try {
             Files.writeString(initHtmlExtended, initHtmlExtendedString);
         } catch (IOException e) {

@@ -21,13 +21,13 @@ public class HtmlChecksum {
     private static final String checksumFileName = "html.checksum";
 
     public static String forHtmlFiles() {
-        HtmlFilesSingleton htmlFilesSingleton = HtmlFilesSingleton.getInstance();
-        return Long.toString(htmlFilesSingleton.getChecksum());
+        HtmlFilesRegistry htmlFilesRegistry = HtmlFilesRegistry.getInstance();
+        return Long.toString(htmlFilesRegistry.getChecksum());
     }
 
     public static void writeToContainer() {
-        HtmlFilesSingleton htmlFilesSingleton = HtmlFilesSingleton.getInstance();
-        long checksum = htmlFilesSingleton.getChecksum();
+        HtmlFilesRegistry htmlFilesRegistry = HtmlFilesRegistry.getInstance();
+        long checksum = htmlFilesRegistry.getChecksum();
         Path tempDir = createTempDir();
         Path tempChecksumFile = createTempChecksumFile(tempDir, checksum);
         logger.info("Writing html.checksum [" + checksum + "] to tomcat container.");

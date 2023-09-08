@@ -5,7 +5,7 @@ import org.mentalizr.infra.DockerExecutionException;
 import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.InfraRuntimeException;
 import org.mentalizr.infra.buildEntities.html.HtmlChecksum;
-import org.mentalizr.infra.buildEntities.html.HtmlFilesSingleton;
+import org.mentalizr.infra.buildEntities.html.HtmlFilesRegistry;
 import org.mentalizr.infra.docker.DockerCopy;
 import org.mentalizr.infra.docker.DockerExecutionContext;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class HtmlFiles {
 
     private static void copyHtmlFilesToContainer() {
         DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
-        List<Path> htmlFileList = HtmlFilesSingleton.getInstance().getHtmlFileList();
+        List<Path> htmlFileList = HtmlFilesRegistry.getInstance().getHtmlFileList();
         for (Path file : htmlFileList) {
             logger.info("Copy htmlFile [" + file.toAbsolutePath() + "] to WEB-INF dir in tomcat docker container");
             try {
