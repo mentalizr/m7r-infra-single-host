@@ -87,12 +87,12 @@ public class WebAppResourcesHelper {
 
         m7rFiles.copy(
                 "$M7R_FRONTEND_PROJECT$/css/m7r-frontend.css",
-                "$TEMP_DIR$/resrc/css"
+                "$TEMP_DIR$/resrc/css/m7r-frontend-" + buildIdString + ".css"
         );
 
         m7rFiles.copy(
                 "$M7R_FRONTEND_PROJECT$/css/m7r-fonts.css",
-                "$TEMP_DIR$/resrc/css"
+                "$TEMP_DIR$/resrc/css/m7r-fonts-" + buildIdString + ".css"
         );
 
         m7rFiles.copy(
@@ -112,7 +112,7 @@ public class WebAppResourcesHelper {
 
         m7rFiles.copy(
                 "$M7R_WEB_COMPONENTS$/css/m7r-web-components.css",
-                "$TEMP_DIR$/resrc/css"
+                "$TEMP_DIR$/resrc/css/m7r-web-components-" + buildIdString + ".css"
         );
 
         m7rFiles.copy("$M7R_WEB_COMPONENTS$/fonts/m7r-icomoon.eot",
