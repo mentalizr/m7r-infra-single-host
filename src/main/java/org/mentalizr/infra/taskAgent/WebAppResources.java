@@ -1,6 +1,5 @@
 package org.mentalizr.infra.taskAgent;
 
-import de.arthurpicht.utils.io.tempDir.TempDir;
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.DockerExecutionException;
 import org.mentalizr.infra.ExecutionContext;

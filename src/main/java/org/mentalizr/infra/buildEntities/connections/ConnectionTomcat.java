@@ -79,8 +79,8 @@ public class ConnectionTomcat {
         }
     }
 
-    public static boolean hasBuildDate(String buildDateString) {
-        String message = "Check if running webApp has BuildDate [" + buildDateString + "].";
+    public static boolean hasBuildId(String buildIdString) {
+        String message = "Check if running webApp has BuildId [" + buildIdString + "].";
         try {
             URL url = new URL("http://localhost:8080/m7r/service/v1");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -90,11 +90,11 @@ public class ConnectionTomcat {
                 return false;
             }
             List<String> strings = InputStreams.toStrings(connection.getInputStream());
-            if (strings.size() == 0) {
+            if (strings.isEmpty()) {
                 logger.debug(message + " Failed. No response.");
                 return false;
             }
-            boolean success = (strings.get(0).endsWith(buildDateString));
+            boolean success = (strings.get(0).endsWith(buildIdString));
             if (success) {
                 logger.debug(message + " Success.");
                 return true;
@@ -110,11 +110,11 @@ public class ConnectionTomcat {
 
     public static void awaitDeployment() {
         boolean isDeployed;
-        String buildDateString = Backend.getBuildDateString();
+        String buildIdString = Backend.getBuildIdString();
         LocalDateTime startTimestamp = LocalDateTime.now();
 
         while (true) {
-            isDeployed = hasBuildDate(buildDateString);
+            isDeployed = hasBuildId(buildIdString);
 
             LocalDateTime current = LocalDateTime.now();
             Duration duration = Duration.between(startTimestamp, current);

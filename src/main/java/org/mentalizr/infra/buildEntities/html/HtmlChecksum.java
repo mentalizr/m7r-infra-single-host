@@ -18,16 +18,16 @@ import java.nio.file.Path;
 public class HtmlChecksum {
 
     private static final Logger logger = LoggerFactory.getLogger(HtmlChecksum.class.getSimpleName());
-    private static final String fileName = "html.checksum";
+    private static final String checksumFileName = "html.checksum";
 
     public static String forHtmlFiles() {
-        HtmlFilesSingleton htmlFilesSingleton = HtmlFilesSingleton.getInstance();
-        return Long.toString(htmlFilesSingleton.getChecksum());
+        HtmlFilesRegistry htmlFilesRegistry = HtmlFilesRegistry.getInstance();
+        return Long.toString(htmlFilesRegistry.getChecksum());
     }
 
     public static void writeToContainer() {
-        HtmlFilesSingleton htmlFilesSingleton = HtmlFilesSingleton.getInstance();
-        long checksum = htmlFilesSingleton.getChecksum();
+        HtmlFilesRegistry htmlFilesRegistry = HtmlFilesRegistry.getInstance();
+        long checksum = htmlFilesRegistry.getChecksum();
         Path tempDir = createTempDir();
         Path tempChecksumFile = createTempChecksumFile(tempDir, checksum);
         logger.info("Writing html.checksum [" + checksum + "] to tomcat container.");
@@ -38,12 +38,12 @@ public class HtmlChecksum {
         DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
         Path tempDir = createTempDir();
         try {
-            DockerCopy.copyFileFromContainer(context, Const.CONTAINER_TOMCAT, "/" + fileName, tempDir);
+            DockerCopy.copyFileFromContainer(context, Const.CONTAINER_TOMCAT, "/" + checksumFileName, tempDir);
         } catch (DockerExecutionException e) {
             throw new InfraRuntimeException("Exception on copying from container: " + e.getMessage(), e);
         }
         try {
-            String checksum = Files.readString(tempDir.resolve(fileName)).trim();
+            String checksum = Files.readString(tempDir.resolve(checksumFileName)).trim();
             logger.info("Read html.checksum [" + checksum + "] from tomcat container.");
             return checksum;
         } catch (IOException e) {
@@ -69,7 +69,7 @@ public class HtmlChecksum {
     }
 
     private static Path createTempChecksumFile(Path tempDir, long checksum) {
-        Path checksumFile = tempDir.resolve(fileName);
+        Path checksumFile = tempDir.resolve(checksumFileName);
         try {
             return Files.writeString(checksumFile, Long.toString(checksum));
         } catch (IOException e) {
