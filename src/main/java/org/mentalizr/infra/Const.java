@@ -10,7 +10,7 @@ public class Const {
     public static final String VOLUME_MONGO = "m7r-mongo-vol";
     public static final String CONTAINER_MONGO = "m7r-mongo";
 
-    public static final String IMAGE_MARIA = "mariadb:10.6";
+    public static final String IMAGE_MARIA = "mariadb:10.11";
     public static final String VOLUME_MARIA = "m7r-maria-vol";
     public static final String CONTAINER_MARIA = "m7r-maria";
 
@@ -23,10 +23,10 @@ public class Const {
     public static final String CONTAINER_NGINX = "m7r-nginx";
     public static final String IMAGE_NGINX_URL = "https://github.com/arthurpicht/docker-nginx.git";
 
-    public static final String IMAGE_DEBIAN = "arthurpicht/debian-11:latest";
-    public static final String IMAGE_DEBIAN_URL = "https://github.com/arthurpicht/docker-debian-11.git#develop";
+    public static final String IMAGE_DEBIAN = "arthurpicht/debian-12:latest";
+    public static final String IMAGE_DEBIAN_URL = "https://github.com/arthurpicht/docker-debian-12.git#develop";
 
-    public static final String IMAGE_JDK = "arthurpicht/adoptopenjdk-11:latest";
-    public static final String IMAGE_JDK_URL = "https://github.com/arthurpicht/docker-adoptOpenJDK-11.git#develop";
+    public static final String IMAGE_JDK = "arthurpicht/adoptopenjdk-17:latest";
+    public static final String IMAGE_JDK_URL = "https://github.com/arthurpicht/docker-adoptOpenJDK-17.git#develop";
 
 }
