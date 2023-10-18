@@ -36,7 +36,7 @@ test {
 tasks.register('extractDependencies', Copy) {
     dependsOn jar
     from configurations.runtimeClasspath
-    into "$buildDir/dependencies"
+    into layout.buildDirectory.dir("dependencies")
 }
 
 tasks.register('tool') {
