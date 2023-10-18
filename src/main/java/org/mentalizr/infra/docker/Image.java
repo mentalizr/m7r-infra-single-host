@@ -13,9 +13,9 @@ public class Image {
         return (result.isSuccess() && result.getStandardOut().size() > 0);
     }
 
-    public static void pull(DockerExecutionContext context, String imageName) throws DockerExecutionException {
-        MethodPreconditions.assertArgumentNotNull("imageName", imageName);
-        Docker.call(context, "docker", "pull", imageName);
+    public static void pull(DockerExecutionContext context, String taggedImageName) throws DockerExecutionException {
+        MethodPreconditions.assertArgumentNotNull("taggedImageName", taggedImageName);
+        Docker.call(context, "docker", "pull", taggedImageName);
     }
 
     public static void build(DockerExecutionContext context, String taggedImageName, String gitUrl) throws DockerExecutionException {

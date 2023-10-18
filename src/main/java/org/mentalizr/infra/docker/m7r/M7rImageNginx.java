@@ -8,6 +8,10 @@ public class M7rImageNginx {
         return M7rImage.exists(Const.IMAGE_NGINX);
     }
 
+    public static void pull() {
+        M7rImage.pull(Const.IMAGE_NGINX);
+    }
+
     public static void build() {
         M7rImage.build(Const.IMAGE_NGINX, Const.IMAGE_NGINX_URL);
     }

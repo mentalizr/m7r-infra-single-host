@@ -8,6 +8,10 @@ public class M7rImageDebian {
         return M7rImage.exists(Const.IMAGE_DEBIAN);
     }
 
+    public static void pull() {
+        M7rImage.pull(Const.IMAGE_DEBIAN);
+    }
+
     public static void build() {
         M7rImage.build(Const.IMAGE_DEBIAN, Const.IMAGE_DEBIAN_URL);
     }

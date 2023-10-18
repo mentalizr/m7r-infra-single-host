@@ -8,6 +8,10 @@ public class M7rImageTomcat {
         return M7rImage.exists(Const.IMAGE_TOMCAT);
     }
 
+    public static void pull() {
+        M7rImage.pull(Const.IMAGE_TOMCAT);
+    }
+
     public static void build() {
         M7rImage.build(Const.IMAGE_TOMCAT, Const.IMAGE_TOMCAT_URL);
     }

@@ -182,6 +182,13 @@ public class InfraCli {
         );
 
         commands.add(new CommandSequenceBuilder()
+                .addCommands("pull-images")
+                .withCommandExecutor(new PullImagesExecutor())
+                .withDescription("Pull images from Docker Hub.")
+                .build()
+        );
+
+        commands.add(new CommandSequenceBuilder()
                 .addCommands("create-images")
                 .withCommandExecutor(new CreateImagesExecutor())
                 .withDescription("Creates images.")
