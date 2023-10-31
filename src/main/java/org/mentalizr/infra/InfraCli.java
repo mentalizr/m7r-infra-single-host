@@ -21,9 +21,9 @@ public class InfraCli {
     public static final String SPECIFIC_OPTION_FOLLOW = "follow";
     public static final String SPECIFIC_OPTION_CONFIGURATION = "configuration";
 
-    public static final String SPECIFIC_OPTION_DEV = "default";
-    public static final String SPECIFIC_OPTION_LATEST = "latest";
-    public static final String SPECIFIC_OPTION_NO_RECOVER = "no-recover";
+//    public static final String SPECIFIC_OPTION_DEV = "default";
+//    public static final String SPECIFIC_OPTION_LATEST = "latest";
+//    public static final String SPECIFIC_OPTION_NO_RECOVER = "no-recover";
 
     private static Cli createCli() {
 
@@ -35,17 +35,17 @@ public class InfraCli {
                 .add(new OptionBuilder().withLongName("silent").withDescription("Make no output to console.").build(OPTION_SILENT))
                 .add(new OptionBuilder().withShortName('t').withLongName("timeout").withArgumentName("timeout").withDescription("Override default timeout parameters (seconds)").build(OPTION_TIMEOUT));
 
-        Option recoverDevOption = new OptionBuilder()
-                .withLongName("dev")
-                .withShortName('d')
-                .withDescription("recover from dev backup [~/.m7r-host/backup-default]")
-                .build(SPECIFIC_OPTION_DEV);
-
-        Option recoverLatestOption = new OptionBuilder()
-                .withLongName("latest")
-                .withShortName('l')
-                .withDescription("recover from latest backup in [~/.m7r-host/backup] (default)")
-                .build(SPECIFIC_OPTION_LATEST);
+//        Option recoverDevOption = new OptionBuilder()
+//                .withLongName("dev")
+//                .withShortName('d')
+//                .withDescription("recover from dev backup [~/.m7r-host/backup-default]")
+//                .build(SPECIFIC_OPTION_DEV);
+//
+//        Option recoverLatestOption = new OptionBuilder()
+//                .withLongName("latest")
+//                .withShortName('l')
+//                .withDescription("recover from latest backup in [~/.m7r-host/backup] (default)")
+//                .build(SPECIFIC_OPTION_LATEST);
 
         Commands commands = new Commands();
 
@@ -104,30 +104,34 @@ public class InfraCli {
                 .build()
         );
 
-        Options specificOptionsPullUp = new Options()
-                .add(recoverDevOption)
-                .add(recoverLatestOption)
-                .add(new OptionBuilder()
-                        .withLongName("no-recover")
-                        .withShortName('x')
-                        .withDescription("omit recover")
-                        .build(SPECIFIC_OPTION_NO_RECOVER));
+//        Options specificOptionsPullUp = new Options()
+//                .add(recoverDevOption)
+//                .add(recoverLatestOption)
+//                .add(new OptionBuilder()
+//                        .withLongName("no-recover")
+//                        .withShortName('x')
+//                        .withDescription("omit recover")
+//                        .build(SPECIFIC_OPTION_NO_RECOVER));
 
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("pullup")
-                .withSpecificOptions(specificOptionsPullUp)
-                .withCommandExecutor(new PullUpExecutor())
-                .withDescription("Pulls up mentalizr docker infrastructure.")
-                .build()
-        );
+        commands.add(PullUpDef.get());
 
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("fullpull")
-                .withSpecificOptions(specificOptionsPullUp)
-                .withCommandExecutor(new FullPullExecutor())
-                .withDescription("Full pull-up of mentalizr docker infrastructure.")
-                .build()
-        );
+//        commands.add(new CommandSequenceBuilder()
+//                .addCommands("pullup")
+//                .withSpecificOptions(specificOptionsPullUp)
+//                .withCommandExecutor(new PullUpExecutor())
+//                .withDescription("Pulls up mentalizr docker infrastructure.")
+//                .build()
+//        );
+
+        commands.add(FullPullDef.get());
+
+//        commands.add(new CommandSequenceBuilder()
+//                .addCommands("fullpull")
+//                .withSpecificOptions(specificOptionsPullUp)
+//                .withCommandExecutor(new FullPullExecutor())
+//                .withDescription("Full pull-up of mentalizr docker infrastructure.")
+//                .build()
+//        );
 
         commands.add(new CommandSequenceBuilder()
                 .addCommands("teardown")
@@ -150,9 +154,9 @@ public class InfraCli {
                 .build()
         );
 
-        Options specificOptionsRecover = new Options()
-                .add(recoverDevOption)
-                .add(recoverLatestOption);
+//        Options specificOptionsRecover = new Options()
+//                .add(recoverDevOption)
+//                .add(recoverLatestOption);
 
 //        Options specificOptionsRecover = new Options()
 //                .add(new OptionBuilder()
@@ -166,13 +170,15 @@ public class InfraCli {
 //                        .withDescription("recover from latest backup in [~/.m7r-host/backup] (default)")
 //                        .build(SPECIFIC_OPTION_LATEST));
 
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("recover")
-                .withSpecificOptions(specificOptionsRecover)
-                .withCommandExecutor(new RecoverExecutor())
-                .withDescription("Recovers databases.")
-                .build()
-        );
+        commands.add(RecoverDef.get());
+
+//        commands.add(new CommandSequenceBuilder()
+//                .addCommands("recover")
+//                .withSpecificOptions(specificOptionsRecover)
+//                .withCommandExecutor(new RecoverExecutor())
+//                .withDescription("Recovers databases.")
+//                .build()
+//        );
 
         commands.add(new CommandSequenceBuilder()
                 .addCommands("backup")
