@@ -7,10 +7,12 @@ import org.mentalizr.infra.docker.m7r.M7rImageJDK;
 
 public class CreateImageJDK {
 
+    public static String NAME = "create-image-jdk";
+
     public static Task create() {
         return new TaskBuilder()
-                .withName("create-image-jdk")
-                .withDependencies("create-image-debian")
+                .withName(NAME)
+                .withDependencies(CreateImageDebian.NAME)
                 .execute(M7rImageJDK::build)
                 .build();
     }

@@ -6,9 +6,11 @@ import org.mentalizr.infra.docker.m7r.M7rImageMongo;
 
 public class CreateImageMongo {
 
+    public static final String NAME = "create-image-mongo";
+
     public static Task create() {
         return new TaskBuilder()
-                .withName("create-image-mongo")
+                .withName(NAME)
                 .execute(M7rImageMongo::pull)
                 .build();
     }

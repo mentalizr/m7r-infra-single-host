@@ -7,6 +7,7 @@ import de.arthurpicht.taskRunner.TaskRunner;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
 import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
+import org.mentalizr.infra.tasks.createImages.CreateImages;
 
 public class CreateImagesExecutor implements CommandExecutor {
 
@@ -17,7 +18,7 @@ public class CreateImagesExecutor implements CommandExecutor {
         System.out.println("Create images");
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
-        TaskRunnerResult result = taskRunner.run("create-images");
+        TaskRunnerResult result = taskRunner.run(CreateImages.NAME);
 
         if (!result.isSuccess()) throw new CommandExecutorException();
     }

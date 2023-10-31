@@ -12,8 +12,8 @@ public class M7rImageNginx {
         M7rImage.pull(Const.IMAGE_NGINX);
     }
 
-    public static void build() {
-        M7rImage.build(Const.IMAGE_NGINX, Const.IMAGE_NGINX_URL);
+    public static void buildLatest() {
+        M7rImage.buildLatest(Const.IMAGE_NGINX, Const.IMAGE_NGINX_URL);
     }
 
     public static void remove() {

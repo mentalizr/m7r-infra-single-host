@@ -24,6 +24,12 @@ public class Image {
         Docker.call(context, "docker", "build", "-t", taggedImageName, gitUrl);
     }
 
+    public static void buildPullNoCache(DockerExecutionContext context, String taggedImageName, String gitUrl) throws DockerExecutionException {
+        MethodPreconditions.assertArgumentNotNull("taggedImageName", taggedImageName);
+        MethodPreconditions.assertArgumentNotNull("gitUrl", gitUrl);
+        Docker.call(context, "docker", "build", "--pull", "--no-cache", "-t", taggedImageName, gitUrl);
+    }
+
     public static void remove(DockerExecutionContext context, String taggedImageName) throws DockerExecutionException {
         MethodPreconditions.assertArgumentNotNull("taggedImageName", taggedImageName);
         Docker.call(context, "docker", "image", "rm", taggedImageName);

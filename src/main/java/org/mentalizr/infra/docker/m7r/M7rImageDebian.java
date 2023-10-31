@@ -12,8 +12,8 @@ public class M7rImageDebian {
         M7rImage.pull(Const.IMAGE_DEBIAN);
     }
 
-    public static void build() {
-        M7rImage.build(Const.IMAGE_DEBIAN, Const.IMAGE_DEBIAN_URL);
+    public static void buildLatest() {
+        M7rImage.buildLatest(Const.IMAGE_DEBIAN, Const.IMAGE_DEBIAN_URL);
     }
 
     public static void remove() {

@@ -35,6 +35,15 @@ public class M7rImage {
         }
     }
 
+    public static void buildLatest(String taggedImageName, String gitUrl) {
+        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        try {
+            Image.buildPullNoCache(context, taggedImageName, gitUrl);
+        } catch (DockerExecutionException e) {
+            throw new InfraRuntimeException(e);
+        }
+    }
+
     public static void remove(String taggedImageName) {
         DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
         try {
