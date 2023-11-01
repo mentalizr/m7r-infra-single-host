@@ -7,10 +7,12 @@ import org.mentalizr.infra.docker.m7r.M7rImageTomcat;
 
 public class RemoveImageDebian {
 
+    public static final String NAME = "remove-image-debian";
+
     public static Task create() {
         return new TaskBuilder()
-                .withName("remove-image-debian")
-                .withDependencies("create-backup-tag-debian")
+                .withName(NAME)
+//                .withDependencies(CreateBackupTagDebian.NAME)
                 .isUpToDate(() -> !M7rImageDebian.exists())
                 .execute(M7rImageDebian::remove)
                 .build();

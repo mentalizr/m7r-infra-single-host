@@ -201,12 +201,14 @@ public class InfraCli {
                 .build()
         );
 
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("remove-images")
-                .withCommandExecutor(new RemoveImagesExecutor())
-                .withDescription("Removes images.")
-                .build()
-        );
+//        commands.add(new CommandSequenceBuilder()
+//                .addCommands("remove-images")
+//                .withCommandExecutor(new RemoveImagesExecutor())
+//                .withDescription("Removes images.")
+//                .build()
+//        );
+
+        commands.add(RemoveImagesDef.get());
 
         commands.add(new CommandSequenceBuilder()
                 .addCommands("shell", "mongo")
@@ -249,7 +251,7 @@ public class InfraCli {
 
         CliDescription cliDescription = new CliDescriptionBuilder()
                 .withDescription("mentalizr infra structure manager CLI\nhttps://github.com/mentalizr/m7r-infra")
-                .withVersionByTag("0.0.1-SNAPSHOT", "2023-08-29")
+                .withVersionByTag("0.0.1-SNAPSHOT", "2023-11-01")
                 .build("m7r-infra");
 
         return new CliBuilder()
@@ -285,7 +287,7 @@ public class InfraCli {
         try {
             cli.execute(cliCall);
         } catch (CommandExecutorException e) {
-            System.out.println("m7r-instance execution failed.");
+            System.out.println("m7r-infra execution failed.");
             if (e.getMessage() != null) System.out.println(e.getMessage());
             System.exit(1);
         } catch (RuntimeException | AssertionError e) {

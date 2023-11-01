@@ -6,9 +6,11 @@ import org.mentalizr.infra.docker.m7r.M7rImageDebian;
 
 public class CreateBackupTagDebian {
 
+    public static final String NAME = "create-backup-tag-debian";
+
     public static Task create() {
         return new TaskBuilder()
-                .withName("create-backup-tag-debian")
+                .withName(NAME)
                 .skip(() -> !M7rImageDebian.exists())
                 .execute(M7rImageDebian::createBackupTag)
                 .build();

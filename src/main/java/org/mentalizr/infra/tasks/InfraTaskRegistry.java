@@ -153,6 +153,7 @@ public class InfraTaskRegistry {
                 .withTask(CreateImageNginx.create());
 
         taskRegistryBuilder
+                .withTask(CreateBackups.create())
                 .withTask(RemoveImages.create())
                 .withTask(CreateBackupTagMongo.create())
                 .withTask(RemoveImageMongo.create())

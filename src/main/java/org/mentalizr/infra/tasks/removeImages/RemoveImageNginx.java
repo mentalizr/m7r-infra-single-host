@@ -6,10 +6,12 @@ import org.mentalizr.infra.docker.m7r.M7rImageNginx;
 
 public class RemoveImageNginx {
 
+    public static final String NAME = "remove-image-nginx";
+
     public static Task create() {
         return new TaskBuilder()
-                .withName("remove-image-nginx")
-                .withDependencies("create-backup-tag-nginx")
+                .withName(NAME)
+//                .withDependencies(CreateBackupTagNginx.NAME)
                 .isUpToDate(() -> !M7rImageNginx.exists())
                 .execute(M7rImageNginx::remove)
                 .build();
