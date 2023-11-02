@@ -8,6 +8,10 @@ public class M7rImageDebian {
         return M7rImage.exists(Const.IMAGE_DEBIAN);
     }
 
+    public static boolean existsAny() {
+        return M7rImage.existsAnyIncludingBackups(Const.IMAGE_DEBIAN);
+    }
+
     public static void pull() {
         M7rImage.pull(Const.IMAGE_DEBIAN);
     }
@@ -18,6 +22,10 @@ public class M7rImageDebian {
 
     public static void remove() {
         M7rImage.remove(Const.IMAGE_DEBIAN);
+    }
+
+    public static void removeAll() {
+        M7rImage.removeIncludingBackups(Const.IMAGE_DEBIAN);
     }
 
     public static void createBackupTag() {

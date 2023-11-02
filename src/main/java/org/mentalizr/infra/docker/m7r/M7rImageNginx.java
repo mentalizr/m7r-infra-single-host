@@ -8,6 +8,10 @@ public class M7rImageNginx {
         return M7rImage.exists(Const.IMAGE_NGINX);
     }
 
+    public static boolean existsAny() {
+        return M7rImage.existsAnyIncludingBackups(Const.IMAGE_NGINX);
+    }
+
     public static void pull() {
         M7rImage.pull(Const.IMAGE_NGINX);
     }
@@ -18,6 +22,10 @@ public class M7rImageNginx {
 
     public static void remove() {
         M7rImage.remove(Const.IMAGE_NGINX);
+    }
+
+    public static void removeAll() {
+        M7rImage.removeIncludingBackups(Const.IMAGE_NGINX);
     }
 
     public static void createBackupTag() {

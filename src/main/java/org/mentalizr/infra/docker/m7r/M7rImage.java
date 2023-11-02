@@ -17,6 +17,15 @@ public class M7rImage {
         }
     }
 
+    public static boolean existsAnyIncludingBackups(String taggedImageName) {
+        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        try {
+            return Image.existsAny(context, taggedImageName);
+        } catch (DockerExecutionException e) {
+            throw new InfraRuntimeException(e);
+        }
+    }
+
     public static void pull(String taggedImageName) {
         DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
         try {
@@ -48,6 +57,15 @@ public class M7rImage {
         DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
         try {
             Image.remove(context, taggedImageName);
+        } catch (DockerExecutionException e) {
+            throw new InfraRuntimeException(e);
+        }
+    }
+
+    public static void removeIncludingBackups(String taggedImageName) {
+        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        try {
+            Image.removeIncludingBackups(context, taggedImageName);
         } catch (DockerExecutionException e) {
             throw new InfraRuntimeException(e);
         }

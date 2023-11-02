@@ -11,7 +11,6 @@ public class RemoveImageNginx {
     public static Task create() {
         return new TaskBuilder()
                 .withName(NAME)
-//                .withDependencies(CreateBackupTagNginx.NAME)
                 .isUpToDate(() -> !M7rImageNginx.exists())
                 .execute(M7rImageNginx::remove)
                 .build();

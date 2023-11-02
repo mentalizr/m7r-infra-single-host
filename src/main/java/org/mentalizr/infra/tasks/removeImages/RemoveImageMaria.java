@@ -11,7 +11,6 @@ public class RemoveImageMaria {
     public static Task create() {
         return new TaskBuilder()
                 .withName(NAME)
-//                .withDependencies(CreateBackupTagMaria.NAME)
                 .isUpToDate(() -> !M7rImageMaria.exists())
                 .execute(M7rImageMaria::remove)
                 .build();

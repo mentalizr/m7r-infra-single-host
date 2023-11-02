@@ -8,12 +8,20 @@ public class M7rImageMongo {
         return M7rImage.exists(Const.IMAGE_MONGO);
     }
 
+    public static boolean existsAny() {
+        return M7rImage.existsAnyIncludingBackups(Const.IMAGE_MONGO);
+    }
+
     public static void pull() {
         M7rImage.pull(Const.IMAGE_MONGO);
     }
 
     public static void remove() {
         M7rImage.remove(Const.IMAGE_MONGO);
+    }
+
+    public static void removeAll() {
+        M7rImage.removeIncludingBackups(Const.IMAGE_MONGO);
     }
 
     public static void createBackupTag() {

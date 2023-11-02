@@ -8,12 +8,20 @@ public class M7rImageMaria {
         return M7rImage.exists(Const.IMAGE_MARIA);
     }
 
+    public static boolean existsAny() {
+        return M7rImage.existsAnyIncludingBackups(Const.IMAGE_MARIA);
+    }
+
     public static void pull() {
         M7rImage.pull(Const.IMAGE_MARIA);
     }
 
     public static void remove() {
         M7rImage.remove(Const.IMAGE_MARIA);
+    }
+
+    public static void removeAll() {
+        M7rImage.removeIncludingBackups(Const.IMAGE_MARIA);
     }
 
     public static void createBackupTag() {

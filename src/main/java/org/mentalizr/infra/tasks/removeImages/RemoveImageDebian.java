@@ -12,7 +12,6 @@ public class RemoveImageDebian {
     public static Task create() {
         return new TaskBuilder()
                 .withName(NAME)
-//                .withDependencies(CreateBackupTagDebian.NAME)
                 .isUpToDate(() -> !M7rImageDebian.exists())
                 .execute(M7rImageDebian::remove)
                 .build();

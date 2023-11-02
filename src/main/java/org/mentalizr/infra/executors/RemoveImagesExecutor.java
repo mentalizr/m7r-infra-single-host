@@ -7,10 +7,15 @@ import de.arthurpicht.taskRunner.TaskRunner;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
 import de.arthurpicht.utils.core.collection.Lists;
 import de.arthurpicht.utils.core.strings.Strings;
+import org.mentalizr.infra.Const;
+import org.mentalizr.infra.DockerExecutionException;
 import org.mentalizr.infra.ExecutionContext;
+import org.mentalizr.infra.docker.DockerExecutionContext;
+import org.mentalizr.infra.docker.Image;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
 import org.mentalizr.infra.tasks.removeImages.CreateBackups;
 import org.mentalizr.infra.tasks.removeImages.RemoveImages;
+import org.mentalizr.infra.tasks.removeImages.RemoveImagesAll;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +33,7 @@ public class RemoveImagesExecutor implements CommandExecutor {
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         List<TaskRunnerResult> taskRunnerResults;
         if (hasAllParameter()) {
-            // TODO remove all
-            throw new RuntimeException("NIY!");
+            targetChain.add(RemoveImagesAll.NAME);
         } else {
             if (!hasNoBackupParameter())
                 targetChain.add(CreateBackups.NAME);

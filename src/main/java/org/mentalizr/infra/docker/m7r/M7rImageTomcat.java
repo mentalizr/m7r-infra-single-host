@@ -8,6 +8,10 @@ public class M7rImageTomcat {
         return M7rImage.exists(Const.IMAGE_TOMCAT);
     }
 
+    public static boolean existsAny() {
+        return M7rImage.existsAnyIncludingBackups(Const.IMAGE_TOMCAT);
+    }
+
     public static void pull() {
         M7rImage.pull(Const.IMAGE_TOMCAT);
     }
@@ -18,6 +22,10 @@ public class M7rImageTomcat {
 
     public static void remove() {
         M7rImage.remove(Const.IMAGE_TOMCAT);
+    }
+
+    public static void removeAll() {
+        M7rImage.removeIncludingBackups(Const.IMAGE_TOMCAT);
     }
 
     public static void createBackupTag() {

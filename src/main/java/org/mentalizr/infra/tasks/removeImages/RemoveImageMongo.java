@@ -11,7 +11,6 @@ public class RemoveImageMongo {
     public static Task create() {
         return new TaskBuilder()
                 .withName(NAME)
-//                .withDependencies(CreateBackupTagMongo.NAME)
                 .isUpToDate(() -> !M7rImageMongo.exists())
                 .execute(M7rImageMongo::remove)
                 .build();
