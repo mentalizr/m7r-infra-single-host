@@ -28,12 +28,6 @@ public class DockerCopy {
         Docker.call(dockerExecutionContext, "docker", "cp", source, target);
     }
 
-//    public static void copyStringToFile(DockerExecutionContext dockerExecutionContext, String string, String containerName, String destinationDir) throws DockerExecutionException {
-//        InputStream inputStream = new ByteArrayInputStream(string.getBytes());
-//        String target = containerName + ":" + destinationDir;
-//        Docker.call(dockerExecutionContext, inputStream, "docker", "cp", "-", target);
-//    }
-
     public static void copyFileWithPreservedRights(DockerExecutionContext context, Path sourceFile, String containerName, String destinationDir) throws DockerExecutionException {
         if (!FileUtils.isExistingRegularFile(sourceFile))
             throw new IllegalArgumentException("File not found: [" + sourceFile.toAbsolutePath() + "].");

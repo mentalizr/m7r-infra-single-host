@@ -46,8 +46,8 @@ public class HtmlFilesRegistry {
         return this.htmlFileList;
     }
 
-    public long getChecksum() {
-        return this.checksum;
+    public String getChecksum() {
+        return Long.toString(this.checksum);
     }
 
     private Path buildInitHtmlExtended() {

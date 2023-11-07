@@ -19,6 +19,7 @@ public class ChecksumExchanger {
     public static final Logger logger = LoggerFactory.getLogger(ChecksumExchanger.class.getSimpleName());
 
     public static void copyToContainer(String filename, String checksum) {
+        logger.info("Write checksum file [" + filename + "] to tomcat container.");
         Path checksumFile = FileHelper.createM7rInfraTempFile(filename, checksum);
         DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
         try {
@@ -37,7 +38,7 @@ public class ChecksumExchanger {
             String message = e.getMessage();
             if (message.contains("No such container:path:")
                     || message.contains("Could not find the file")) return "";
-            throw new InfraRuntimeException("Exception on copying from container: " + e.getMessage(), e);
+            throw new InfraRuntimeException("Exception on copying checksum file [" + fileName + "] from container: " + e.getMessage(), e);
         }
         try {
             String checksum = Files.readString(tempDir.resolve(fileName)).trim();
