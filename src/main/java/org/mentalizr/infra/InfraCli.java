@@ -124,21 +124,7 @@ public class InfraCli {
 //        );
 
         commands.add(FullPullDef.get());
-
-//        commands.add(new CommandSequenceBuilder()
-//                .addCommands("fullpull")
-//                .withSpecificOptions(specificOptionsPullUp)
-//                .withCommandExecutor(new FullPullExecutor())
-//                .withDescription("Full pull-up of mentalizr docker infrastructure.")
-//                .build()
-//        );
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("teardown")
-                .withCommandExecutor(new TearDownExecutor())
-                .withDescription("Tears down mentalizr docker infrastructure.")
-                .build()
-        );
+        commands.add(TearDownDef.get());
 
         commands.add(new CommandSequenceBuilder()
                 .addCommands("deploy")
@@ -147,38 +133,9 @@ public class InfraCli {
                 .build()
         );
 
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("clean")
-                .withCommandExecutor(new TearDownExecutor())
-                .withDescription("Cleans mentalizr docker infrastructure.")
-                .build()
-        );
-
-//        Options specificOptionsRecover = new Options()
-//                .add(recoverDevOption)
-//                .add(recoverLatestOption);
-
-//        Options specificOptionsRecover = new Options()
-//                .add(new OptionBuilder()
-//                        .withLongName("dev")
-//                        .withShortName('d')
-//                        .withDescription("recover from dev backup [~/.m7r-host/backup-default]")
-//                        .build(SPECIFIC_OPTION_DEV))
-//                .add(new OptionBuilder()
-//                        .withLongName("latest")
-//                        .withShortName('l')
-//                        .withDescription("recover from latest backup in [~/.m7r-host/backup] (default)")
-//                        .build(SPECIFIC_OPTION_LATEST));
+        commands.add(CleanDef.get());
 
         commands.add(RecoverDef.get());
-
-//        commands.add(new CommandSequenceBuilder()
-//                .addCommands("recover")
-//                .withSpecificOptions(specificOptionsRecover)
-//                .withCommandExecutor(new RecoverExecutor())
-//                .withDescription("Recovers databases.")
-//                .build()
-//        );
 
         commands.add(new CommandSequenceBuilder()
                 .addCommands("backup")
@@ -209,6 +166,7 @@ public class InfraCli {
 //        );
 
         commands.add(RemoveImagesDef.get());
+        commands.add(CleanImagesDef.get());
 
         commands.add(new CommandSequenceBuilder()
                 .addCommands("shell", "mongo")

@@ -3,6 +3,7 @@ package org.mentalizr.infra.tasks;
 import de.arthurpicht.taskRunner.taskRegistry.TaskRegistry;
 import de.arthurpicht.taskRunner.taskRegistry.TaskRegistryBuilder;
 import org.mentalizr.infra.tasks.backup.Backup;
+import org.mentalizr.infra.tasks.cleanImages.*;
 import org.mentalizr.infra.tasks.create.*;
 import org.mentalizr.infra.tasks.create.maria.CreateContainerMaria;
 import org.mentalizr.infra.tasks.create.maria.CreateMaria;
@@ -145,8 +146,6 @@ public class InfraTaskRegistry {
 
         taskRegistryBuilder
                 .withTask(CreateImages.create())
-                .withTask(CreateImageMongo.create())
-                .withTask(CreateImageMaria.create())
                 .withTask(CreateImageDebian.create())
                 .withTask(CreateImageJDK.create())
                 .withTask(CreateImageTomcat.create())
@@ -155,25 +154,25 @@ public class InfraTaskRegistry {
         taskRegistryBuilder
                 .withTask(CreateBackups.create())
                 .withTask(RemoveImages.create())
-                .withTask(RemoveImagesAll.create())
+                .withTask(CleanImages.create())
                 .withTask(CreateBackupTagMongo.create())
                 .withTask(RemoveImageMongo.create())
-                .withTask(RemoveImageMongoAll.create())
+                .withTask(CleanImagesMongo.create())
                 .withTask(CreateBackupTagMaria.create())
                 .withTask(RemoveImageMaria.create())
-                .withTask(RemoveImageMariaAll.create())
+                .withTask(CleanImagesMaria.create())
                 .withTask(CreateBackupTagDebian.create())
                 .withTask(RemoveImageDebian.create())
-                .withTask(RemoveImageDebianAll.create())
+                .withTask(CleanImagesDebian.create())
                 .withTask(CreateBackupTagJDK.create())
                 .withTask(RemoveImageJDK.create())
-                .withTask(RemoveImageJDKAll.create())
+                .withTask(CleanImagesJDK.create())
                 .withTask(CreateBackupTagTomcat.create())
                 .withTask(RemoveImageTomcat.create())
-                .withTask(RemoveImageTomcatAll.create())
+                .withTask(CleanImagesTomcat.create())
                 .withTask(CreateBackupTagNginx.create())
                 .withTask(RemoveImageNginx.create())
-                .withTask(RemoveImageNginxAll.create());
+                .withTask(CleanImagesNginx.create());
 
         return taskRegistryBuilder.build();
     }

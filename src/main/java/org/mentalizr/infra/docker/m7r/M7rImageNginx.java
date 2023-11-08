@@ -24,7 +24,7 @@ public class M7rImageNginx {
         M7rImage.remove(Const.IMAGE_NGINX);
     }
 
-    public static void removeAll() {
+    public static void clean() {
         M7rImage.removeIncludingBackups(Const.IMAGE_NGINX);
     }
 

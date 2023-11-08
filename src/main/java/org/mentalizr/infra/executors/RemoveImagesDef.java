@@ -9,7 +9,6 @@ public class RemoveImagesDef {
 
     public static final String SPECIFIC_OPTION__BACKUP = "backup";
     public static final String SPECIFIC_OPTION__NO_BACKUP = "no-backup";
-    public static final String SPECIFIC_OPTION__ALL = "all";
 
     public static CommandSequence get() {
         return new CommandSequenceBuilder()
@@ -24,12 +23,7 @@ public class RemoveImagesDef {
                                 .withLongName(SPECIFIC_OPTION__NO_BACKUP)
                                 .withShortName('n')
                                 .withDescription("omit creating tagged backup before deleting")
-                                .build(SPECIFIC_OPTION__NO_BACKUP))
-                        .add(new OptionBuilder()
-                                .withLongName(SPECIFIC_OPTION__ALL)
-                                .withShortName('a')
-                                .withDescription("delete all images including tagged backups")
-                                .build(SPECIFIC_OPTION__ALL)))
+                                .build(SPECIFIC_OPTION__NO_BACKUP)))
                         .withCommandExecutor(new RemoveImagesExecutor())
                         .withDescription("Removes images.")
                         .build();

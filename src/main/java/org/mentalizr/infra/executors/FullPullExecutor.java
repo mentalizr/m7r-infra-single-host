@@ -3,6 +3,7 @@ package org.mentalizr.infra.executors;
 import de.arthurpicht.cli.CliCall;
 import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
+import de.arthurpicht.cli.option.OptionParserResult;
 import de.arthurpicht.taskRunner.TaskRunner;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
 import de.arthurpicht.utils.core.collection.Lists;
@@ -10,10 +11,15 @@ import de.arthurpicht.utils.core.strings.Strings;
 import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.taskAgent.RecoverSpecificOptions;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
+import org.mentalizr.infra.tasks.cleanImages.CleanImages;
+import org.mentalizr.infra.tasks.createImages.CreateImages;
+import org.mentalizr.infra.tasks.pullImages.PullImages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+
+import static org.mentalizr.infra.executors.FullPullDef.SPECIFIC_OPTION__PULL_IMAGES;
 
 public class FullPullExecutor implements CommandExecutor {
 
@@ -24,9 +30,17 @@ public class FullPullExecutor implements CommandExecutor {
         ExecutionContext.initialize(cliCall);
 
         System.out.println("full pull-up infrastructure");
+        checkParameterConsistency();
 
-        TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
-        List<String> targetChain = Lists.newArrayList("create-images", "create", "start", "deploy");
+        List<String> targetChain;
+        if (isPullImages()) {
+            logger.info("execute full-pull with pulling images from docker hub.");
+            targetChain = Lists.newArrayList(PullImages.NAME, "create", "start", "deploy");
+        } else {
+            logger.info("execute full-pull with creating images locally where possible.");
+            targetChain = Lists.newArrayList(CreateImages.NAME, "create", "start", "deploy");
+        }
+
         if (RecoverSpecificOptions.isRecoverDev()) {
             logger.info("execute full-pull with recover for dev.");
             targetChain.add("recover-dev");
@@ -40,10 +54,25 @@ public class FullPullExecutor implements CommandExecutor {
             targetChain.add("recover-latest");
         }
 
+        TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         List<TaskRunnerResult> taskRunnerResults = taskRunner.run(Strings.toArray(targetChain));
 
         if (!Lists.getLastElement(taskRunnerResults).isSuccess())
             throw new CommandExecutorException();
+    }
+
+    private void checkParameterConsistency() throws CommandExecutorException {
+        OptionParserResult optionParserResultSpecific = ExecutionContext.getCliCall().getOptionParserResultSpecific();
+        if (optionParserResultSpecific.hasOption(SPECIFIC_OPTION__PULL_IMAGES)
+                && optionParserResultSpecific.hasOption(FullPullDef.SPECIFIC_OPTION__BUILD_IMAGES)) {
+            throw new CommandExecutorException("Illegal combination of specific parameters: --"
+                    + SPECIFIC_OPTION__PULL_IMAGES
+                    + " and --" + FullPullDef.SPECIFIC_OPTION__BUILD_IMAGES + ".");
+        }
+    }
+
+    private boolean isPullImages() {
+        return ExecutionContext.getCliCall().getOptionParserResultSpecific().hasOption(SPECIFIC_OPTION__PULL_IMAGES);
     }
 
 }

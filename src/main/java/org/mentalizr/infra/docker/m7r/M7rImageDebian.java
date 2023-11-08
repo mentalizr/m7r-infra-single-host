@@ -24,7 +24,7 @@ public class M7rImageDebian {
         M7rImage.remove(Const.IMAGE_DEBIAN);
     }
 
-    public static void removeAll() {
+    public static void clean() {
         M7rImage.removeIncludingBackups(Const.IMAGE_DEBIAN);
     }
 

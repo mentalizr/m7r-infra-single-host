@@ -20,7 +20,7 @@ public class M7rImageJDK {
         M7rImage.remove(Const.IMAGE_JDK);
     }
 
-    public static void removeAll() {
+    public static void clean() {
         M7rImage.removeIncludingBackups(Const.IMAGE_JDK);
     }
 

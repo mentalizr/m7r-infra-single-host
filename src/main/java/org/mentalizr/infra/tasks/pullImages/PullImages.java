@@ -5,10 +5,12 @@ import de.arthurpicht.taskRunner.task.TaskBuilder;
 
 public class PullImages {
 
+    public static final String NAME = "pull-images";
+
     public static Task create() {
         return new TaskBuilder()
-                .withName("pull-images")
-                .withDependencies("pull-image-mongo", "pull-image-maria", "pull-image-tomcat", "pull-image-nginx")
+                .withName(NAME)
+                .withDependencies(PullImageMongo.NAME, PullImageMaria.NAME, PullImageTomcat.NAME, PullImageNginx.NAME)
                 .asTarget()
                 .execute(() -> {})
                 .build();

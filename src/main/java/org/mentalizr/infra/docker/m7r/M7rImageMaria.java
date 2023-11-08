@@ -20,7 +20,7 @@ public class M7rImageMaria {
         M7rImage.remove(Const.IMAGE_MARIA);
     }
 
-    public static void removeAll() {
+    public static void clean() {
         M7rImage.removeIncludingBackups(Const.IMAGE_MARIA);
     }
 

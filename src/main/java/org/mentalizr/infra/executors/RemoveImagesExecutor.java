@@ -7,15 +7,10 @@ import de.arthurpicht.taskRunner.TaskRunner;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
 import de.arthurpicht.utils.core.collection.Lists;
 import de.arthurpicht.utils.core.strings.Strings;
-import org.mentalizr.infra.Const;
-import org.mentalizr.infra.DockerExecutionException;
 import org.mentalizr.infra.ExecutionContext;
-import org.mentalizr.infra.docker.DockerExecutionContext;
-import org.mentalizr.infra.docker.Image;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
 import org.mentalizr.infra.tasks.removeImages.CreateBackups;
 import org.mentalizr.infra.tasks.removeImages.RemoveImages;
-import org.mentalizr.infra.tasks.removeImages.RemoveImagesAll;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +27,8 @@ public class RemoveImagesExecutor implements CommandExecutor {
         List<String> targetChain = new ArrayList<>();
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         List<TaskRunnerResult> taskRunnerResults;
-        if (hasAllParameter()) {
-            targetChain.add(RemoveImagesAll.NAME);
-        } else {
-            if (!hasNoBackupParameter())
-                targetChain.add(CreateBackups.NAME);
-            targetChain.add(RemoveImages.NAME);
-        }
+        if (!hasNoBackupParameter()) targetChain.add(CreateBackups.NAME);
+        targetChain.add(RemoveImages.NAME);
         taskRunnerResults = taskRunner.run(Strings.toArray(targetChain));
 
         if (!Lists.getLastElement(taskRunnerResults).isSuccess())
@@ -49,9 +39,6 @@ public class RemoveImagesExecutor implements CommandExecutor {
         if (hasBackupParameter() && hasNoBackupParameter())
             throw new CommandExecutorException("Illegal combination of specific parameters: --"
                     + RemoveImagesDef.SPECIFIC_OPTION__NO_BACKUP + " and --" + RemoveImagesDef.SPECIFIC_OPTION__BACKUP + ".");
-        if (hasAllParameter() && hasBackupParameter())
-            throw new CommandExecutorException("Illegal combination of specific parameters: --"
-                    + RemoveImagesDef.SPECIFIC_OPTION__ALL + " and --" + RemoveImagesDef.SPECIFIC_OPTION__BACKUP + ".");
     }
 
     private boolean hasBackupParameter() {
@@ -66,13 +53,6 @@ public class RemoveImagesExecutor implements CommandExecutor {
                 .getCliCall()
                 .getOptionParserResultSpecific()
                 .hasOption(RemoveImagesDef.SPECIFIC_OPTION__NO_BACKUP);
-    }
-
-    private boolean hasAllParameter() {
-        return ExecutionContext
-                .getCliCall()
-                .getOptionParserResultSpecific()
-                .hasOption(RemoveImagesDef.SPECIFIC_OPTION__ALL);
     }
 
 }

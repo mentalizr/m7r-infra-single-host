@@ -5,26 +5,22 @@ import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
 import de.arthurpicht.taskRunner.TaskRunner;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
-import de.arthurpicht.utils.core.collection.Lists;
 import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
 import org.mentalizr.infra.tasks.cleanImages.CleanImages;
 
-import java.util.List;
-
-public class CleanExecutor implements CommandExecutor {
+public class CleanImagesExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
         ExecutionContext.initialize(cliCall);
 
-        System.out.println("clean mentalizr infrastructure.");
+        System.out.println("Clean images");
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
-        List<TaskRunnerResult> taskRunnerResults = taskRunner.run("stop", "remove", CleanImages.NAME);
+        TaskRunnerResult taskRunnerResult = taskRunner.run(CleanImages.NAME);
 
-        if (!Lists.getLastElement(taskRunnerResults).isSuccess())
-            throw new CommandExecutorException();
+        if (!taskRunnerResult.isSuccess()) throw new CommandExecutorException();
     }
 
 }
