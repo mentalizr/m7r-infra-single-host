@@ -26,7 +26,7 @@ public class Const {
     public static final String IMAGE_DEBIAN = "arthurpicht/debian-12:latest";
     public static final String IMAGE_DEBIAN_URL = "https://github.com/arthurpicht/docker-debian-12.git#develop";
 
-    public static final String IMAGE_JDK = "arthurpicht/adoptopenjdk-17:latest";
-    public static final String IMAGE_JDK_URL = "https://github.com/arthurpicht/docker-adoptOpenJDK-17.git#develop";
+    public static final String IMAGE_JDK = "arthurpicht/adoptopenjdk-21:latest";
+    public static final String IMAGE_JDK_URL = "https://github.com/arthurpicht/docker-adoptOpenJDK-21.git#develop";
 
 }
