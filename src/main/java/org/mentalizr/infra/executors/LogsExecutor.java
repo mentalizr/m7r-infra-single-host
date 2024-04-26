@@ -30,7 +30,7 @@ public class LogsExecutor implements CommandExecutor {
         if (!FileUtils.isExistingRegularFile(logFile))
             throw new CommandExecutorException("Log file not found: [" + logFile.toAbsolutePath() + "].");
 
-        boolean follow = cliCall.getOptionParserResultSpecific().hasOption(InfraCli.SPECIFIC_OPTION_FOLLOW);
+        boolean follow = cliCall.getOptionParserResultSpecific().hasOption(LogsDef.SPECIFIC_OPTION__FOLLOW);
 
         showLogs(logFile, follow);
     }

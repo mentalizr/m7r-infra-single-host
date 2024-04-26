@@ -17,12 +17,12 @@ public class ExecutionContext {
     public static void initialize(CliCall cliCall) {
         callTimestamp = Instant.now();
         ExecutionContext.dockerExecutionContext = new DockerExecutionContext.Builder()
-                .beVerbose(cliCall.getOptionParserResultGlobal().hasOption(InfraCli.OPTION_VERBOSE))
+                .beVerbose(cliCall.getOptionParserResultGlobal().hasOption(InfraCli.GLOBAL_OPTION__VERBOSE))
                 .withLogger(LoggerFactory.getLogger(Const.DOCKER_LOGGER))
                 .build();
         ExecutionContext.cliCall = cliCall;
-        verbose = cliCall.getOptionParserResultGlobal().hasOption(InfraCli.OPTION_VERBOSE);
-        showStacktrace = cliCall.getOptionParserResultGlobal().hasOption(InfraCli.OPTION_STACKTRACE);
+        verbose = cliCall.getOptionParserResultGlobal().hasOption(InfraCli.GLOBAL_OPTION__VERBOSE);
+        showStacktrace = cliCall.getOptionParserResultGlobal().hasOption(InfraCli.GLOBAL_OPTION__STACKTRACE);
     }
 
     public static Instant getCallTimestamp() {

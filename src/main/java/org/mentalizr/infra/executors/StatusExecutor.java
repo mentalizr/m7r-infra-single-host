@@ -46,7 +46,7 @@ public class StatusExecutor implements CommandExecutor {
         System.out.println("mentalizr infrastructure status on " + Ansi.colorize(getHostname(), Attribute.WHITE_TEXT(), Attribute.BOLD()));
 
         boolean showConfiguration
-                = cliCall.getOptionParserResultSpecific().hasOption(InfraCli.SPECIFIC_OPTION_CONFIGURATION);
+                = cliCall.getOptionParserResultSpecific().hasOption(StatusDef.SPECIFIC_OPTION__CONFIGURATION);
         if (showConfiguration) {
             System.out.println(Strings.rightPad("m7r-host dir:", minLengthString)
                     + "[" + new M7rHostDir().toAbsolutePathString() + "].");

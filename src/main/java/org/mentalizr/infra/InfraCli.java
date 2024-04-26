@@ -1,7 +1,6 @@
 package org.mentalizr.infra;
 
 import de.arthurpicht.cli.*;
-import de.arthurpicht.cli.command.CommandSequenceBuilder;
 import de.arthurpicht.cli.command.Commands;
 import de.arthurpicht.cli.command.InfoDefaultCommand;
 import de.arthurpicht.cli.common.UnrecognizedArgumentException;
@@ -13,192 +12,61 @@ import org.mentalizr.infra.executors.*;
 
 public class InfraCli {
 
-    public static final String OPTION_VERBOSE = "verbose";
-    public static final String OPTION_STACKTRACE = "stacktrace";
-    public static final String OPTION_SILENT = "silent";
-    public static final String OPTION_TIMEOUT = "timeout";
-
-    public static final String SPECIFIC_OPTION_FOLLOW = "follow";
-    public static final String SPECIFIC_OPTION_CONFIGURATION = "configuration";
-
-//    public static final String SPECIFIC_OPTION_DEV = "default";
-//    public static final String SPECIFIC_OPTION_LATEST = "latest";
-//    public static final String SPECIFIC_OPTION_NO_RECOVER = "no-recover";
+    public static final String GLOBAL_OPTION__VERBOSE = "verbose";
+    public static final String GLOBAL_OPTION__STACKTRACE = "stacktrace";
+    public static final String GLOBAL_OPTION__OPTION_SILENT = "silent";
+    public static final String GLOBAL_OPTION__TIMEOUT = "timeout";
 
     private static Cli createCli() {
+
+        Commands commands = new Commands();
+        commands.setDefaultCommand(new InfoDefaultCommand());
+        commands.add(StatusDef.get());
+        commands.add(CreateDef.get());
+        commands.add(TestDef.get());
+        commands.add(RemoveDef.get());
+        commands.add(StartDef.get());
+        commands.add(StopDef.get());
+        commands.add(RestartDef.get());
+        commands.add(PullUpDef.get());
+        commands.add(FullPullDef.get());
+        commands.add(TearDownDef.get());
+        commands.add(DeployDef.get());
+        commands.add(CleanDef.get());
+        commands.add(RecoverDef.get());
+        commands.add(BackupDef.get());
+        commands.add(PullImagesDef.get());
+        commands.add(CreateImagesDef.get());
+        commands.add(RemoveImagesDef.get());
+        commands.add(CleanImagesDef.get());
+        commands.add(ShellMongoDef.get());
+        commands.add(ShellMariaDef.get());
+        commands.add(ShellTomcatDef.get());
+        commands.add(ShellSqlDef.get());
+        commands.add(LogsDef.get());
 
         Options globalOptions = new Options()
                 .add(new VersionOption())
                 .add(new ManOption())
-                .add(new OptionBuilder().withLongName("verbose").withDescription("verbose output").build(OPTION_VERBOSE))
-                .add(new OptionBuilder().withShortName('s').withLongName("stacktrace").withDescription("Show stacktrace when running on error.").build(OPTION_STACKTRACE))
-                .add(new OptionBuilder().withLongName("silent").withDescription("Make no output to console.").build(OPTION_SILENT))
-                .add(new OptionBuilder().withShortName('t').withLongName("timeout").withArgumentName("timeout").withDescription("Override default timeout parameters (seconds)").build(OPTION_TIMEOUT));
-
-//        Option recoverDevOption = new OptionBuilder()
-//                .withLongName("dev")
-//                .withShortName('d')
-//                .withDescription("recover from dev backup [~/.m7r-host/backup-default]")
-//                .build(SPECIFIC_OPTION_DEV);
-//
-//        Option recoverLatestOption = new OptionBuilder()
-//                .withLongName("latest")
-//                .withShortName('l')
-//                .withDescription("recover from latest backup in [~/.m7r-host/backup] (default)")
-//                .build(SPECIFIC_OPTION_LATEST);
-
-        Commands commands = new Commands();
-
-        commands.setDefaultCommand(new InfoDefaultCommand());
-
-        Options specificOptionsStatus = new Options()
-                .add(new OptionBuilder().withLongName("configuration").withShortName('c').withDescription("show configuration also").build(SPECIFIC_OPTION_CONFIGURATION));
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("status")
-                .withSpecificOptions(specificOptionsStatus)
-                .withCommandExecutor(new StatusExecutor())
-                .withDescription("Show status.")
-                .build()
-        );
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("create")
-                .withCommandExecutor(new CreateExecutor())
-                .withDescription("Creates docker infrastructure.")
-                .build()
-        );
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("test")
-                .withCommandExecutor(new TestExecutor())
-                .withDescription("Test.")
-                .build()
-        );
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("remove")
-                .withCommandExecutor(new RemoveExecutor())
-                .withDescription("Removes docker infrastructure.")
-                .build()
-        );
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("start")
-                .withCommandExecutor(new StartExecutor())
-                .withDescription("Starts docker infrastructure.")
-                .build()
-        );
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("stop")
-                .withCommandExecutor(new StopExecutor())
-                .withDescription("Stops docker infrastructure.")
-                .build()
-        );
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("restart")
-                .withCommandExecutor(new RestartExecutor())
-                .withDescription("Restarts docker infrastructure.")
-                .build()
-        );
-
-//        Options specificOptionsPullUp = new Options()
-//                .add(recoverDevOption)
-//                .add(recoverLatestOption)
-//                .add(new OptionBuilder()
-//                        .withLongName("no-recover")
-//                        .withShortName('x')
-//                        .withDescription("omit recover")
-//                        .build(SPECIFIC_OPTION_NO_RECOVER));
-
-        commands.add(PullUpDef.get());
-
-//        commands.add(new CommandSequenceBuilder()
-//                .addCommands("pullup")
-//                .withSpecificOptions(specificOptionsPullUp)
-//                .withCommandExecutor(new PullUpExecutor())
-//                .withDescription("Pulls up mentalizr docker infrastructure.")
-//                .build()
-//        );
-
-        commands.add(FullPullDef.get());
-        commands.add(TearDownDef.get());
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("deploy")
-                .withCommandExecutor(new DeployExecutor())
-                .withDescription("Deploys to server instances.")
-                .build()
-        );
-
-        commands.add(CleanDef.get());
-
-        commands.add(RecoverDef.get());
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("backup")
-                .withCommandExecutor(new BackupExecutor())
-                .withDescription("Backups databases.")
-                .build()
-        );
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("pull-images")
-                .withCommandExecutor(new PullImagesExecutor())
-                .withDescription("Pull images from Docker Hub.")
-                .build()
-        );
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("create-images")
-                .withCommandExecutor(new CreateImagesExecutor())
-                .withDescription("Creates images.")
-                .build()
-        );
-
-        commands.add(RemoveImagesDef.get());
-        commands.add(CleanImagesDef.get());
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("shell", "mongo")
-                .withCommandExecutor(new ShellMongoExecutor())
-                .withDescription("Opens shell on mongo container.")
-                .build()
-        );
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("shell", "maria")
-                .withCommandExecutor(new ShellMariaExecutor())
-                .withDescription("Opens shell on maria container.")
-                .build()
-        );
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("shell", "tomcat")
-                .withCommandExecutor(new ShellTomcatExecutor())
-                .withDescription("Opens shell on tomcat container.")
-                .build()
-        );
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("shell", "sql")
-                .withCommandExecutor(new ShellSqlExecutor())
-                .withDescription("Opens mysql client on maria container as root.")
-                .build()
-        );
-
-        Options specificLogsOptions = new Options()
-                .add(new OptionBuilder().withShortName('f').withLongName("follow").withDescription("Follow logs.").build(SPECIFIC_OPTION_FOLLOW));
-
-        commands.add(new CommandSequenceBuilder()
-                .addCommands("logs")
-                .withSpecificOptions(specificLogsOptions)
-                .withCommandExecutor(new LogsExecutor())
-                .withDescription("Show logs.")
-                .build()
-        );
+                .add(new OptionBuilder()
+                        .withLongName("verbose")
+                        .withDescription("verbose output")
+                        .build(GLOBAL_OPTION__VERBOSE))
+                .add(new OptionBuilder()
+                        .withShortName('s')
+                        .withLongName("stacktrace")
+                        .withDescription("Show stacktrace when running on error.")
+                        .build(GLOBAL_OPTION__STACKTRACE))
+                .add(new OptionBuilder()
+                        .withLongName("silent")
+                        .withDescription("Make no output to console.")
+                        .build(GLOBAL_OPTION__OPTION_SILENT))
+                .add(new OptionBuilder()
+                        .withShortName('t')
+                        .withLongName("timeout")
+                        .withArgumentName("timeout")
+                        .withDescription("Override default timeout parameters (seconds)")
+                        .build(GLOBAL_OPTION__TIMEOUT));
 
         CliDescription cliDescription = new CliDescriptionBuilder()
                 .withDescription("mentalizr infra structure manager CLI\nhttps://github.com/mentalizr/m7r-infra")
@@ -231,7 +99,7 @@ public class InfraCli {
             System.exit(1);
         }
 
-        boolean showStacktrace = cliCall.getOptionParserResultGlobal().hasOption(OPTION_STACKTRACE);
+        boolean showStacktrace = cliCall.getOptionParserResultGlobal().hasOption(GLOBAL_OPTION__STACKTRACE);
         Timeout timeout = getTimeout(cliCall.getOptionParserResultGlobal());
         ApplicationContext.setTimeout(timeout);
 
@@ -249,8 +117,8 @@ public class InfraCli {
     }
 
     private static Timeout getTimeout(OptionParserResult optionParserResultGlobal) {
-        if (optionParserResultGlobal.hasOption(InfraCli.OPTION_TIMEOUT)) {
-            String timeoutString = optionParserResultGlobal.getValue(InfraCli.OPTION_TIMEOUT);
+        if (optionParserResultGlobal.hasOption(InfraCli.GLOBAL_OPTION__TIMEOUT)) {
+            String timeoutString = optionParserResultGlobal.getValue(InfraCli.GLOBAL_OPTION__TIMEOUT);
             try {
                 int timeout = Integer.parseInt(timeoutString);
                 return Timeout.getTimeout(timeout);

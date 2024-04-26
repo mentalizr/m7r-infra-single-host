@@ -9,7 +9,7 @@ import org.mentalizr.infra.InfraCli;
 public class InfraTaskRunner {
 
     public static TaskRunner create(CliCall cliCall) {
-        boolean showStacktrace = cliCall.getOptionParserResultGlobal().hasOption(InfraCli.OPTION_STACKTRACE);
+        boolean showStacktrace = cliCall.getOptionParserResultGlobal().hasOption(InfraCli.GLOBAL_OPTION__STACKTRACE);
         TaskRegistry taskRegistry = InfraTaskRegistry.create();
         return StandardTaskRunner.create(taskRegistry, showStacktrace, 33);
     }
