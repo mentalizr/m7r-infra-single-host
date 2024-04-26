@@ -158,13 +158,6 @@ public class InfraCli {
                 .build()
         );
 
-//        commands.add(new CommandSequenceBuilder()
-//                .addCommands("remove-images")
-//                .withCommandExecutor(new RemoveImagesExecutor())
-//                .withDescription("Removes images.")
-//                .build()
-//        );
-
         commands.add(RemoveImagesDef.get());
         commands.add(CleanImagesDef.get());
 
@@ -209,7 +202,7 @@ public class InfraCli {
 
         CliDescription cliDescription = new CliDescriptionBuilder()
                 .withDescription("mentalizr infra structure manager CLI\nhttps://github.com/mentalizr/m7r-infra")
-                .withVersionByTag("0.0.1-SNAPSHOT", "2023-11-01")
+                .withVersionByTag("0.0.1-SNAPSHOT", "2024-04-26")
                 .build("m7r-infra");
 
         return new CliBuilder()

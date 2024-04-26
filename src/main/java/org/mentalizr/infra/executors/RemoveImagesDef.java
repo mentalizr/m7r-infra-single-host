@@ -25,7 +25,7 @@ public class RemoveImagesDef {
                                 .withDescription("omit creating tagged backup before deleting")
                                 .build(SPECIFIC_OPTION__NO_BACKUP)))
                         .withCommandExecutor(new RemoveImagesExecutor())
-                        .withDescription("Removes images.")
+                        .withDescription("Removes current images.")
                         .build();
     }
 

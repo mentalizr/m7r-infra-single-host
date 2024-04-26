@@ -7,15 +7,11 @@ import de.arthurpicht.cli.option.Options;
 
 public class CleanImagesDef {
 
-    public static final String SPECIFIC_OPTION__BACKUP = "backup";
-    public static final String SPECIFIC_OPTION__NO_BACKUP = "no-backup";
-    public static final String SPECIFIC_OPTION__ALL = "all";
-
     public static CommandSequence get() {
         return new CommandSequenceBuilder()
                 .addCommands("clean-images")
                 .withCommandExecutor(new CleanImagesExecutor())
-                .withDescription("Clean images.")
+                .withDescription("Remove all m7r related images including backups.")
                 .build();
     }
 

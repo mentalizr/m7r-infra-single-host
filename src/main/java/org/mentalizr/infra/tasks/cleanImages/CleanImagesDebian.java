@@ -11,6 +11,7 @@ public class CleanImagesDebian {
     public static Task create() {
         return new TaskBuilder()
                 .withName(NAME)
+                .withDependencies(CleanImagesJDK.NAME)
                 .isUpToDate(() -> !M7rImageDebian.existsAny())
                 .execute(M7rImageDebian::clean)
                 .build();

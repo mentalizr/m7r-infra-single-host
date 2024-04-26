@@ -164,6 +164,7 @@ public class InfraTaskRegistry {
                 .withTask(CreateBackupTagDebian.create())
                 .withTask(RemoveImageDebian.create())
                 .withTask(CleanImagesDebian.create())
+                .withTask(RemoveBaseImageDebian.create())
                 .withTask(CreateBackupTagJDK.create())
                 .withTask(RemoveImageJDK.create())
                 .withTask(CleanImagesJDK.create())
@@ -172,7 +173,8 @@ public class InfraTaskRegistry {
                 .withTask(CleanImagesTomcat.create())
                 .withTask(CreateBackupTagNginx.create())
                 .withTask(RemoveImageNginx.create())
-                .withTask(CleanImagesNginx.create());
+                .withTask(CleanImagesNginx.create())
+                .withTask(RemoveBaseImageNginx.create());
 
         return taskRegistryBuilder.build();
     }

@@ -11,6 +11,7 @@ public class CleanImagesJDK {
     public static Task create() {
         return new TaskBuilder()
                 .withName(NAME)
+                .withDependencies(CleanImagesTomcat.NAME)
                 .isUpToDate(() -> !M7rImageJDK.existsAny())
                 .execute(M7rImageJDK::clean)
                 .build();

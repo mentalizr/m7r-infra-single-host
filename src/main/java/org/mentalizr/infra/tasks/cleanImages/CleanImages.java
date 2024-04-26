@@ -10,8 +10,11 @@ public class CleanImages {
     public static Task create() {
         return new TaskBuilder()
                 .withName(NAME)
-                .withDependencies(CleanImagesMongo.NAME, CleanImagesMaria.NAME, CleanImagesDebian.NAME,
-                        CleanImagesJDK.NAME, CleanImagesTomcat.NAME, CleanImagesNginx.NAME)
+                .withDependencies(
+                        CleanImagesMongo.NAME,
+                        CleanImagesMaria.NAME,
+                        RemoveBaseImageNginx.NAME,
+                        RemoveBaseImageDebian.NAME)
                 .asTarget()
                 .execute(() -> {})
                 .build();
