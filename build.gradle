@@ -18,6 +18,8 @@ dependencies {
     implementation libs.ap.cli
     implementation libs.ap.processExecutor
     implementation libs.ap.taskRunner
+    implementation libs.ap.console
+    implementation libs.ap.consoleToSlf4j
     implementation libs.m7r.backendConfig
     implementation libs.m7r.commons
     implementation libs.m7r.persistenceRdbms

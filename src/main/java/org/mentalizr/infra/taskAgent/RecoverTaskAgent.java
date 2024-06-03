@@ -1,10 +1,10 @@
 package org.mentalizr.infra.taskAgent;
 
+import de.arthurpicht.console.Console;
+import de.arthurpicht.console.config.ConsoleConfiguration;
+import de.arthurpicht.console.config.ConsoleConfigurationBuilder;
 import de.arthurpicht.taskRunner.task.TaskPreconditionException;
-import org.mentalizr.cli.adminApi.AdminApiException;
-import org.mentalizr.cli.adminApi.DatabaseStatus;
-import org.mentalizr.cli.adminApi.Recover;
-import org.mentalizr.cli.adminApi.Session;
+import org.mentalizr.cli.adminApi.*;
 import org.mentalizr.commons.paths.host.hostDir.BackupDefaultDir;
 import org.mentalizr.infra.InfraRuntimeException;
 import org.mentalizr.infra.buildEntities.Backups;
@@ -42,12 +42,19 @@ public class RecoverTaskAgent {
     public static void recoverDev() {
         BackupDefaultDir backupDefaultDir = new BackupDefaultDir();
         logger.info("Recover from backup for dev.");
+        ConsoleConfiguration consoleConfigurationOld = Console.getConfiguration();
+        ConsoleConfiguration consoleConfiguration = new ConsoleConfigurationBuilder()
+                .withMutedOutput()
+                .build();
+        Console.configure(consoleConfiguration);
         try {
             Session.loginWithLocalConfiguration();
-            Recover.executeForDirectory(backupDefaultDir.asPath());
+            CliExternalApi.recover(backupDefaultDir.asPath());
             Session.logout();
         } catch (AdminApiException e) {
             throw new InfraRuntimeException("Recover from dev backup failed. " + e.getMessage(), e);
+        } finally {
+            Console.configure(consoleConfigurationOld);
         }
     }
 
@@ -56,12 +63,19 @@ public class RecoverTaskAgent {
             throw new InfraRuntimeException("No backup found.");
         Path lastestBackupPath = Backups.getLatestBackup();
         logger.info("Recover latest backup: [" + lastestBackupPath.toAbsolutePath() + "].");
+        ConsoleConfiguration consoleConfigurationOld = Console.getConfiguration();
+        ConsoleConfiguration consoleConfiguration = new ConsoleConfigurationBuilder()
+                .withMutedOutput()
+                .build();
+        Console.configure(consoleConfiguration);
         try {
             Session.loginWithLocalConfiguration();
-            Recover.executeForDirectory(lastestBackupPath);
+            CliExternalApi.recover(lastestBackupPath);
             Session.logout();
         } catch (AdminApiException e) {
             throw new InfraRuntimeException("Recover latest backup failed. " + e.getMessage(), e);
+        } finally {
+            Console.configure(consoleConfigurationOld);
         }
     }
 
