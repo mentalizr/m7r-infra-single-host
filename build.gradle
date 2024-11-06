@@ -7,7 +7,7 @@ version '0.1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
-    maven { url "https://jitpack.io" }
+    maven { url "https://raw.githubusercontent.com/arthurpicht/mvn-repo/main/releases"}
 }
 
 dependencies {
@@ -16,10 +16,10 @@ dependencies {
     implementation libs.ap.utils.struct
     implementation libs.ap.utils.logging
     implementation libs.ap.cli
-    implementation libs.ap.processExecutor
-    implementation libs.ap.taskRunner
+    implementation libs.ap.process.executor
+    implementation libs.ap.task.runner
     implementation libs.ap.console
-    implementation libs.ap.consoleToSlf4j
+    implementation libs.ap.console.to.slf4j
     implementation libs.m7r.backendConfig
     implementation libs.m7r.commons
     implementation libs.m7r.persistenceRdbms
