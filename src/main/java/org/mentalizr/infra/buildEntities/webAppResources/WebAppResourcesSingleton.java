@@ -1,11 +1,8 @@
 package org.mentalizr.infra.buildEntities.webAppResources;
 
 import de.arthurpicht.utils.io.tempDir.TempDir;
-import de.arthurpicht.utils.io.tempDir.TempDirs;
 import org.mentalizr.commons.paths.host.hostDir.M7rHostTempDir;
 import org.mentalizr.infra.InfraRuntimeException;
-
-import java.io.IOException;
 
 public class WebAppResourcesSingleton {
 
@@ -36,8 +33,8 @@ public class WebAppResourcesSingleton {
 
     private static TempDir createTempDir() {
         try {
-            return TempDirs.createUniqueTempDirAutoRemove(new M7rHostTempDir().asPath());
-        } catch (IOException e) {
+            return new TempDir.Creator().withParentDir(new M7rHostTempDir().asPath()).create();
+        } catch (TempDir.TempDirCreationException e) {
             throw new InfraRuntimeException(e.getMessage(), e);
         }
     }

@@ -1,7 +1,6 @@
 package org.mentalizr.infra.utils;
 
 import de.arthurpicht.utils.io.tempDir.TempDir;
-import de.arthurpicht.utils.io.tempDir.TempDirs;
 import org.mentalizr.commons.paths.host.hostDir.M7rHostTempDir;
 import org.mentalizr.infra.InfraRuntimeException;
 
@@ -14,7 +13,7 @@ public class FileHelper {
     public static Path writeToM7rInfraTempDir(String fileName, String content) throws IOException {
         M7rHostTempDir m7RHostTempDir = new M7rHostTempDir();
         if (!m7RHostTempDir.exists()) Files.createDirectories(m7RHostTempDir.asPath());
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(m7RHostTempDir.asPath());
+        TempDir tempDir = new TempDir.Creator().withParentDir(new M7rHostTempDir().asPath()).create();
         Path file = tempDir.asPath().resolve(fileName);
         Files.writeString(file, content);
         return file;
@@ -24,8 +23,8 @@ public class FileHelper {
         M7rHostTempDir m7RHostTempDir = new M7rHostTempDir();
         try {
             if (!m7RHostTempDir.exists()) Files.createDirectories(m7RHostTempDir.asPath());
-            return TempDirs.createUniqueTempDirAutoRemove(m7RHostTempDir.asPath());
-        } catch (IOException e) {
+            return new TempDir.Creator().withParentDir(m7RHostTempDir.asPath()).create();
+        } catch (IOException | TempDir.TempDirCreationException e) {
             throw new InfraRuntimeException("Exception on creating temp dir: " + e.getMessage(), e);
         }
     }

@@ -4,7 +4,7 @@ import de.arthurpicht.utils.core.strings.StringSubstitutor;
 import de.arthurpicht.utils.core.strings.StringSubstitutorConfiguration;
 import de.arthurpicht.utils.io.checksum.Checksums;
 import de.arthurpicht.utils.io.nio2.FileUtils;
-import de.arthurpicht.utils.io.tempDir.TempDirs;
+import de.arthurpicht.utils.io.tempDir.TempDir;
 import org.mentalizr.commons.paths.host.hostDir.M7rHostTempDir;
 import org.mentalizr.infra.InfraRuntimeException;
 import org.mentalizr.infra.build.Backend;
@@ -65,8 +65,8 @@ public class HtmlFilesRegistry {
 
     private static Path createTempDir() {
         try {
-            return TempDirs.createUniqueTempDirAutoRemove(new M7rHostTempDir().asPath()).asPath();
-        } catch (IOException e) {
+            return new TempDir.Creator().withParentDir(new M7rHostTempDir().asPath()).create().asPath();
+        } catch (TempDir.TempDirCreationException e) {
             throw new InfraRuntimeException("Exception on creating temp dir: " + e.getMessage(), e);
         }
     }
