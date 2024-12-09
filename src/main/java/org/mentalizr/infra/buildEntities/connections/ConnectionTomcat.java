@@ -9,11 +9,13 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@SuppressWarnings("StringConcatenationArgumentToLogCall")
 public class ConnectionTomcat {
 
     private static final Logger logger = LoggerFactory.getLogger(ConnectionTomcat.class);
@@ -28,7 +30,7 @@ public class ConnectionTomcat {
 
     public static boolean probe() {
         try {
-            URL url = new URL("http://localhost:8080/m7r/service/v1");
+            URL url = URI.create("http://localhost:8080/m7r/service/v1").toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             int responseCode = connection.getResponseCode();
@@ -40,7 +42,7 @@ public class ConnectionTomcat {
 
     public static boolean probeGeneric() {
         try {
-            URL url = new URL("http://localhost:8080");
+            URL url = URI.create("http://localhost:8080").toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             int responseCode = connection.getResponseCode();
@@ -82,7 +84,7 @@ public class ConnectionTomcat {
     public static boolean hasBuildId(String buildIdString) {
         String message = "Check if running webApp has BuildId [" + buildIdString + "].";
         try {
-            URL url = new URL("http://localhost:8080/m7r/service/v1");
+            URL url = URI.create("http://localhost:8080/m7r/service/v1").toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             if (connection.getResponseCode() != 200) {
@@ -94,12 +96,12 @@ public class ConnectionTomcat {
                 logger.debug(message + " Failed. No response.");
                 return false;
             }
-            boolean success = (strings.get(0).endsWith(buildIdString));
+            boolean success = (strings.getFirst().endsWith(buildIdString));
             if (success) {
                 logger.debug(message + " Success.");
                 return true;
             } else {
-                logger.debug(message + " Failed. Received string is: [" + strings.get(0) + "]");
+                logger.debug(message + " Failed. Received string is: [" + strings.getFirst() + "]");
                 return false;
             }
         } catch (IOException e) {

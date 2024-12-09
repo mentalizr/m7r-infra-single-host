@@ -3,6 +3,9 @@ package org.mentalizr.infra.taskAgent;
 import de.arthurpicht.console.Console;
 import de.arthurpicht.console.config.ConsoleConfiguration;
 import de.arthurpicht.console.config.ConsoleConfigurationBuilder;
+import de.arthurpicht.console.config.ConsoleConfigurationChanger;
+import de.arthurpicht.consoleToSlf4j.Slf4jChannel;
+import de.arthurpicht.consoleToSlf4j.Slf4jChannelBuilder;
 import de.arthurpicht.taskRunner.task.TaskPreconditionException;
 import org.mentalizr.cli.adminApi.*;
 import org.mentalizr.commons.paths.host.hostDir.BackupDefaultDir;
@@ -42,11 +45,7 @@ public class RecoverTaskAgent {
     public static void recoverDev() {
         BackupDefaultDir backupDefaultDir = new BackupDefaultDir();
         logger.info("Recover from backup for dev.");
-        ConsoleConfiguration consoleConfigurationOld = Console.getConfiguration();
-        ConsoleConfiguration consoleConfiguration = new ConsoleConfigurationBuilder()
-                .withMutedOutput()
-                .build();
-        Console.configure(consoleConfiguration);
+        ConsoleConfiguration consoleConfigurationSave = alterConsoleConfiguration();
         try {
             Session.loginWithLocalConfiguration();
             CliExternalApi.recover(backupDefaultDir.asPath());
@@ -54,7 +53,7 @@ public class RecoverTaskAgent {
         } catch (AdminApiException e) {
             throw new InfraRuntimeException("Recover from dev backup failed. " + e.getMessage(), e);
         } finally {
-            Console.configure(consoleConfigurationOld);
+            Console.configure(consoleConfigurationSave);
         }
     }
 
@@ -63,11 +62,7 @@ public class RecoverTaskAgent {
             throw new InfraRuntimeException("No backup found.");
         Path lastestBackupPath = Backups.getLatestBackup();
         logger.info("Recover latest backup: [" + lastestBackupPath.toAbsolutePath() + "].");
-        ConsoleConfiguration consoleConfigurationOld = Console.getConfiguration();
-        ConsoleConfiguration consoleConfiguration = new ConsoleConfigurationBuilder()
-                .withMutedOutput()
-                .build();
-        Console.configure(consoleConfiguration);
+        ConsoleConfiguration consoleConfigurationSave = alterConsoleConfiguration();
         try {
             Session.loginWithLocalConfiguration();
             CliExternalApi.recover(lastestBackupPath);
@@ -75,8 +70,21 @@ public class RecoverTaskAgent {
         } catch (AdminApiException e) {
             throw new InfraRuntimeException("Recover latest backup failed. " + e.getMessage(), e);
         } finally {
-            Console.configure(consoleConfigurationOld);
+            Console.configure(consoleConfigurationSave);
         }
+    }
+
+    private static ConsoleConfiguration alterConsoleConfiguration() {
+        ConsoleConfiguration consoleConfigurationSave = Console.getConfiguration();
+        Slf4jChannel slf4jChannel = new Slf4jChannelBuilder()
+                .withLoggerName("Recover")
+                .build();
+        ConsoleConfiguration consoleConfigurationIntermediate = new ConsoleConfigurationBuilder()
+                .withMutedOutput()
+                .addMessageChannel(slf4jChannel)
+                .build();
+        Console.configure(consoleConfigurationIntermediate);
+        return consoleConfigurationSave;
     }
 
 }
