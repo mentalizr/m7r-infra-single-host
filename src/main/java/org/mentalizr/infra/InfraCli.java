@@ -44,6 +44,7 @@ public class InfraCli {
         commands.add(ShellTomcatDef.get());
         commands.add(ShellSqlDef.get());
         commands.add(LogsDef.get());
+        commands.add(DaemonStartDef.get());
 
         Options globalOptions = new Options()
                 .add(new VersionOption())
