@@ -16,11 +16,10 @@ public class DaemonStartExecutor implements CommandExecutor {
     public void execute(CliCall cliCall) throws CommandExecutorException {
         ExecutionContext.initialize(cliCall);
 
-        System.out.println("daemon started");
+        System.out.println("daemon started (dummy message)");
 
-        logger.info("daemon started");
+        logger.info("daemon started (dummy message)");
 
-        ProcessExecutorBuilder
     }
 
 }
