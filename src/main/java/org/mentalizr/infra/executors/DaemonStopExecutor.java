@@ -7,21 +7,21 @@ import de.arthurpicht.taskRunner.TaskRunner;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
 import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
-import org.mentalizr.infra.tasks.daemon.StartDaemon;
+import org.mentalizr.infra.tasks.daemon.StopDaemon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("StringConcatenationArgumentToLogCall")
-public class DaemonStartExecutor implements CommandExecutor {
+public class DaemonStopExecutor implements CommandExecutor {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DaemonStartExecutor.class);
+    private static final Logger logger = LoggerFactory.getLogger(DaemonStopExecutor.class);
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
         ExecutionContext.initialize(cliCall);
-        LOGGER.info(DaemonStartExecutor.class.getSimpleName() + " invoked.");
+        logger.info(DaemonStopExecutor.class.getSimpleName() + " invoked.");
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
-        TaskRunnerResult result = taskRunner.run(StartDaemon.NAME);
+        TaskRunnerResult result = taskRunner.run(StopDaemon.NAME);
         if (!result.isSuccess()) throw new CommandExecutorException();
     }
 
