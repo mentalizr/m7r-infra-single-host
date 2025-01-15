@@ -46,6 +46,8 @@ public class InfraCli {
         commands.add(LogsDef.get());
         commands.add(DaemonStartDef.get());
         commands.add(DaemonStopDef.get());
+        commands.add(DaemonActivateDef.get());
+        commands.add(DaemonDeactivateDef.get());
 
         Options globalOptions = new Options()
                 .add(new VersionOption())

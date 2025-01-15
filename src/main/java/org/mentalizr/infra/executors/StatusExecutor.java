@@ -12,13 +12,13 @@ import org.mentalizr.commons.paths.host.GitReposDir;
 import org.mentalizr.commons.paths.host.hostDir.M7rHostDir;
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.ExecutionContext;
-import org.mentalizr.infra.InfraCli;
 import org.mentalizr.infra.buildEntities.connections.ConnectionMaria;
 import org.mentalizr.infra.buildEntities.connections.ConnectionMongo;
 import org.mentalizr.infra.buildEntities.connections.ConnectionTomcat;
 import org.mentalizr.infra.buildEntities.ports.PortMaria;
 import org.mentalizr.infra.buildEntities.ports.PortMongo;
 import org.mentalizr.infra.buildEntities.ports.PortTomcat;
+import org.mentalizr.infra.daemon.Daemon;
 import org.mentalizr.infra.docker.m7r.*;
 
 import java.net.InetAddress;
@@ -38,6 +38,8 @@ public class StatusExecutor implements CommandExecutor {
     private static final String SUCCESS = Ansi.colorize("SUCCESS", Attribute.GREEN_TEXT());
     private static final String SKIPPED = Ansi.colorize("SKIPPED", Attribute.YELLOW_TEXT());
     private static final String FAILED = Ansi.colorize("FAILED", Attribute.RED_TEXT());
+    private static final String ACTIVATED = Ansi.colorize("ACTIVATED", Attribute.GREEN_TEXT());
+    private static final String DEACTIVATED = Ansi.colorize("DEACTIVATED", Attribute.RED_TEXT());
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
@@ -217,6 +219,23 @@ public class StatusExecutor implements CommandExecutor {
         } else {
             System.out.println(portNginxString + CLOSED);
         }
+
+        String daemonString = Strings.fillUpRight("daemon: ", ' ', minLengthString);
+        boolean daemonRunning = Daemon.isRunning();
+        boolean daemonActive = Daemon.isActive();
+
+        String deamonOutString = daemonString;
+        if (daemonRunning) {
+            deamonOutString += RUNNING;
+        } else {
+            deamonOutString += STOPPED;
+        }
+        if (daemonActive) {
+            deamonOutString += " " + ACTIVATED;
+        } else {
+            deamonOutString += " " + DEACTIVATED;
+        }
+        System.out.println(deamonOutString);
 
     }
 

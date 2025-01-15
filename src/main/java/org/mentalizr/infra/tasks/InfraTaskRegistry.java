@@ -21,8 +21,7 @@ import org.mentalizr.infra.tasks.create.tomcat.CreateTomcat;
 import org.mentalizr.infra.tasks.create.tomcat.CreateVolumeTomcat;
 import org.mentalizr.infra.tasks.create.tomcat.InitializeContainerTomcat;
 import org.mentalizr.infra.tasks.createImages.*;
-import org.mentalizr.infra.tasks.daemon.StartDaemon;
-import org.mentalizr.infra.tasks.daemon.StopDaemon;
+import org.mentalizr.infra.tasks.daemon.*;
 import org.mentalizr.infra.tasks.deploy.*;
 import org.mentalizr.infra.tasks.pullImages.*;
 import org.mentalizr.infra.tasks.recover.RecoverDev;
@@ -180,7 +179,10 @@ public class InfraTaskRegistry {
 
         taskRegistryBuilder
                 .withTask(StartDaemon.create())
-                .withTask(StopDaemon.create());
+                .withTask(StopDaemon.create())
+                .withTask(RestartDaemon.create())
+                .withTask(ActivateDaemon.create())
+                .withTask(DeactivateDaemon.create());
 
         return taskRegistryBuilder.build();
     }

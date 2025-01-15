@@ -6,11 +6,15 @@ import de.arthurpicht.processExecutor.ProcessExecutor;
 import de.arthurpicht.processExecutor.ProcessExecutorBuilder;
 import de.arthurpicht.processExecutor.ProcessResultCollection;
 import de.arthurpicht.utils.core.strings.Strings;
+import de.arthurpicht.utils.io.nio2.FileUtils;
+import org.mentalizr.commons.DaemonActiveFlagFile;
 import org.mentalizr.commons.DaemonPidFile;
-import org.mentalizr.infra.executors.DaemonStartExecutor;
 import org.mentalizr.infra.utils.Linux;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.nio.file.Files;
 
 public class Daemon {
 
@@ -57,6 +61,30 @@ public class Daemon {
             throw new RuntimeException(
                     "Stopping daemon process failed: " + Strings.listing(processResultCollection.getErrorOut(),
                             ", "));
+    }
+
+    public static boolean isActive() {
+        return DaemonActiveFlagFile.exists();
+    }
+
+    public static boolean isNotActive() {
+        return !DaemonActiveFlagFile.exists();
+    }
+
+    public static void activate() {
+        try {
+            DaemonActiveFlagFile.create();
+        } catch (IOException e) {
+            throw new RuntimeException("Error creating daemon active flag file: " + e.getMessage(), e);
+        }
+    }
+
+    public static void deactivate() {
+        try {
+            DaemonActiveFlagFile.delete();
+        } catch (IOException e) {
+            throw new RuntimeException("Error deleting daemon active flag file: " + e.getMessage(), e);
+        }
     }
 
 }
