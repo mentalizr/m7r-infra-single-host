@@ -7,10 +7,14 @@ import de.arthurpicht.processExecutor.ProcessExecutorBuilder;
 import de.arthurpicht.processExecutor.ProcessResultCollection;
 import de.arthurpicht.utils.core.strings.Strings;
 import org.mentalizr.commons.DaemonPidFile;
+import org.mentalizr.infra.executors.DaemonStartExecutor;
 import org.mentalizr.infra.utils.Linux;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Daemon {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Daemon.class);
     private static final String DAEMON_START_COMMAND = "/home/m7radmin/gitrepos/m7r/core/m7r-daemon/bin/m7r-daemon-start.sh";
 
     public static boolean isRunning() {
@@ -48,6 +52,7 @@ public class Daemon {
             throw new IllegalStateException("PID file does not exist: [" + pidFile + "].");
         int pid = pidFile.getPid();
         ProcessResultCollection processResultCollection = Linux.kill(pid);
+        LOGGER.info("Daemon stopped with PID: " + pid);
         if (processResultCollection.isFail())
             throw new RuntimeException(
                     "Stopping daemon process failed: " + Strings.listing(processResultCollection.getErrorOut(),
