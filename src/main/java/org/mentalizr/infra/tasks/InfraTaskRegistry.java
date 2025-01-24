@@ -21,7 +21,7 @@ import org.mentalizr.infra.tasks.create.tomcat.CreateTomcat;
 import org.mentalizr.infra.tasks.create.tomcat.CreateVolumeTomcat;
 import org.mentalizr.infra.tasks.create.tomcat.InitializeContainerTomcat;
 import org.mentalizr.infra.tasks.createImages.*;
-import org.mentalizr.infra.tasks.daemon.*;
+import org.mentalizr.infra.tasks.scheduler.*;
 import org.mentalizr.infra.tasks.deploy.*;
 import org.mentalizr.infra.tasks.pullImages.*;
 import org.mentalizr.infra.tasks.recover.RecoverDev;
@@ -178,11 +178,11 @@ public class InfraTaskRegistry {
                 .withTask(RemoveBaseImageNginx.create());
 
         taskRegistryBuilder
-                .withTask(StartDaemon.create())
-                .withTask(StopDaemon.create())
-                .withTask(RestartDaemon.create())
-                .withTask(ActivateDaemon.create())
-                .withTask(DeactivateDaemon.create());
+                .withTask(StartScheduler.create())
+                .withTask(StopScheduler.create())
+                .withTask(RestartScheduler.create())
+                .withTask(ActivateScheduler.create())
+                .withTask(DeactivateScheduler.create());
 
         return taskRegistryBuilder.build();
     }

@@ -18,7 +18,7 @@ import org.mentalizr.infra.buildEntities.connections.ConnectionTomcat;
 import org.mentalizr.infra.buildEntities.ports.PortMaria;
 import org.mentalizr.infra.buildEntities.ports.PortMongo;
 import org.mentalizr.infra.buildEntities.ports.PortTomcat;
-import org.mentalizr.infra.daemon.Daemon;
+import org.mentalizr.infra.scheduler.Scheduler;
 import org.mentalizr.infra.docker.m7r.*;
 
 import java.net.InetAddress;
@@ -220,17 +220,17 @@ public class StatusExecutor implements CommandExecutor {
             System.out.println(portNginxString + CLOSED);
         }
 
-        String daemonString = Strings.fillUpRight("daemon: ", ' ', minLengthString);
-        boolean daemonRunning = Daemon.isRunning();
-        boolean daemonActive = Daemon.isActive();
+        String schedulerString = Strings.fillUpRight("scheduler: ", ' ', minLengthString);
+        boolean schedulerRunning = Scheduler.isRunning();
+        boolean schedulerActive = Scheduler.isActive();
 
-        String deamonOutString = daemonString;
-        if (daemonRunning) {
+        String deamonOutString = schedulerString;
+        if (schedulerRunning) {
             deamonOutString += RUNNING;
         } else {
             deamonOutString += STOPPED;
         }
-        if (daemonActive) {
+        if (schedulerActive) {
             deamonOutString += " " + ACTIVATED;
         } else {
             deamonOutString += " " + DEACTIVATED;

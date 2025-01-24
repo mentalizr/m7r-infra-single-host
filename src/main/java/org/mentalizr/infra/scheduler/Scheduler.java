@@ -1,4 +1,4 @@
-package org.mentalizr.infra.daemon;
+package org.mentalizr.infra.scheduler;
 
 import de.arthurpicht.linuxWrapper.core.ps.Ps;
 import de.arthurpicht.processExecutor.ProcessExecutionException;
@@ -6,7 +6,6 @@ import de.arthurpicht.processExecutor.ProcessExecutor;
 import de.arthurpicht.processExecutor.ProcessExecutorBuilder;
 import de.arthurpicht.processExecutor.ProcessResultCollection;
 import de.arthurpicht.utils.core.strings.Strings;
-import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.commons.DaemonActiveFlagFile;
 import org.mentalizr.commons.DaemonPidFile;
 import org.mentalizr.infra.utils.Linux;
@@ -14,11 +13,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.nio.file.Files;
 
-public class Daemon {
+// TODO: Change all resource names in project m7r-daemon from 'daemon' to 'scheduler', than do changes here.
+public class Scheduler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Daemon.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Scheduler.class);
     private static final String DAEMON_START_COMMAND = "/home/m7radmin/gitrepos/m7r/core/m7r-daemon/bin/m7r-daemon-start.sh";
 
     public static boolean isRunning() {

@@ -44,10 +44,12 @@ public class InfraCli {
         commands.add(ShellTomcatDef.get());
         commands.add(ShellSqlDef.get());
         commands.add(LogsDef.get());
-        commands.add(DaemonStartDef.get());
-        commands.add(DaemonStopDef.get());
-        commands.add(DaemonActivateDef.get());
-        commands.add(DaemonDeactivateDef.get());
+        commands.add(SchedulerStartDef.get());
+        commands.add(SchedulerStopDef.get());
+        commands.add(SchedulerActivateDef.get());
+        commands.add(SchedulerDeactivateDef.get());
+        commands.add(SchedulerRestartDef.get());
+        commands.add(SchedulerShowDef.get());
 
         Options globalOptions = new Options()
                 .add(new VersionOption())
