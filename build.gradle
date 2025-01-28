@@ -25,7 +25,7 @@ dependencies {
     implementation libs.m7r.commons
     implementation libs.m7r.persistenceRdbms
     implementation libs.m7r.cli
-    implementation libs.m7r.daemon
+    implementation libs.m7r.scheduler
     implementation libs.qos.logback
     implementation libs.mongodb.driver.sync
     implementation libs.jcolor

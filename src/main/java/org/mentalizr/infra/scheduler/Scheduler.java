@@ -7,20 +7,19 @@ import de.arthurpicht.processExecutor.ProcessExecutorBuilder;
 import de.arthurpicht.processExecutor.ProcessResultCollection;
 import de.arthurpicht.utils.core.strings.Strings;
 import org.mentalizr.commons.DaemonPidFile;
-import org.mentalizr.daemon.M7rSchedulerException;
-import org.mentalizr.daemon.configuration.JobConfigurations;
-import org.mentalizr.daemon.configuration.SchedulerActiveFlagFile;
+import org.mentalizr.scheduler.M7rSchedulerException;
+import org.mentalizr.scheduler.configuration.JobConfigurations;
+import org.mentalizr.scheduler.configuration.SchedulerActiveFlagFile;
 import org.mentalizr.infra.utils.Linux;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-// TODO: Change all resource names in project m7r-daemon from 'daemon' to 'scheduler', than do changes here.
 public class Scheduler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Scheduler.class);
-    private static final String SCHEDULER_START_COMMAND = "/home/m7radmin/gitrepos/m7r/core/m7r-daemon/bin/m7r-scheduler-start.sh";
+    private static final String SCHEDULER_START_COMMAND = "/home/m7radmin/gitrepos/m7r/core/m7r-scheduler/bin/m7r-scheduler-start.sh";
 
     public static boolean isRunning() {
         DaemonPidFile pidFile = new DaemonPidFile();
