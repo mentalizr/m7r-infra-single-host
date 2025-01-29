@@ -14,15 +14,20 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("StringConcatenationArgumentToLogCall")
 public class SchedulerRestartExecutor implements CommandExecutor {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SchedulerRestartExecutor.class);
+    private static final Logger logger = LoggerFactory.getLogger(SchedulerRestartExecutor.class);
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
         ExecutionContext.initialize(cliCall);
-        LOGGER.info(SchedulerRestartExecutor.class.getSimpleName() + " invoked.");
+        logger.debug(SchedulerRestartExecutor.class.getSimpleName() + " invoked.");
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         TaskRunnerResult result = taskRunner.run(RestartScheduler.NAME);
-        if (!result.isSuccess()) throw new CommandExecutorException();
+        if (result.isSuccess()) {
+            logger.info("Scheduler successfully restarted.");
+        } else {
+            logger.error("Restarting scheduler failed. See scheduler log file for details.");
+            throw new CommandExecutorException();
+        }
     }
 
 }

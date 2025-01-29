@@ -19,10 +19,15 @@ public class SchedulerStopExecutor implements CommandExecutor {
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
         ExecutionContext.initialize(cliCall);
-        logger.info(SchedulerStopExecutor.class.getSimpleName() + " invoked.");
+        logger.debug(SchedulerStopExecutor.class.getSimpleName() + " invoked.");
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         TaskRunnerResult result = taskRunner.run(StopScheduler.NAME);
-        if (!result.isSuccess()) throw new CommandExecutorException();
+        if (result.isSuccess()) {
+            logger.info("Scheduler successfully stopped.");
+        } else {
+            logger.error("Stopping scheduler failed. See scheduler log file for details.");
+            throw new CommandExecutorException();
+        }
     }
 
 }

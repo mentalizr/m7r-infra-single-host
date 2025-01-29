@@ -14,15 +14,20 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("StringConcatenationArgumentToLogCall")
 public class SchedulerDeactivateExecutor implements CommandExecutor {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SchedulerDeactivateExecutor.class);
+    private static final Logger logger = LoggerFactory.getLogger(SchedulerDeactivateExecutor.class);
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
         ExecutionContext.initialize(cliCall);
-        LOGGER.info(SchedulerActivateExecutor.class.getSimpleName() + " invoked.");
+        logger.debug(SchedulerActivateExecutor.class.getSimpleName() + " invoked.");
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         TaskRunnerResult result = taskRunner.run(DeactivateScheduler.NAME);
-        if (!result.isSuccess()) throw new CommandExecutorException();
+        if (result.isSuccess()) {
+            logger.info("Scheduler successfully deactivated.");
+        } else {
+            logger.error("Deactivating scheduler failed. See scheduler log file for details.");
+            throw new CommandExecutorException();
+        }
     }
 
 }
