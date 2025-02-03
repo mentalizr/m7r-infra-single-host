@@ -69,9 +69,6 @@ public class SchedulerShowExecutor implements CommandExecutor {
                 .withNoLineFeed()
                 .build());
 
-//        System.out.println(deamonOutString);
-
-//        String schedulerConfigConsistencyString = Strings.fillUpRight("scheduler config: ", ' ', 30);
         boolean consistent = Scheduler.hasConsistentConfiguration();
         if (consistent) {
             Console.out(new MessageBuilder()
@@ -85,61 +82,110 @@ public class SchedulerShowExecutor implements CommandExecutor {
 
         Console.println();
 
+        int widthEnabled = 8;
+        int widthName = 20;
+        int widthType = 20;
+        int widthCronSchedule = 20;
+        int widthNextExecutionTime = 20;
+
         JobConfigurations jobConfigurations = JobConfigurationsManager.fromConfigFiles();
         List<JobOverviewRecord> jobOverviewRecordList
                 = JobOverview.getJobOverviewRecords(jobConfigurations);
 
         Console.out(new MessageBuilder()
+                .addText("enabled",
+                        new BlockFormat.Builder()
+                                .withWidth(widthEnabled)
+                                .build())
+                .addText(" | ")
                 .addText("job name",
                         new BlockFormat.Builder()
-                                .withWidth(30)
+                                .withWidth(widthName)
                                 .withAbbreviationSign("*")
                                 .build())
                 .addText(" | ")
                 .addText("job type",
                         new BlockFormat.Builder()
-                                .withWidth(30)
+                                .withWidth(widthType)
                                 .withAbbreviationSign("*")
                                 .build())
                 .addText(" | ")
                 .addText("next execution time",
                         new BlockFormat.Builder()
-                                .withWidth(30)
+                                .withWidth(widthNextExecutionTime)
                                 .withAbbreviationSign("*")
+                                .build())
+                .addText(" | ")
+                .addText("cron schedule",
+                        new BlockFormat.Builder()
+                                .withWidth(widthCronSchedule)
+                                .withAbbreviationSign(">")
                                 .build())
                 .build());
 
-        Console.println("-".repeat(30)
-                        + "-+-"
-                        + "-".repeat(30)
-                        + "-+-"
-                        + "-".repeat(30)
+        Console.println(
+                "-".repeat(widthEnabled)
+                + "-+-"
+                + "-".repeat(widthName)
+                + "-+-"
+                + "-".repeat(widthType)
+                + "-+-"
+                + "-".repeat(widthNextExecutionTime)
+                + "-+-"
+                + "-".repeat(widthCronSchedule)
         );
-//                        + "-+-"
-//                        + "-".repeat(15));
+
 
         for (JobOverviewRecord jobOverviewRecord : jobOverviewRecordList) {
-            Console.out(new MessageBuilder()
+            MessageBuilder messageBuilder = new MessageBuilder();
+
+            boolean enabled = jobOverviewRecord.enabled();
+            if (enabled) {
+                messageBuilder.addText(
+                        "ENABLED",
+                        BlockFormat.GREEN_TEXT(),
+                        new BlockFormat.Builder()
+                                .withWidth(widthEnabled)
+                                .build()
+                );
+            } else {
+                messageBuilder.addText(
+                        "DISABLED",
+                        BlockFormat.RED_TEXT(),
+                        new BlockFormat.Builder()
+                                .withWidth(widthEnabled)
+                                .build()
+                );
+            }
+
+            messageBuilder.addText(" | ")
                     .addText(jobOverviewRecord.name(),
                             new BlockFormat.Builder()
-                                    .withWidth(30)
+                                    .withWidth(widthName)
                                     .withAbbreviationSign("*")
                                     .build())
+
                     .addText(" | ")
                     .addText(jobOverviewRecord.type(),
                             new BlockFormat.Builder()
-                                    .withWidth(30)
+                                    .withWidth(widthType)
                                     .withAbbreviationSign("*")
                                     .build())
                     .addText(" | ")
                     .addText(jobOverviewRecord.nextExecutionTime(),
                             new BlockFormat.Builder()
-                                    .withWidth(30)
+                                    .withWidth(widthNextExecutionTime)
                                     .withAbbreviationSign("*")
                                     .build())
-                    .build());
-        }
+                    .addText(" | ")
+                    .addText(jobOverviewRecord.cronSchedule(),
+                            new BlockFormat.Builder()
+                                    .withWidth(widthCronSchedule)
+                                    .withAbbreviationSign("*")
+                                    .build());
 
+            Console.out(messageBuilder.build());
+        }
     }
 
 }
