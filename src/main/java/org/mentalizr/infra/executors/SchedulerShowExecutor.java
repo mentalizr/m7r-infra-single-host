@@ -76,7 +76,7 @@ public class SchedulerShowExecutor implements CommandExecutor {
                     .build());
         } else {
             Console.out(new MessageBuilder()
-                    .addText("CHANGED", BlockFormat.GREEN_TEXT())
+                    .addText("CHANGED", BlockFormat.RED_TEXT())
                     .build());
         }
 

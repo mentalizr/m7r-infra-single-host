@@ -1,6 +1,6 @@
 package org.mentalizr.infra.buildEntities.connections;
 
-import de.arthurpicht.utils.io.InputStreams;
+import de.arthurpicht.utils.io.stream.InputStreams;
 import org.mentalizr.infra.InfraRuntimeException;
 import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.build.Backend;

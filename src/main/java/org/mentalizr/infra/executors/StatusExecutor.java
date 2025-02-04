@@ -40,8 +40,8 @@ public class StatusExecutor implements CommandExecutor {
     private static final String FAILED = Ansi.colorize("FAILED", Attribute.RED_TEXT());
     private static final String ACTIVATED = Ansi.colorize("ACTIVATED", Attribute.GREEN_TEXT());
     private static final String DEACTIVATED = Ansi.colorize("DEACTIVATED", Attribute.RED_TEXT());
-    private static final String CONSISTENT = Ansi.colorize("CONSISTENT", Attribute.GREEN_TEXT());
-    private static final String INCONSISTENT = Ansi.colorize("INCONSISTENT", Attribute.RED_TEXT());
+    private static final String UP_TO_DATE = Ansi.colorize("UP-TO-DATE", Attribute.GREEN_TEXT());
+    private static final String CHANGED = Ansi.colorize("CHANGED", Attribute.RED_TEXT());
 
 
     @Override
@@ -243,9 +243,9 @@ public class StatusExecutor implements CommandExecutor {
         String schedulerConfigConsistencyString = Strings.fillUpRight("scheduler config: ", ' ', minLengthString);
         boolean consistent = Scheduler.hasConsistentConfiguration();
         if (consistent) {
-            schedulerConfigConsistencyString += CONSISTENT;
+            schedulerConfigConsistencyString += UP_TO_DATE;
         } else {
-            schedulerConfigConsistencyString += INCONSISTENT;
+            schedulerConfigConsistencyString += CHANGED;
         }
         System.out.println(schedulerConfigConsistencyString);
     }
