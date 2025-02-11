@@ -16,6 +16,7 @@ public class InfraCli {
     public static final String GLOBAL_OPTION__STACKTRACE = "stacktrace";
     public static final String GLOBAL_OPTION__OPTION_SILENT = "silent";
     public static final String GLOBAL_OPTION__TIMEOUT = "timeout";
+    public static final String GLOBAL_OPTION__NOTIFY = "notify";
 
     private static Cli createCli() {
 
@@ -71,12 +72,17 @@ public class InfraCli {
                         .withShortName('t')
                         .withLongName("timeout")
                         .withArgumentName("timeout")
-                        .withDescription("Override default timeout parameters (seconds)")
-                        .build(GLOBAL_OPTION__TIMEOUT));
+                        .withDescription("Override default timeout parameters (seconds).")
+                        .build(GLOBAL_OPTION__TIMEOUT))
+                .add(new OptionBuilder()
+                        .withShortName('n')
+                        .withLongName("notify")
+                        .withDescription("Send email notification to on command execution.")
+                        .build(GLOBAL_OPTION__NOTIFY));
 
         CliDescription cliDescription = new CliDescriptionBuilder()
                 .withDescription("mentalizr infra structure manager CLI\nhttps://github.com/mentalizr/m7r-infra")
-                .withVersionByTag("0.0.1-SNAPSHOT", "2024-04-26")
+                .withVersionByTag("0.0.1-SNAPSHOT", "2025-02-11")
                 .build("m7r-infra");
 
         return new CliBuilder()
