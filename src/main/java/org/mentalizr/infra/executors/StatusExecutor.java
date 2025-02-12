@@ -20,6 +20,7 @@ import org.mentalizr.infra.buildEntities.ports.PortMongo;
 import org.mentalizr.infra.buildEntities.ports.PortTomcat;
 import org.mentalizr.infra.scheduler.Scheduler;
 import org.mentalizr.infra.docker.m7r.*;
+import org.mentalizr.infra.utils.LocalHost;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -48,7 +49,8 @@ public class StatusExecutor implements CommandExecutor {
     public void execute(CliCall cliCall) throws CommandExecutorException {
         ExecutionContext.initialize(cliCall);
 
-        System.out.println("mentalizr infrastructure status on " + Ansi.colorize(getHostname(), Attribute.WHITE_TEXT(), Attribute.BOLD()));
+        System.out.println("mentalizr infrastructure status on "
+                + Ansi.colorize(LocalHost.getHostname(), Attribute.WHITE_TEXT(), Attribute.BOLD()));
 
         boolean showConfiguration
                 = cliCall.getOptionParserResultSpecific().hasOption(StatusDef.SPECIFIC_OPTION__CONFIGURATION);
@@ -248,14 +250,6 @@ public class StatusExecutor implements CommandExecutor {
             schedulerConfigConsistencyString += CHANGED;
         }
         System.out.println(schedulerConfigConsistencyString);
-    }
-
-    private static String getHostname() {
-        try {
-            return InetAddress.getLocalHost().getHostName();
-        } catch (UnknownHostException e) {
-            return "UNKNOWN";
-        }
     }
 
     private static void outputImageStatus(String serverName, String taggedImageName) {

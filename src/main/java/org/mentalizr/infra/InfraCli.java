@@ -77,7 +77,7 @@ public class InfraCli {
                 .add(new OptionBuilder()
                         .withShortName('n')
                         .withLongName("notify")
-                        .withDescription("Send email notification to on command execution.")
+                        .withDescription("Send email notification to admins on command execution.")
                         .build(GLOBAL_OPTION__NOTIFY));
 
         CliDescription cliDescription = new CliDescriptionBuilder()
