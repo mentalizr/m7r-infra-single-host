@@ -18,12 +18,9 @@ import org.mentalizr.infra.buildEntities.connections.ConnectionTomcat;
 import org.mentalizr.infra.buildEntities.ports.PortMaria;
 import org.mentalizr.infra.buildEntities.ports.PortMongo;
 import org.mentalizr.infra.buildEntities.ports.PortTomcat;
-import org.mentalizr.infra.scheduler.Scheduler;
 import org.mentalizr.infra.docker.m7r.*;
+import org.mentalizr.infra.scheduler.Scheduler;
 import org.mentalizr.infra.utils.LocalHost;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 public class StatusExecutor implements CommandExecutor {
 
@@ -43,7 +40,6 @@ public class StatusExecutor implements CommandExecutor {
     private static final String DEACTIVATED = Ansi.colorize("DEACTIVATED", Attribute.RED_TEXT());
     private static final String UP_TO_DATE = Ansi.colorize("UP-TO-DATE", Attribute.GREEN_TEXT());
     private static final String CHANGED = Ansi.colorize("CHANGED", Attribute.RED_TEXT());
-
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
