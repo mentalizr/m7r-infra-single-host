@@ -13,6 +13,7 @@ public class ExecutionContext {
     private static CliCall cliCall;
     private static boolean verbose;
     private static boolean showStacktrace;
+    private static boolean notify;
 
     public static void initialize(CliCall cliCall) {
         callTimestamp = Instant.now();
@@ -23,6 +24,7 @@ public class ExecutionContext {
         ExecutionContext.cliCall = cliCall;
         verbose = cliCall.getOptionParserResultGlobal().hasOption(InfraCli.GLOBAL_OPTION__VERBOSE);
         showStacktrace = cliCall.getOptionParserResultGlobal().hasOption(InfraCli.GLOBAL_OPTION__STACKTRACE);
+        notify = cliCall.getOptionParserResultGlobal().hasOption(InfraCli.GLOBAL_OPTION__NOTIFY);
     }
 
     public static Instant getCallTimestamp() {
@@ -41,6 +43,10 @@ public class ExecutionContext {
 
     public static boolean showStacktrace() {
         return showStacktrace;
+    }
+
+    public static boolean isNotify() {
+        return notify;
     }
 
     public static CliCall getCliCall() {
