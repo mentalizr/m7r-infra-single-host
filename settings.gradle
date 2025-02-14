@@ -6,7 +6,4 @@ includeBuild('../m7r-backend-config')
 includeBuild('../m7r-commons')
 includeBuild('../m7r-persistence-rdbms')
 includeBuild('../m7r-cli')
-includeBuild('../m7r-scheduler')
 includeBuild('../m7r-mailer')
-
-
