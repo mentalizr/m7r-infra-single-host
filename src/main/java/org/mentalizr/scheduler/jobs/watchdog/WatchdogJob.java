@@ -1,6 +1,7 @@
 package org.mentalizr.scheduler.jobs.watchdog;
 
 import com.google.gson.Gson;
+import org.mentalizr.infra.externalApi.StatusSummary;
 import org.mentalizr.scheduler.jobs.SchedulerJob;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -22,6 +23,7 @@ public class WatchdogJob extends SchedulerJob implements Job {
 
         logger.info("Starting job [" + watchdogConfiguration.getJobName() + "] ...");
 
+        StatusSummary statusSummary = StatusSummary.create();
         // ...
 
         logger.info("Job [" + watchdogConfiguration.getJobName() + "] executed successfully.");

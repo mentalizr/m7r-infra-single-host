@@ -1,0 +1,57 @@
+package org.mentalizr.infra;
+
+import de.arthurpicht.cli.CliCall;
+import de.arthurpicht.cli.option.OptionParserResult;
+
+public class GlobalOptions {
+
+    public static final String GLOBAL_OPTION__VERBOSE = "verbose";
+    public static final String GLOBAL_OPTION__STACKTRACE = "stacktrace";
+    public static final String GLOBAL_OPTION__SILENT = "silent";
+    public static final String GLOBAL_OPTION__TIMEOUT = "timeout";
+    public static final String GLOBAL_OPTION__NOTIFY = "notify";
+
+    private final boolean verbose;
+    private final boolean stacktrace;
+    private final boolean silent;
+    private final String timeout;
+    private final boolean notify;
+
+    public GlobalOptions(CliCall cliCall) {
+        OptionParserResult optionParserResult = cliCall.getOptionParserResultGlobal();
+        this.verbose = optionParserResult.hasOption(GLOBAL_OPTION__VERBOSE);
+        this.silent = optionParserResult.hasOption(GLOBAL_OPTION__SILENT);
+        this.stacktrace = optionParserResult.hasOption(GLOBAL_OPTION__STACKTRACE);
+        if (optionParserResult.hasOption(GLOBAL_OPTION__TIMEOUT)) {
+            this.timeout = optionParserResult.getValue(GLOBAL_OPTION__TIMEOUT);
+        } else {
+            this.timeout = null;
+        }
+        this.notify = optionParserResult.hasOption(GLOBAL_OPTION__NOTIFY);
+    }
+
+    public boolean isVerbose() {
+        return verbose;
+    }
+
+    public boolean showStacktrace() {
+        return stacktrace;
+    }
+
+    public boolean isSilent() {
+        return silent;
+    }
+
+    public boolean hasTimeout() {
+        return timeout != null;
+    }
+
+    public String getTimeout() {
+        if (timeout == null) throw new IllegalStateException("Timeout has not been set. Check before using this method.");
+        return timeout;
+    }
+
+    public boolean isNotify() {
+        return notify;
+    }
+}

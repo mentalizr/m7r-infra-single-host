@@ -11,7 +11,6 @@ import de.arthurpicht.utils.core.strings.Strings;
 import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.taskAgent.RecoverSpecificOptions;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
-import org.mentalizr.infra.tasks.cleanImages.CleanImages;
 import org.mentalizr.infra.tasks.createImages.CreateImages;
 import org.mentalizr.infra.tasks.pullImages.PullImages;
 import org.slf4j.Logger;
@@ -30,10 +29,10 @@ public class FullPullExecutor implements CommandExecutor {
         ExecutionContext.initialize(cliCall);
 
         System.out.println("full pull-up infrastructure");
-        checkParameterConsistency();
+        checkParameterConsistency(cliCall);
 
         List<String> targetChain;
-        if (isPullImages()) {
+        if (isPullImages(cliCall)) {
             logger.info("execute full-pull with pulling images from docker hub.");
             targetChain = Lists.newArrayList(PullImages.NAME, "create", "start", "deploy");
         } else {
@@ -41,13 +40,13 @@ public class FullPullExecutor implements CommandExecutor {
             targetChain = Lists.newArrayList(CreateImages.NAME, "create", "start", "deploy");
         }
 
-        if (RecoverSpecificOptions.isRecoverDev()) {
+        if (RecoverSpecificOptions.isRecoverDev(cliCall)) {
             logger.info("execute full-pull with recover for dev.");
             targetChain.add("recover-dev");
-        } else if (RecoverSpecificOptions.isRecoverFromLatest()) {
+        } else if (RecoverSpecificOptions.isRecoverFromLatest(cliCall)) {
             logger.info("execute full-pull with recover from latest backup.");
             targetChain.add("recover-latest");
-        } else if (RecoverSpecificOptions.isOmitRecover()){
+        } else if (RecoverSpecificOptions.isOmitRecover(cliCall)) {
             logger.info("execute full-pull without recover.");
         } else {
             logger.info("execute full-pull with recover from latest backup.");
@@ -61,8 +60,8 @@ public class FullPullExecutor implements CommandExecutor {
             throw new CommandExecutorException();
     }
 
-    private void checkParameterConsistency() throws CommandExecutorException {
-        OptionParserResult optionParserResultSpecific = ExecutionContext.getCliCall().getOptionParserResultSpecific();
+    private void checkParameterConsistency(CliCall cliCall) throws CommandExecutorException {
+        OptionParserResult optionParserResultSpecific = cliCall.getOptionParserResultSpecific();
         if (optionParserResultSpecific.hasOption(SPECIFIC_OPTION__PULL_IMAGES)
                 && optionParserResultSpecific.hasOption(FullPullDef.SPECIFIC_OPTION__BUILD_IMAGES)) {
             throw new CommandExecutorException("Illegal combination of specific parameters: --"
@@ -71,8 +70,8 @@ public class FullPullExecutor implements CommandExecutor {
         }
     }
 
-    private boolean isPullImages() {
-        return ExecutionContext.getCliCall().getOptionParserResultSpecific().hasOption(SPECIFIC_OPTION__PULL_IMAGES);
+    private boolean isPullImages(CliCall cliCall) {
+        return cliCall.getOptionParserResultSpecific().hasOption(SPECIFIC_OPTION__PULL_IMAGES);
     }
 
 }

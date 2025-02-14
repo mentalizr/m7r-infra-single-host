@@ -9,22 +9,26 @@ import java.time.Instant;
 public class ExecutionContext {
 
     private static Instant callTimestamp;
+    private static GlobalOptions globalOptions;
     private static DockerExecutionContext dockerExecutionContext = null;
-    private static CliCall cliCall;
-    private static boolean verbose;
-    private static boolean showStacktrace;
-    private static boolean notify;
 
     public static void initialize(CliCall cliCall) {
         callTimestamp = Instant.now();
-        ExecutionContext.dockerExecutionContext = new DockerExecutionContext.Builder()
-                .beVerbose(cliCall.getOptionParserResultGlobal().hasOption(InfraCli.GLOBAL_OPTION__VERBOSE))
+        globalOptions = new GlobalOptions(cliCall);
+        dockerExecutionContext = createDockerExecutionContext(globalOptions.isVerbose());
+    }
+
+    public static void initialize(GlobalOptions globalOptions) {
+        callTimestamp = Instant.now();
+        ExecutionContext.globalOptions = globalOptions;
+        dockerExecutionContext = createDockerExecutionContext(globalOptions.isVerbose());
+    }
+
+    private static DockerExecutionContext createDockerExecutionContext(boolean verbose) {
+        return new DockerExecutionContext.Builder()
+                .beVerbose(verbose)
                 .withLogger(LoggerFactory.getLogger(Const.DOCKER_LOGGER))
                 .build();
-        ExecutionContext.cliCall = cliCall;
-        verbose = cliCall.getOptionParserResultGlobal().hasOption(InfraCli.GLOBAL_OPTION__VERBOSE);
-        showStacktrace = cliCall.getOptionParserResultGlobal().hasOption(InfraCli.GLOBAL_OPTION__STACKTRACE);
-        notify = cliCall.getOptionParserResultGlobal().hasOption(InfraCli.GLOBAL_OPTION__NOTIFY);
     }
 
     public static Instant getCallTimestamp() {
@@ -38,19 +42,15 @@ public class ExecutionContext {
     }
 
     public static boolean isVerbose() {
-        return verbose;
+        return globalOptions.isVerbose();
     }
 
     public static boolean showStacktrace() {
-        return showStacktrace;
+        return globalOptions.showStacktrace();
     }
 
     public static boolean isNotify() {
-        return notify;
-    }
-
-    public static CliCall getCliCall() {
-        return cliCall;
+        return globalOptions.isNotify();
     }
 
 }

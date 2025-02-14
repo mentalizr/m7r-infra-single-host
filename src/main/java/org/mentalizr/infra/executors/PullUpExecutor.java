@@ -27,13 +27,13 @@ public class PullUpExecutor implements CommandExecutor {
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         List<String> targetChain = Lists.newArrayList("create", "start", "deploy");
-        if (RecoverSpecificOptions.isRecoverDev()) {
+        if (RecoverSpecificOptions.isRecoverDev(cliCall)) {
             logger.info("execute pullup with recover for dev.");
             targetChain.add("recover-dev");
-        } else if (RecoverSpecificOptions.isRecoverFromLatest()) {
+        } else if (RecoverSpecificOptions.isRecoverFromLatest(cliCall)) {
             logger.info("execute pullup with recover from latest backup.");
             targetChain.add("recover-latest");
-        } else if (RecoverSpecificOptions.isOmitRecover()){
+        } else if (RecoverSpecificOptions.isOmitRecover(cliCall)) {
             logger.info("execute pullup without recover.");
         } else {
             logger.info("execute pullup with recover from latest backup.");

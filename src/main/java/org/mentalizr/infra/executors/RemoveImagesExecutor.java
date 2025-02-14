@@ -21,13 +21,13 @@ public class RemoveImagesExecutor implements CommandExecutor {
     public void execute(CliCall cliCall) throws CommandExecutorException {
         ExecutionContext.initialize(cliCall);
 
-        checkParameterConsistency();
+        checkParameterConsistency(cliCall);
         System.out.println("Remove images");
 
         List<String> targetChain = new ArrayList<>();
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         List<TaskRunnerResult> taskRunnerResults;
-        if (!hasNoBackupParameter()) targetChain.add(CreateBackups.NAME);
+        if (!hasNoBackupParameter(cliCall)) targetChain.add(CreateBackups.NAME);
         targetChain.add(RemoveImages.NAME);
         taskRunnerResults = taskRunner.run(Strings.toArray(targetChain));
 
@@ -35,22 +35,20 @@ public class RemoveImagesExecutor implements CommandExecutor {
             throw new CommandExecutorException();
     }
 
-    private void checkParameterConsistency() throws CommandExecutorException {
-        if (hasBackupParameter() && hasNoBackupParameter())
+    private void checkParameterConsistency(CliCall cliCall) throws CommandExecutorException {
+        if (hasBackupParameter(cliCall) && hasNoBackupParameter(cliCall))
             throw new CommandExecutorException("Illegal combination of specific parameters: --"
                     + RemoveImagesDef.SPECIFIC_OPTION__NO_BACKUP + " and --" + RemoveImagesDef.SPECIFIC_OPTION__BACKUP + ".");
     }
 
-    private boolean hasBackupParameter() {
-        return ExecutionContext
-                .getCliCall()
+    private boolean hasBackupParameter(CliCall cliCall) {
+        return cliCall
                 .getOptionParserResultSpecific()
                 .hasOption(RemoveImagesDef.SPECIFIC_OPTION__BACKUP);
     }
 
-    private boolean hasNoBackupParameter() {
-        return ExecutionContext
-                .getCliCall()
+    private boolean hasNoBackupParameter(CliCall cliCall) {
+        return cliCall
                 .getOptionParserResultSpecific()
                 .hasOption(RemoveImagesDef.SPECIFIC_OPTION__NO_BACKUP);
     }
