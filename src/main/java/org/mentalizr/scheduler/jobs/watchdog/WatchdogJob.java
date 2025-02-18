@@ -1,6 +1,9 @@
 package org.mentalizr.scheduler.jobs.watchdog;
 
 import com.google.gson.Gson;
+import org.mentalizr.infra.GlobalOptions;
+import org.mentalizr.infra.appInit.ApplicationContext;
+import org.mentalizr.infra.executors.Restart;
 import org.mentalizr.infra.externalApi.StatusSummary;
 import org.mentalizr.scheduler.jobs.SchedulerJob;
 import org.quartz.Job;
@@ -21,10 +24,22 @@ public class WatchdogJob extends SchedulerJob implements Job {
         WatchdogConfiguration watchdogConfiguration
                 = getJobConfiguration(jobConfigurationJson);
 
-        logger.info("Starting job [" + watchdogConfiguration.getJobName() + "] ...");
+        logger.debug("Starting job [" + watchdogConfiguration.getJobName() + "] ...");
 
+        ApplicationContext.initialize(new GlobalOptions(false, false, false, null, false));
         StatusSummary statusSummary = StatusSummary.create();
-        // ...
+
+        if (statusSummary.isRunning()) {
+            logger.debug("m7r infrastructure is running.");
+        } else {
+            logger.warn("m7r infrastructure not running. Try to restart ...");
+            try {
+                Restart.perform();
+                logger.warn("m7r infrastructure restarted.");
+            } catch (Restart.RestartException e) {
+                logger.error("Restart failed.", e);
+            }
+        }
 
         logger.info("Job [" + watchdogConfiguration.getJobName() + "] executed successfully.");
     }

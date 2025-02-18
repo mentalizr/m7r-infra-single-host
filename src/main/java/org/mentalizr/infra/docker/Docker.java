@@ -1,6 +1,5 @@
 package org.mentalizr.infra.docker;
 
-import de.arthurpicht.processExecutor.ProcessExecution;
 import de.arthurpicht.processExecutor.ProcessExecutionException;
 import de.arthurpicht.processExecutor.ProcessResultCollection;
 import de.arthurpicht.utils.core.strings.Strings;
@@ -12,11 +11,15 @@ import java.util.List;
 
 public class Docker {
 
-    public static ProcessResultCollection call(DockerExecutionContext dockerExecutionContext, String... commands) throws DockerExecutionException {
+    public static ProcessResultCollection call(
+            DockerExecutionContext dockerExecutionContext,
+            String... commands)
+            throws DockerExecutionException {
+
         userOutput(dockerExecutionContext, commands);
         ProcessResultCollection result;
         try {
-            result = ProcessExecution.execute(
+            result = DockerProcessExecution.execute(
                     dockerExecutionContext.getLogger(),
                     dockerExecutionContext.isVerbose(),
                     commands);
@@ -27,11 +30,16 @@ public class Docker {
         return result;
     }
 
-    public static ProcessResultCollection call(DockerExecutionContext dockerExecutionContext, InputStream inputStream, String... commands) throws DockerExecutionException {
+    public static ProcessResultCollection call(
+            DockerExecutionContext dockerExecutionContext,
+            InputStream inputStream,
+            String... commands)
+            throws DockerExecutionException {
+
         userOutput(dockerExecutionContext, commands);
         ProcessResultCollection result;
         try {
-            result = ProcessExecution.execute(
+            result = DockerProcessExecution.execute(
                     dockerExecutionContext.getLogger(),
                     dockerExecutionContext.isVerbose(),
                     inputStream,
@@ -49,14 +57,16 @@ public class Docker {
 
     public static void userOutput(DockerExecutionContext dockerExecutionContext, List<String> commands) {
         String commandString = "> " + Strings.listing(commands, " ");
-        dockerExecutionContext.getLogger().info(commandString);
+        dockerExecutionContext
+                .getLogger()
+                .debug(commandString);
         if (dockerExecutionContext.isVerbose()) System.out.println(commandString);
     }
 
     private static DockerExecutionException createException(ProcessResultCollection result) {
         if (result.isSuccess()) throw new IllegalStateException("Docker process not failed.");
         if (!result.getErrorOut().isEmpty()) {
-            return new DockerExecutionException(result.getErrorOut().get(0));
+            return new DockerExecutionException(result.getErrorOut().getFirst());
         } else {
             return new DockerExecutionException();
         }
