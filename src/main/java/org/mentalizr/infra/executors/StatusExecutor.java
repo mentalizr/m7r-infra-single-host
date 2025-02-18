@@ -11,7 +11,6 @@ import org.mentalizr.commons.paths.host.ContentDir;
 import org.mentalizr.commons.paths.host.GitReposDir;
 import org.mentalizr.commons.paths.host.hostDir.M7rHostDir;
 import org.mentalizr.infra.Const;
-import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.buildEntities.connections.ConnectionMaria;
 import org.mentalizr.infra.buildEntities.connections.ConnectionMongo;
 import org.mentalizr.infra.buildEntities.connections.ConnectionTomcat;
@@ -43,8 +42,6 @@ public class StatusExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
-        ExecutionContext.initialize(cliCall);
-
         System.out.println("mentalizr infrastructure status on "
                 + Ansi.colorize(LocalHost.getHostname(), Attribute.WHITE_TEXT(), Attribute.BOLD()));
 

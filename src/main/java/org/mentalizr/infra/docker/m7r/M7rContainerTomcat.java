@@ -13,8 +13,8 @@ import org.mentalizr.commons.paths.host.GitReposDir;
 import org.mentalizr.commons.paths.host.hostDir.TomcatLogDir;
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.DockerExecutionException;
-import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.InfraRuntimeException;
+import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.buildEntities.initFiles.tomcat.TomcatContextXml;
 import org.mentalizr.infra.docker.Docker;
 import org.mentalizr.infra.docker.DockerCopy;
@@ -35,7 +35,7 @@ public class M7rContainerTomcat {
             throw new InfraRuntimeException("Cannot create container [" + Const.CONTAINER_TOMCAT + "]." +
                     " Already existing.");
 
-        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
         Path imageBaseTempDir = GitReposDir.createInstance().asPath().resolve("core/m7r-img-base-tmp");
         ProcessResultCollection result;
         try {
@@ -97,7 +97,7 @@ public class M7rContainerTomcat {
 
     public static void deployWar() {
         M7rWarFile m7rWarFile = M7rWarFile.createInstance();
-        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
         try {
             DockerCopy.copyFile(context, m7rWarFile.asPath(), Const.CONTAINER_TOMCAT, "/man/tomcat/webapps/");
         } catch (DockerExecutionException e) {

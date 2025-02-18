@@ -6,8 +6,8 @@ import de.arthurpicht.cli.CommandExecutorException;
 import de.arthurpicht.utils.core.collection.Lists;
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.DockerExecutionException;
-import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.IllegalInfraStateException;
+import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.docker.DockerExecutionContext;
 import org.mentalizr.infra.docker.Shell;
 
@@ -17,11 +17,9 @@ public class ShellSqlExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
-        ExecutionContext.initialize(cliCall);
-
         System.out.println("open shell on container [" + Const.CONTAINER_MARIA + "] ...");
 
-        DockerExecutionContext dockerExecutionContext = ExecutionContext.getDockerExecutionContext();
+        DockerExecutionContext dockerExecutionContext = ApplicationContext.getDockerExecutionContext();
         List<String> executionCommands = Lists.newArrayList("sh", "-c", "mysql -u root -p");
         try {
             Shell.open(dockerExecutionContext, Const.CONTAINER_MARIA, executionCommands);

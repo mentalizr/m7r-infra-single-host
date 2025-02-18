@@ -1,7 +1,11 @@
 package org.mentalizr.infra.docker.m7r;
 
 import de.arthurpicht.processExecutor.ProcessResultCollection;
-import org.mentalizr.infra.*;
+import org.mentalizr.infra.Const;
+import org.mentalizr.infra.DockerExecutionException;
+import org.mentalizr.infra.IllegalInfraStateException;
+import org.mentalizr.infra.InfraRuntimeException;
+import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.buildEntities.initFiles.InitFile;
 import org.mentalizr.infra.docker.Container;
 import org.mentalizr.infra.docker.DockerCopy;
@@ -17,7 +21,7 @@ public class M7rContainer {
     private static final Logger logger = LoggerFactory.getLogger(Const.DOCKER_LOGGER);
 
     public static boolean exists(String name) {
-        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
         try {
             return Container.exists(context, name);
         } catch (DockerExecutionException e) {
@@ -26,7 +30,7 @@ public class M7rContainer {
     }
 
     public static boolean isRunning(String name) {
-        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
         try {
             return Container.isRunning(context, name);
         } catch (DockerExecutionException e) {
@@ -35,7 +39,7 @@ public class M7rContainer {
     }
 
     public static boolean isStopped(String name) {
-        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
         try {
             return !Container.isRunning(context, name);
         } catch (DockerExecutionException e) {
@@ -44,7 +48,7 @@ public class M7rContainer {
     }
 
     public static void start(String name) {
-        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
         try {
             Container.start(context, name);
         } catch (DockerExecutionException | IllegalInfraStateException e) {
@@ -53,7 +57,7 @@ public class M7rContainer {
     }
 
     public static void stop(String name) {
-        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
         try {
             Container.stop(context, name);
         } catch (DockerExecutionException | IllegalInfraStateException e) {
@@ -62,7 +66,7 @@ public class M7rContainer {
     }
 
     public static void remove(String name) {
-        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
         try {
             Container.remove(context, name);
         } catch (DockerExecutionException | IllegalInfraStateException e) {
@@ -73,12 +77,12 @@ public class M7rContainer {
     public static InfraRuntimeException createInfraRuntimeException(ProcessResultCollection result) {
         if (result.isSuccess()) throw new IllegalStateException("Result is no fail.");
         String message = "Docker execution finished with error.";
-        if (!result.getErrorOut().isEmpty()) message += " " + result.getErrorOut().get(0);
+        if (!result.getErrorOut().isEmpty()) message += " " + result.getErrorOut().getFirst();
         return new InfraRuntimeException(message);
     }
 
     public static void copyInitFileToContainer(InitFile initFile, String containerName, String destinationDir) {
-        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
 
         String messageHeader = "Copy configuration file [" + initFile.getFileName() + "] to [" + containerName + "]:";
         if (context.isVerbose()) {

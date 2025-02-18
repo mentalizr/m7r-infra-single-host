@@ -2,8 +2,8 @@ package org.mentalizr.infra.buildEntities;
 
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.DockerExecutionException;
-import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.InfraRuntimeException;
+import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.docker.DockerCopy;
 import org.mentalizr.infra.docker.DockerExecutionContext;
 import org.mentalizr.infra.utils.FileHelper;
@@ -21,7 +21,7 @@ public class ChecksumExchanger {
     public static void copyToContainer(String filename, String checksum) {
         logger.info("Write checksum file [" + filename + "] to tomcat container.");
         Path checksumFile = FileHelper.createM7rInfraTempFile(filename, checksum);
-        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
         try {
             DockerCopy.copyFile(context, checksumFile, Const.CONTAINER_TOMCAT, "/");
         } catch (DockerExecutionException e) {
@@ -30,7 +30,7 @@ public class ChecksumExchanger {
     }
 
     public static String readFromContainer(String fileName) {
-        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
         Path tempDir = FileHelper.createM7rInfraTempDir().asPath();
         try {
             DockerCopy.copyFileFromContainer(context, Const.CONTAINER_TOMCAT, "/" + fileName, tempDir);

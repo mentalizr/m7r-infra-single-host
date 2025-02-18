@@ -3,8 +3,8 @@ package org.mentalizr.infra.docker.m7r;
 import de.arthurpicht.processExecutor.ProcessResultCollection;
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.DockerExecutionException;
-import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.InfraRuntimeException;
+import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.buildEntities.initFiles.mongo.ConfigFileInitMongoJs;
 import org.mentalizr.infra.docker.Docker;
 import org.mentalizr.infra.docker.DockerExecutionContext;
@@ -31,7 +31,7 @@ public class M7rContainerMongo {
             throw new InfraRuntimeException("Cannot create container [" + Const.CONTAINER_MONGO + "]." +
                     " Already existing.");
 
-        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
         ProcessResultCollection result;
         try {
             result = Docker.call(

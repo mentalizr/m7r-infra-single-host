@@ -12,12 +12,6 @@ import org.mentalizr.infra.executors.*;
 
 public class InfraCli {
 
-    public static final String GLOBAL_OPTION__VERBOSE = "verbose";
-    public static final String GLOBAL_OPTION__STACKTRACE = "stacktrace";
-    public static final String GLOBAL_OPTION__OPTION_SILENT = "silent";
-    public static final String GLOBAL_OPTION__TIMEOUT = "timeout";
-    public static final String GLOBAL_OPTION__NOTIFY = "notify";
-
     private static Cli createCli() {
 
         Commands commands = new Commands();
@@ -58,27 +52,27 @@ public class InfraCli {
                 .add(new OptionBuilder()
                         .withLongName("verbose")
                         .withDescription("verbose output")
-                        .build(GLOBAL_OPTION__VERBOSE))
+                        .build(GlobalOptions.GLOBAL_OPTION__VERBOSE))
                 .add(new OptionBuilder()
                         .withShortName('s')
                         .withLongName("stacktrace")
                         .withDescription("Show stacktrace when running on error.")
-                        .build(GLOBAL_OPTION__STACKTRACE))
+                        .build(GlobalOptions.GLOBAL_OPTION__STACKTRACE))
                 .add(new OptionBuilder()
                         .withLongName("silent")
                         .withDescription("Make no output to console.")
-                        .build(GLOBAL_OPTION__OPTION_SILENT))
+                        .build(GlobalOptions.GLOBAL_OPTION__SILENT))
                 .add(new OptionBuilder()
                         .withShortName('t')
                         .withLongName("timeout")
                         .withArgumentName("timeout")
                         .withDescription("Override default timeout parameters (seconds).")
-                        .build(GLOBAL_OPTION__TIMEOUT))
+                        .build(GlobalOptions.GLOBAL_OPTION__TIMEOUT))
                 .add(new OptionBuilder()
                         .withShortName('n')
                         .withLongName("notify")
                         .withDescription("Send email notification to admins on command execution.")
-                        .build(GLOBAL_OPTION__NOTIFY));
+                        .build(GlobalOptions.GLOBAL_OPTION__NOTIFY));
 
         CliDescription cliDescription = new CliDescriptionBuilder()
                 .withDescription("mentalizr infra structure manager CLI\nhttps://github.com/mentalizr/m7r-infra")
@@ -93,12 +87,6 @@ public class InfraCli {
     }
 
     public static void main(String[] args) {
-        try {
-            ApplicationInitialization.execute();
-        } catch (ApplicationInitializationException e) {
-            System.out.println(e.getMessage());
-            System.exit(1);
-        }
 
         Cli cli = createCli();
         CliCall cliCall = null;
@@ -111,9 +99,12 @@ public class InfraCli {
             System.exit(1);
         }
 
-        boolean showStacktrace = cliCall.getOptionParserResultGlobal().hasOption(GLOBAL_OPTION__STACKTRACE);
-        Timeout timeout = getTimeout(cliCall.getOptionParserResultGlobal());
-        ApplicationContext.setTimeout(timeout);
+        try {
+            ApplicationInitialization.execute(new GlobalOptions(cliCall));
+        } catch (ApplicationInitializationException e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
 
         try {
             cli.execute(cliCall);
@@ -121,24 +112,11 @@ public class InfraCli {
             System.out.println("m7r-infra execution failed.");
             if (e.getMessage() != null) System.out.println(e.getMessage());
             System.exit(1);
-        } catch (RuntimeException | AssertionError e) {
+        } catch (RuntimeException e) {
             System.out.println("RuntimeException: " + e.getMessage());
-            if (showStacktrace) e.printStackTrace();
+            if (ApplicationContext.showStacktrace()) e.printStackTrace();
             System.exit(1);
         }
-    }
-
-    private static Timeout getTimeout(OptionParserResult optionParserResultGlobal) {
-        if (optionParserResultGlobal.hasOption(InfraCli.GLOBAL_OPTION__TIMEOUT)) {
-            String timeoutString = optionParserResultGlobal.getValue(InfraCli.GLOBAL_OPTION__TIMEOUT);
-            try {
-                int timeout = Integer.parseInt(timeoutString);
-                return Timeout.getTimeout(timeout);
-            } catch (NumberFormatException e) {
-                throw new RuntimeException("No valid value for 'timeout' parameter.");
-            }
-        }
-        return Timeout.getDefaultTimeout();
     }
 
 }

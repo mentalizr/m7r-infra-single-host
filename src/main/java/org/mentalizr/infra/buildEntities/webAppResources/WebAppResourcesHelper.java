@@ -6,8 +6,8 @@ import de.arthurpicht.processExecutor.ProcessResultCollection;
 import de.arthurpicht.utils.io.checksum.Checksums;
 import de.arthurpicht.utils.io.nio2.FileUtils;
 import de.arthurpicht.utils.io.tempDir.TempDir;
-import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.InfraRuntimeException;
+import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.build.Backend;
 import org.mentalizr.infra.utils.M7rFiles;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class WebAppResourcesHelper {
         try {
             ProcessResultCollection result = ProcessExecution.execute(
                     logger,
-                    ExecutionContext.isVerbose(),
+                    ApplicationContext.isVerbose(),
                     "tar", "-C", tempDir.asPath().toAbsolutePath().toString(), "-czf", resrcArchive.toAbsolutePathString(), "resrc"
                     );
             if (result.isFail()) throw new InfraRuntimeException("Creating tar for resource temp file failed.");

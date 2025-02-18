@@ -2,8 +2,8 @@ package org.mentalizr.infra.taskAgent;
 
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.DockerExecutionException;
-import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.InfraRuntimeException;
+import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.buildEntities.webAppResources.ResrcArchive;
 import org.mentalizr.infra.buildEntities.webAppResources.WebAppResourcesChecksum;
 import org.mentalizr.infra.buildEntities.webAppResources.WebAppResourcesSingleton;
@@ -34,7 +34,7 @@ public class WebAppResources {
     }
 
     private static void copyResourcesToContainer(ResrcArchive resrcArchive) {
-        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
         try {
             DockerCopy.copyFile(context,
                     resrcArchive.asPath(),

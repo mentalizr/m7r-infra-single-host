@@ -7,7 +7,6 @@ import de.arthurpicht.taskRunner.TaskRunner;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
 import de.arthurpicht.utils.core.collection.Lists;
 import de.arthurpicht.utils.core.strings.Strings;
-import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.taskAgent.RecoverSpecificOptions;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
 import org.slf4j.Logger;
@@ -21,19 +20,17 @@ public class PullUpExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
-        ExecutionContext.initialize(cliCall);
-
         System.out.println("pullup infrastructure");
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
         List<String> targetChain = Lists.newArrayList("create", "start", "deploy");
-        if (RecoverSpecificOptions.isRecoverDev()) {
+        if (RecoverSpecificOptions.isRecoverDev(cliCall)) {
             logger.info("execute pullup with recover for dev.");
             targetChain.add("recover-dev");
-        } else if (RecoverSpecificOptions.isRecoverFromLatest()) {
+        } else if (RecoverSpecificOptions.isRecoverFromLatest(cliCall)) {
             logger.info("execute pullup with recover from latest backup.");
             targetChain.add("recover-latest");
-        } else if (RecoverSpecificOptions.isOmitRecover()){
+        } else if (RecoverSpecificOptions.isOmitRecover(cliCall)) {
             logger.info("execute pullup without recover.");
         } else {
             logger.info("execute pullup with recover from latest backup.");
