@@ -7,7 +7,6 @@ import de.arthurpicht.taskRunner.TaskRunner;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
 import de.arthurpicht.utils.core.collection.Lists;
 import de.arthurpicht.utils.core.strings.Strings;
-import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
 import org.mentalizr.infra.tasks.removeImages.CreateBackups;
 import org.mentalizr.infra.tasks.removeImages.RemoveImages;
@@ -19,8 +18,6 @@ public class RemoveImagesExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
-        ExecutionContext.initialize(cliCall);
-
         checkParameterConsistency(cliCall);
         System.out.println("Remove images");
 

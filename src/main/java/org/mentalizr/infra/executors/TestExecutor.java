@@ -3,29 +3,11 @@ package org.mentalizr.infra.executors;
 import de.arthurpicht.cli.CliCall;
 import de.arthurpicht.cli.CommandExecutor;
 import de.arthurpicht.cli.CommandExecutorException;
-import org.mentalizr.backend.config.infraUser.InfraUserConfiguration;
-import org.mentalizr.infra.ExecutionContext;
-import org.mentalizr.infra.InfraRuntimeException;
-import org.mentalizr.infra.appInit.ApplicationContext;
-import org.mentalizr.infra.buildEntities.connections.ConnectionMaria;
-import org.mentalizr.infra.buildEntities.html.HtmlChecksum;
-import org.mentalizr.persistence.rdbms.barnacle.dao.RoleAdminDAO;
-import org.mentalizr.persistence.rdbms.barnacle.dao.UserDAO;
-import org.mentalizr.persistence.rdbms.barnacle.dao.UserLoginDAO;
-import org.mentalizr.persistence.rdbms.barnacle.vo.RoleAdminVO;
-import org.mentalizr.persistence.rdbms.barnacle.vo.UserLoginVO;
-import org.mentalizr.persistence.rdbms.barnacle.vo.UserVO;
-import org.mentalizr.persistence.rdbms.utils.Argon2Hash;
-
-import java.sql.Connection;
-import java.sql.SQLException;
 
 public class TestExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
-        ExecutionContext.initialize(cliCall);
-
         System.out.println("test called.");
 
 //        init();

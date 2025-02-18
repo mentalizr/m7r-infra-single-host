@@ -87,12 +87,6 @@ public class InfraCli {
     }
 
     public static void main(String[] args) {
-        try {
-            ApplicationInitialization.execute();
-        } catch (ApplicationInitializationException e) {
-            System.out.println(e.getMessage());
-            System.exit(1);
-        }
 
         Cli cli = createCli();
         CliCall cliCall = null;
@@ -105,9 +99,12 @@ public class InfraCli {
             System.exit(1);
         }
 
-        boolean showStacktrace = cliCall.getOptionParserResultGlobal().hasOption(GlobalOptions.GLOBAL_OPTION__STACKTRACE);
-        Timeout timeout = getTimeout(cliCall.getOptionParserResultGlobal());
-        ApplicationContext.setTimeout(timeout);
+        try {
+            ApplicationInitialization.execute(new GlobalOptions(cliCall));
+        } catch (ApplicationInitializationException e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
 
         try {
             cli.execute(cliCall);
@@ -115,24 +112,11 @@ public class InfraCli {
             System.out.println("m7r-infra execution failed.");
             if (e.getMessage() != null) System.out.println(e.getMessage());
             System.exit(1);
-        } catch (RuntimeException | AssertionError e) {
+        } catch (RuntimeException e) {
             System.out.println("RuntimeException: " + e.getMessage());
-            if (showStacktrace) e.printStackTrace();
+            if (ApplicationContext.showStacktrace()) e.printStackTrace();
             System.exit(1);
         }
-    }
-
-    private static Timeout getTimeout(OptionParserResult optionParserResultGlobal) {
-        if (optionParserResultGlobal.hasOption(GlobalOptions.GLOBAL_OPTION__TIMEOUT)) {
-            String timeoutString = optionParserResultGlobal.getValue(GlobalOptions.GLOBAL_OPTION__TIMEOUT);
-            try {
-                int timeout = Integer.parseInt(timeoutString);
-                return Timeout.getTimeout(timeout);
-            } catch (NumberFormatException e) {
-                throw new RuntimeException("No valid value for 'timeout' parameter.");
-            }
-        }
-        return Timeout.getDefaultTimeout();
     }
 
 }

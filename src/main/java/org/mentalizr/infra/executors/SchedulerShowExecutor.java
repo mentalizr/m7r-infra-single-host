@@ -6,9 +6,6 @@ import de.arthurpicht.cli.CommandExecutorException;
 import de.arthurpicht.console.Console;
 import de.arthurpicht.console.message.MessageBuilder;
 import de.arthurpicht.console.message.format.BlockFormat;
-import de.arthurpicht.utils.core.strings.Strings;
-import org.mentalizr.cli.ConsoleWriter;
-import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.scheduler.Scheduler;
 import org.mentalizr.scheduler.configuration.JobConfigurations;
 import org.mentalizr.scheduler.configuration.JobConfigurationsManager;
@@ -26,7 +23,6 @@ public class SchedulerShowExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
-        ExecutionContext.initialize(cliCall);
         logger.info(SchedulerShowExecutor.class.getSimpleName() + " invoked.");
 
         Console.out(new MessageBuilder()

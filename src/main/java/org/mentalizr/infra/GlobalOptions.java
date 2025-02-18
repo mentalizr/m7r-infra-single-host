@@ -30,6 +30,14 @@ public class GlobalOptions {
         this.notify = optionParserResult.hasOption(GLOBAL_OPTION__NOTIFY);
     }
 
+    public GlobalOptions(boolean verbose, boolean stacktrace, boolean silent, String timeout, boolean notify) {
+        this.verbose = verbose;
+        this.stacktrace = stacktrace;
+        this.silent = silent;
+        this.timeout = timeout;
+        this.notify = notify;
+    }
+
     public boolean isVerbose() {
         return verbose;
     }
@@ -54,4 +62,5 @@ public class GlobalOptions {
     public boolean isNotify() {
         return notify;
     }
+
 }

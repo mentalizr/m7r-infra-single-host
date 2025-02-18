@@ -8,7 +8,6 @@ import de.arthurpicht.taskRunner.TaskRunner;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
 import de.arthurpicht.utils.core.collection.Lists;
 import de.arthurpicht.utils.core.strings.Strings;
-import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.taskAgent.RecoverSpecificOptions;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
 import org.mentalizr.infra.tasks.createImages.CreateImages;
@@ -26,8 +25,6 @@ public class FullPullExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
-        ExecutionContext.initialize(cliCall);
-
         System.out.println("full pull-up infrastructure");
         checkParameterConsistency(cliCall);
 

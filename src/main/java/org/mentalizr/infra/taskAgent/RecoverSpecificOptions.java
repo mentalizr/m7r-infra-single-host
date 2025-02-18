@@ -1,8 +1,6 @@
 package org.mentalizr.infra.taskAgent;
 
 import de.arthurpicht.cli.CliCall;
-import org.mentalizr.infra.ExecutionContext;
-import org.mentalizr.infra.InfraCli;
 import org.mentalizr.infra.executors.OptionsDef;
 
 public class RecoverSpecificOptions {

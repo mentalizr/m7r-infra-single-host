@@ -4,8 +4,8 @@ import de.arthurpicht.processExecutor.ProcessResultCollection;
 import org.mentalizr.commons.paths.host.hostDir.CertsDir;
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.DockerExecutionException;
-import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.InfraRuntimeException;
+import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.buildEntities.initFiles.nginx.IndexHtml;
 import org.mentalizr.infra.buildEntities.initFiles.nginx.LocalDevConf;
 import org.mentalizr.infra.docker.Docker;
@@ -22,8 +22,7 @@ public class M7rContainerNginx {
             throw new InfraRuntimeException("Cannot create container [" + Const.CONTAINER_NGINX + "]." +
                     " Already existing.");
 
-        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
-
+        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
         ProcessResultCollection result;
         try {
             result = Docker.call(

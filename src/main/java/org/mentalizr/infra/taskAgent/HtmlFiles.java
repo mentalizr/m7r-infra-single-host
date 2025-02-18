@@ -2,8 +2,8 @@ package org.mentalizr.infra.taskAgent;
 
 import org.mentalizr.infra.Const;
 import org.mentalizr.infra.DockerExecutionException;
-import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.InfraRuntimeException;
+import org.mentalizr.infra.appInit.ApplicationContext;
 import org.mentalizr.infra.buildEntities.html.HtmlChecksum;
 import org.mentalizr.infra.buildEntities.html.HtmlFilesRegistry;
 import org.mentalizr.infra.docker.DockerCopy;
@@ -39,7 +39,7 @@ public class HtmlFiles {
     }
 
     private static void copyHtmlFilesToContainer() {
-        DockerExecutionContext context = ExecutionContext.getDockerExecutionContext();
+        DockerExecutionContext context = ApplicationContext.getDockerExecutionContext();
         List<Path> htmlFileList = HtmlFilesRegistry.getInstance().getHtmlFileList();
         for (Path file : htmlFileList) {
             logger.info("Copy htmlFile [" + file.toAbsolutePath() + "] to WEB-INF dir in tomcat docker container");

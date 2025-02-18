@@ -8,7 +8,6 @@ import de.arthurpicht.processExecutor.ProcessExecutionException;
 import de.arthurpicht.utils.core.strings.Strings;
 import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.commons.paths.host.hostDir.M7rHostLogFile;
-import org.mentalizr.infra.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +21,6 @@ public class LogsExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
-        ExecutionContext.initialize(cliCall);
-
         System.out.println("Show logs ...");
 
         Path logFile = new M7rHostLogFile().asPath();

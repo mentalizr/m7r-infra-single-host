@@ -13,13 +13,14 @@ import org.mentalizr.commons.paths.host.hostDir.M7rHostLogDir;
 import org.mentalizr.commons.paths.host.hostDir.M7rInfraUserConfigFile;
 import org.mentalizr.commons.paths.host.hostDir.M7rPrivateKeyFile;
 import org.mentalizr.commons.paths.host.hostDir.M7rSslCertFile;
+import org.mentalizr.infra.GlobalOptions;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
 public class ApplicationInitialization {
 
-    public static void execute() throws ApplicationInitializationException {
+    public static void execute(GlobalOptions globalOptions) throws ApplicationInitializationException {
         assertExistsM7rFile(new M7rInfraUserConfigFile());
         assertExistsM7rFile(new M7rSslCertFile());
         assertExistsM7rFile(new M7rPrivateKeyFile());
@@ -32,7 +33,7 @@ public class ApplicationInitialization {
 
         createLogDir();
         initLogging();
-        ApplicationContext.initialize();
+        ApplicationContext.initialize(globalOptions);
     }
 
     private static void assertExistsM7rDir(M7rDir m7rDir) throws ApplicationInitializationException {
@@ -50,7 +51,7 @@ public class ApplicationInitialization {
     private static void assertCommand(String command) throws ApplicationInitializationException {
         try {
             ProcessResultCollection result = ProcessExecution.execute("which", command);
-            if (result.getExitCode() > 0 || result.getStandardOut().size() == 0)
+            if (result.getExitCode() > 0 || result.getStandardOut().isEmpty())
                 throw new ApplicationInitializationException(
                         "Command not installed: [" + command + "].");
         } catch (ProcessExecutionException e) {
@@ -76,11 +77,5 @@ public class ApplicationInitialization {
         Path logFile = m7rHostLogDir.asPath().resolve("m7r-infra.log");
         LoggerInit.consoleAndFile(logFile, Level.DEBUG, Level.OFF);
     }
-
-//    private static void setConfigSystemProperty() {
-//        System.setProperty(
-//                "m7r.config",
-//                M7rInfraUserConfigFile.createInstance().toAbsolutePathString());
-//    }
 
 }

@@ -7,7 +7,6 @@ import de.arthurpicht.taskRunner.TaskRunner;
 import de.arthurpicht.taskRunner.runner.TaskRunnerResult;
 import de.arthurpicht.utils.core.collection.Lists;
 import de.arthurpicht.utils.core.strings.Strings;
-import org.mentalizr.infra.ExecutionContext;
 import org.mentalizr.infra.taskAgent.RecoverSpecificOptions;
 import org.mentalizr.infra.tasks.InfraTaskRunner;
 import org.slf4j.Logger;
@@ -21,8 +20,6 @@ public class PullUpExecutor implements CommandExecutor {
 
     @Override
     public void execute(CliCall cliCall) throws CommandExecutorException {
-        ExecutionContext.initialize(cliCall);
-
         System.out.println("pullup infrastructure");
 
         TaskRunner taskRunner = InfraTaskRunner.create(cliCall);
